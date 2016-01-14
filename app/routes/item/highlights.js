@@ -21,17 +21,13 @@ var ItemHighlightsRoute = Ember.Route.extend(ItemsRouteMixin, {
 					var item = store.push(store.normalize('item', data.data[i]));
 					highlights[i] = item
 				};
-/*
-				// load items
-				var dataToPush = store.normalize('item', data);
-				var highlights = store.push(dataToPush);
-*/
-
-
-
 				return highlights;
 			}
 		});
+	},
+	renderTemplate: function(controller, model){
+		this._super(controller, model);
+		$(document).scrollTop(0);
 	}
 
 });

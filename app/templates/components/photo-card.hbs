@@ -1,5 +1,26 @@
 <div class="image-container" style={{model.largeImageStyle}}></div>
 <div class="image-bottom-box">
 	<div class="name">{{model.name}}</div>
-	<div class="type">{{model.itemType}}</div>
+	<div class="type">{{model.itemTypeName}}
+		{{#if model.parentName}}
+			in {{#link-to "item.highlights" model.parentSlug}}{{model.parentName}}{{/link-to}}
+		{{/if}}
+	</div>
+</div>
+<div class="info-box">
+	<div class="info-container">
+		<div class="name">{{model.name}}</div>
+		<div class="type">{{model.itemTypeName}}
+			{{#if model.parentName}}
+				in {{#link-to "item.highlights" model.parentSlug}}{{model.parentName}}{{/link-to}}
+			{{/if}}
+		</div>
+		<div class="oneliner">{{model.oneliner}}</div>
+		<div class="long-desc">{{{model.longDesc}}}</div>
+	</div>
+	{{#if model.canHaveChildren}}
+		{{#link-to "item.highlights" model.slug class="page-link"}}Explore: Top things to do in {{model.name}} ▶ {{/link-to}}
+	{{/if}}
+	<div class="show-button" {{action 'toggleInfo'}}></div>
+	<div class="hide-button" {{action 'toggleInfo'}}></div>
 </div>

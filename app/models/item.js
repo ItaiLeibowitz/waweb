@@ -1,8 +1,11 @@
 import Ember from 'ember';
 import DS from "ember-data";
 import WithItemImage from 'waweb/mixins/with_item_image'
+import WithAncestry from 'waweb/mixins/with_ancestry'
+import ModelWithDescs from 'waweb/mixins/model_with_descs'
+import Constants from 'waweb/appconfig/constants'
 
-var Item = DS.Model.extend(WithItemImage, {
+var Item = DS.Model.extend(WithItemImage, WithAncestry, ModelWithDescs, {
 	name: DS.attr('string'),
 	category: DS.attr('string'),
 	captionName: DS.attr('string'),
@@ -56,6 +59,17 @@ var Item = DS.Model.extend(WithItemImage, {
 	missingImage: Ember.computed.empty('imageProvider'),
 	imageUrl: Ember.computed.alias('itemImageUrl'),
 	imageStyle: Ember.computed.alias('itemImageStyle'),
+
+
+	itemTypeName: function(){
+		return Constants.ITEM_TYPES_ARRAY[this.get('itemType')] ? Constants.ITEM_TYPES_ARRAY[this.get('itemType')].name.capitalize() : 'Attraction';
+	}.property('itemType'),
+
+	slug: function() {
+		return this._createSlug(this.get('id'), this.get('name'));
+	}.property('id', 'name'),
+
+
 });
 
 export default Item;
