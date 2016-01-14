@@ -1,0 +1,5 @@
+{{card-position-fixer resetAction=(action 'resetAllCards')}}
+{{#each childWrappers as |wrapper|}}
+	<div class="card-position-marker"></div>
+	{{photo-card model=wrapper.item withInfo=wrapper.withInfo resetAction=(action 'resetAllCards')}}
+{{/each}}

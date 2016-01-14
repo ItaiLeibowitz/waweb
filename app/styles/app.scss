@@ -17,6 +17,49 @@ body {
 	line-height: 1em;
 }
 
+.side-menu {
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: -90%;
+	width: 90%;
+	z-index: 1000;
+	background: white;
+	transition: transform 0.5s;
+	-webkit-transition: transform 0.5s;
+
+	&.is-open {
+		transform: translate3d(100%, 0, 0);
+		-ms-transform: translate3d(100%, 0, 0);
+		-webkit-transform: translate3d(100%, 0, 0);
+
+		.menu-close {
+			display: block;
+		}
+	}
+	.menu-toggle {
+		height: 30px;
+		width: 50px;
+		position: absolute;
+		right: -50px;
+		margin: 10px 0;
+		top: 0;
+		line-height: 30px;
+		color: white;
+		font-size: 1.5em;
+		text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+		text-align: center;
+		border-right: 1px solid rgba(255,255,255,0.3);
+	}
+	.menu-close {
+		display: none;
+		position: absolute;
+		top: 0;
+		right: -12%;
+		bottom: 0;
+		width: 12%;
+	}
+}
 .photo-card{
 	position: relative;
 	overflow: hidden;
@@ -55,7 +98,7 @@ body {
 		}
 	}
 	.name{
-		margin-left: 0.5em;
+		margin: 0 0.5em;
 		font-size: 1.5em;
 		color: white;
 		position: relative;
@@ -139,6 +182,7 @@ body {
 		}
 
 		.hide-button{
+			display: none;
 			position: absolute;
 			left: -12%;
 			height: 100%;
@@ -183,6 +227,10 @@ body {
 				transform: rotate(180deg);
 				-ms-transform: rotate(180deg);
 				-webkit-transform: rotate(180deg);
+			}
+
+			.hide-button{
+				display: block;
 			}
 		}
 	}

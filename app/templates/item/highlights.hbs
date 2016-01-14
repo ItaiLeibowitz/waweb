@@ -1,8 +1,2 @@
 <div class="page-description">Top {{model.length}} things to do</div>
-<div class="cards-holder">
-	{{card-position-fixer}}
-	{{#each model as |item|}}
-		<div class="card-position-marker"></div>
-		{{photo-card model=item}}
-	{{/each}}
-</div>
+{{cards-holder model=model}}

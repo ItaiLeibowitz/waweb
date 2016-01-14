@@ -6,10 +6,13 @@ export default Ember.Component.extend({
 	withInfo: false,
 	addedClass: null,
 
+	resetAction: function(){},
+
 	actions:{
 		toggleInfo: function(){
-			this.toggleProperty('withInfo');
+			var currentState = this.get('withInfo');
+			this.get('resetAction')();
+			this.set('withInfo', !currentState);
 		}
-
 	}
 });

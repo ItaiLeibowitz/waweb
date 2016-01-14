@@ -22,9 +22,10 @@ export default Ember.Component.extend({
 	},
 
 	fixPositions: function(){
+		this.get('resetAction')();
 		var self = this;
 		var posElemArray = $('.card-position-marker'),
-			positionArray = posElemArray.map(function(){ return $(this).position().top;}),
+			positionArray = posElemArray.map(function(){ return $(this).offset().top;}),
 			scrollTop = $(window).scrollTop(),
 			distanceArray = positionArray.map(function(el){ return Math.abs(this - scrollTop)});
 
@@ -37,6 +38,7 @@ export default Ember.Component.extend({
 				min = distanceArray[i];
 			}
 		}
+
 
 		this.unsetup();
 		$('body').animate({
