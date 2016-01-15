@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import gmaps from 'waweb/appconfig/gmaps';
 
 export default Ember.Service.extend({

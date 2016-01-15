@@ -15,7 +15,6 @@ export default Ember.Component.extend({
 		this.set('googleMapObject', map);
 		var centerMarker = this.get('mapService.centerMarker');
 		if (centerMarker) {
-			console.log('can set up center marker now');
 			centerMarker.get('_marker').setMap(map);
 		}
 	}.on('didInsertElement'),

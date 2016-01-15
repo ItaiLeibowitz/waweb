@@ -1,6 +1,10 @@
 body {
 	margin: 0;
 	font-family: 'open sans', 'sans-serif';
+
+	&.no-scroll{
+		overflow: hidden;
+	}
 }
 
 .ember-view{

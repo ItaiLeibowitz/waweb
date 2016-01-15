@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 	mapService: Ember.inject.service('map-service'),
+	stopScrollService: Ember.inject.service('stop-scroll'),
 	classNames: ['photo-card'],
 	classNameBindings: ['withInfo', 'isSaved', 'addedClass'],
 	withInfo: false,
@@ -38,6 +39,9 @@ export default Ember.Component.extend({
 			this.set('withInfo', !currentState);
 			if (this.get('withInfo')) {
 				this.attachMap();
+				this.set('stopScrollService.stopComponent.stopCardOpen', true);
+			} else {
+				this.set('stopScrollService.stopComponent.stopCardOpen', false);
 			}
 		},
 		toggleSaved: function(){
