@@ -25,6 +25,10 @@ export default Ember.Component.extend({
 				neLng: this.get('model.boundNeLng')
 			}
 		});
+		mapService.get('centerMarker').setProperties({
+			lat: this.get('model.latitude'),
+			lng: this.get('model.longitude')
+		});
 	},
 
 	actions:{

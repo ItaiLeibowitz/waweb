@@ -1,8 +1,18 @@
+import gmaps from 'waweb/appconfig/gmaps';
+
 export default Ember.Service.extend({
 	constantOptions: {
-		mapTypeControl: false
+		mapTypeControl: false,
+		zoom: 3,
+		maxZoom: 19,
+		minZoom: 2,
+		noClear: true,
+		mapTypeControl: false,
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+		//styles: gmaps.styles.originalStyles[0]
 	},
 	mapComponent: null,
+	centerMarker: null,
 	centerLat: 34.851939,
 	centerLng: -82.399752,
 	zoom: 15,
