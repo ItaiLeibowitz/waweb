@@ -15,6 +15,14 @@ export default Ember.Component.extend({
 		this.set('googleMapObject', map);
 	}.on('didInsertElement'),
 
+	resizeMap: function(){
+		Ember.run.scheduleOnce('afterRender', this, '_resizeMap');
+	},
+
+	_resizeMap: function(){
+		google.maps.event.trigger(this.get('googleMapObject'), 'resize');
+	},
+
 	mapOptionsDidChange: function(){
 		Ember.run.scheduleOnce('afterRender', this, 'updateOptions')
 	}.observes('mapService.options'),

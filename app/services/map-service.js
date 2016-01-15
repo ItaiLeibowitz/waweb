@@ -1,4 +1,7 @@
 export default Ember.Service.extend({
+	constantOptions: {
+		mapTypeControl: false
+	},
 	mapComponent: null,
 	centerLat: 34.851939,
 	centerLng: -82.399752,
@@ -6,6 +9,7 @@ export default Ember.Service.extend({
 	draggable: true,
 	disableDefaultUI: false,
 	bounds: {swLat: -1, swLng: -1, neLat: 1, neLng: 1},
+	lastHolder: null,
 
 	center: function(){
 		return new window.google.maps.LatLng(
@@ -15,12 +19,12 @@ export default Ember.Service.extend({
 	}.property('centerlLat', 'centerLng'),
 
 	options: function(){
-		return {
+		return $.extend(this.get('constantOptions'), {
 			center: this.get('center'),
 			zoom: this.get('zoom'),
 			draggable: this.get('draggable'),
 			disableDefaultUI: this.get('disableDefaultUI')
-		}
+		});
 	}.property('center','zoom', 'draggable', 'disableDefaultUI'),
 
 	moveDomToElement: function(elem){
@@ -33,6 +37,25 @@ export default Ember.Service.extend({
 			centerLat: lat,
 			centerLng: lng
 		});
+	},
+	expandMap: function(currentElem){
+		this.set('lastHolder', currentElem);
+		$('#actual-map').appendTo('#expanded-map');
+		$('#expanded-map').addClass('expanded');
+		this.get('mapComponent').resizeMap();
+		this.setProperties({
+			draggable: true,
+			disableDefaultUI: false
+		})
+	},
+	minimizeMap: function(){
+		$('#actual-map').appendTo(this.get('lastHolder'));
+		this.get('mapComponent').resizeMap();
+		$('#expanded-map').removeClass('expanded');
+		this.setProperties({
+			draggable: false,
+			disableDefaultUI: true
+		})
 	}
 
 });

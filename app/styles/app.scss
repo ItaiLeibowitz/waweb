@@ -30,6 +30,60 @@ body {
 	width: 100%;
 }
 
+#actual-map{
+	height: 100%;
+	width: 100%;
+}
+#expanded-map {
+	position: fixed;
+	background: #ccc;
+	transition: 1s;
+	opacity: 0;
+	z-index: -1;
+
+	&.expanded {
+		z-index:10000;
+		opacity: 1;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+}
+
+.expand-map {
+	position: absolute;
+	height: 50px;
+	width: 50px;
+	background: rgba(255,255,255,0.8);
+	top: 0;
+	right: -1px;
+	z-index: 1;
+	text-align: center;
+
+	&:after{
+		content: "\2b08";
+		font-size: 2em;
+		color: #333;
+	}
+}
+.minimize-map {
+	position: absolute;
+	height: 50px;
+	width: 50px;
+	background: rgba(255,255,255,0.8);
+	top: 0;
+	left: 0px;
+	z-index: 1;
+	text-align: center;
+
+	&:after{
+		content: "\2b0a";
+		font-size: 2em;
+		color: #333;
+	}
+}
+
 .side-menu {
 	height: 100%;
 	position: fixed;
@@ -163,6 +217,8 @@ body {
 			width: 100%;
 			margin-top: 1em;
 		}
+
+
 
 		.long-desc {
 			margin-top: 1em;
