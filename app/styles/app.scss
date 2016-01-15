@@ -17,6 +17,19 @@ body {
 	line-height: 1em;
 }
 
+#original-map-placeholder {
+	.map-holder {
+		position: fixed;
+		z-index: -1;
+		height: 100%;
+		width: 100%
+	}
+}
+.map-canvas {
+	height:100%;
+	width: 100%;
+}
+
 .side-menu {
 	height: 100%;
 	position: fixed;
@@ -61,6 +74,7 @@ body {
 	}
 }
 .photo-card{
+	background-color:black;
 	position: relative;
 	overflow: hidden;
 
@@ -143,6 +157,12 @@ body {
 			line-height: 1.5em;
 			color: #777;
 		}
+		.map-holder {
+			background: #ccc;
+			height: 140px;
+			width: 100%;
+			margin-top: 1em;
+		}
 
 		.long-desc {
 			margin-top: 1em;
@@ -161,23 +181,22 @@ body {
 		}
 
 		.show-button {
-			background: rgba(255,255,255,0.5);
+			background: rgba(255, 255, 255, 0.5);
 			height: 50px;
-			width: 50px;
+			width: 40px;
 			position: absolute;
 			bottom: 1.2em;
-			border-radius: 5px;
+			border-radius: 5px 0 0 5px;
 			left: -40px;
 			transition: 0.5s;
 			-webkit-transition: 0.5s;
+			text-align: center;
 
 			&:before{
 				content: "\25c0";
 				color: black;
-				font-size: 40px;
+				font-size: 2.5em;
 				line-height: 50px;
-				margin-left: 12px;
-
 			}
 		}
 
@@ -188,6 +207,25 @@ body {
 			height: 100%;
 			width: 12%;
 			top: 0;
+		}
+
+		.add-button{
+			position: absolute;
+			background: #ccc;
+			top: 0;
+			right: 0.5em;
+			height: 1.5em;
+			width: 1.5em;
+			text-align: center;
+			font-size: 2em;
+			&:after {
+				content: "";
+				border: .75em solid #ccc;
+				border-color: transparent #ccc;
+				position: absolute;
+				top: .75em;
+				left: 0;
+			}
 		}
 	}
 
@@ -221,8 +259,10 @@ body {
 
 
 			.show-button{
-				bottom: 90%;
+				bottom: 85%;
 				left:-25px;
+				border-radius: 5px;
+				width: 50px;
 				background: rgba(204,204,204,0.6);
 				transform: rotate(180deg);
 				-ms-transform: rotate(180deg);
@@ -242,6 +282,15 @@ body {
 
 		.page-link{
 			display: none;
+		}
+	}
+
+	&.is-saved{
+		.add-button{
+			background-color: orange;
+			&:after{
+				border-color: transparent orange;
+			}
 		}
 	}
 }

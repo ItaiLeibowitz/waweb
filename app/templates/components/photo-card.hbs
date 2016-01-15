@@ -16,6 +16,7 @@
 			{{/if}}
 		</div>
 		<div class="oneliner">{{model.oneliner}}</div>
+		{{map-placeholder}}
 		<div class="long-desc">{{{model.longDesc}}}</div>
 	</div>
 	{{#if model.canHaveChildren}}
@@ -23,4 +24,6 @@
 	{{/if}}
 	<div class="show-button" {{action 'toggleInfo'}}></div>
 	<div class="hide-button" {{action 'toggleInfo'}}></div>
+	<div class="add-button" {{action 'toggleSaved'}}>★</div>
+
 </div>

@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 var ItemsRouteMixin = Ember.Mixin.create({
-	store: Ember.inject.service('store'),
 	wanderantItemsMinLength: 6,
 	withGoogleItems: false,
 	withSections: false,
