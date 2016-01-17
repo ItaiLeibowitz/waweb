@@ -80,11 +80,11 @@ var WithItemImage = Ember.Mixin.create({
 
 
 	smallImageStyle: function() {
-		return this.get('imageStyle').replace('%@',this.get('smallImageUrl'));
+		return Ember.String.htmlSafe(this.get('imageStyle').replace('%@',this.get('smallImageUrl')));
 	}.property('imageStyle', 'smallImageUrl'),
 
 	mediumImageStyle: function() {
-		return this.get('imageStyle').replace('%@',this.get('mediumImageUrl'));
+		return Ember.String.htmlSafe(this.get('imageStyle').replace('%@',this.get('mediumImageUrl')));
 	}.property('imageStyle', 'mediumImageUrl'),
 
 	largeImageStyle: function() {
@@ -94,7 +94,7 @@ var WithItemImage = Ember.Mixin.create({
 			var imageName = output.split("/").pop();
 			output = output.replace("/" + imageName, "").replace('commons/thumb/','commons/')+"');"
 		}
-		return output
+		return Ember.String.htmlSafe(output);
 	}.property('imageStyle', 'largeImageUrl'),
 
 

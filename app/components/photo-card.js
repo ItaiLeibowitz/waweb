@@ -32,6 +32,13 @@ export default Ember.Component.extend({
 		});
 	},
 
+	swipeRight: function(){
+		if (this.get('withInfo')) {
+			this.send('toggleInfo');
+			return false;
+		}
+	},
+
 	actions:{
 		toggleInfo: function(){
 			var currentState = this.get('withInfo');

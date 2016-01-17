@@ -1,7 +1,9 @@
 {{screen-dims screenHeight=10 screenWidth=0}}
 {{side-menu}}
 <div id="original-map-placeholder">{{google-map}}</div>
-{{outlet}}
+{{#gesture-recognizer}}
+	{{outlet}}
+{{/gesture-recognizer}}
 {{remove-screen}}
 {{expanded-map}}
 {{stop-scroll}}
