@@ -22,8 +22,13 @@ export default Ember.Component.extend({
 		} else {
 			$('body').removeClass('no-scroll');
 		}
+	},
+
+	enableScroll: function(){
+		this.setProperties({
+			stopCardOpen: false,
+			stopMenuOpen: false
+		})
 	}
-
-
 
 });
