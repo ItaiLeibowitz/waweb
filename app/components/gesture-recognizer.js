@@ -6,5 +6,6 @@ export default Ember.Component.extend(RecognizerMixin, {
 
 	swipeRight: function(e){
 		window.history.go(-1);
+		$('#back-indicator').fadeIn(300).delay(700).fadeOut(300);
 	}
 });
