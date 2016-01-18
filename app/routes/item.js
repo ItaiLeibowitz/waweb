@@ -12,10 +12,15 @@ var ItemRoute = Ember.Route.extend({
 		return { item_slug: model.get('slug') };
 	},
 	renderTemplate: function(controller, model) {
-		this._super(controller, model);
+		//this._super(controller, model);
 		this.render('item.overall', {   // the template to render
 			into: 'application',                // the template to render into
-			outlet: 'main',              // the name of the outlet in that template
+			outlet: 'main'              // the name of the outlet in that template
+		});
+		this.render('item.menu', {   // the template to render
+			into: 'application',                // the template to render into
+			outlet: 'page-specific',              // the name of the outlet in that template
+			controller: controller        // the controller to use for the template
 		});
 	},
 	afterModel: function(item, transition) {

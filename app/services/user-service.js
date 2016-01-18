@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import GA from 'waweb/appconfig/ga';
+import promiseFromUrl from 'waweb/mixins/promise_utils';
 
 export default Ember.Service.extend({
+	store: Ember.inject.service('store'),
 	authenticityToken: null,
 	user: null,
 	initialSigninCheckCompleted: false,
@@ -23,7 +25,7 @@ export default Ember.Service.extend({
 
 	getUser: function(){
 		var self = this;
-		Ember.RSVP.promiseFromUrl('/api/ember/users/get_current_user')
+		promiseFromUrl('/api/ember2/users/get_current_user')
 			.then(function(results) {
 				self.login(results);
 			}, function(jqXHR) {
@@ -44,24 +46,24 @@ export default Ember.Service.extend({
 	login: function (results) {
 		var store = this.get('store');
 		if (!results.status || results.status != 'not_logged_in') {
-			var user = store.load('user', results.user, true);
-			var userId = results.user.id;
+			var user = store.push(store.normalize('user', results.data));
+			var userId = results.data.id;
 			delete results["user"];
 			this.getTokens();
 			// hint: partial loading based on: http://watsonbox.github.io/blog/2014/06/13/lazy-and-partial-data-loading-with-ember-dot-js-and-rails/
 			this.set('user', user);
-			this.get('appController.currentnessManager').setup(results);
+			// TODO: this could be a good spot to set up the current trip and collection on their own service
 
 			var retryAction = this.get('actionToRetry');
 			if (retryAction) {
 				retryAction.target.send(retryAction.action, retryAction.payload);
 				this.set('actionToRetry', null);
 			}
-			GA.gasend('set', 'userId', userId);
-			intercomSend('update', {
+			GA.gaSend('set', 'userId', userId);
+/*			intercomSend('update', {
 				name: user.get('name'),
 				user_id: user.get('id')
-			})
+			})*/
 		} else {
 			this.set('user', null);
 		}

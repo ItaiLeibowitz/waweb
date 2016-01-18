@@ -1,7 +1,14 @@
-<ul>
-	<li>A</li>
-	<li>B</li>
-	<li>C</li>
-</ul>
+
 <div class="menu-toggle" {{action "toggleMenu"}}>&#9776;</div>
 <div class="menu-close" {{action "toggleMenu"}}></div>
+<div class="page-specific">
+	{{outlet 'page-specific'}}
+</div>
+<div class="main-menu">
+	<div class="menu-option">Home</div>
+	<div class="menu-option">Search</div>
+	<div class="menu-option">My trips</div>
+</div>
+<div class="user-block">
+	<div class="name">{{user.name}}</div>
+</div>

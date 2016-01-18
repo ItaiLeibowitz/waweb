@@ -26,6 +26,7 @@ Router.map(function() {
 	});
 	this.route('collection', { resetNamespace: true, path: '/collection/:collection_slug' }, function () {
 	});
+	this.route('search');
 });
 
 export default Router;

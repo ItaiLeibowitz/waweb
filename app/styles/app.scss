@@ -7,6 +7,11 @@ body {
 	}
 }
 
+a{
+	text-decoration: none;
+	color: inherit;
+}
+
 .ember-view{
 	position: relative;
 }
@@ -37,6 +42,11 @@ body {
 #actual-map{
 	height: 100%;
 	width: 100%;
+}
+
+#original-map-placeholder {
+	z-index: -1;
+	opacity: 0;
 }
 #expanded-map {
 	position: fixed;
@@ -96,6 +106,7 @@ body {
 	width: 90%;
 	z-index: 1000;
 	background: white;
+	color: #333;
 	transition: transform 0.5s;
 	-webkit-transition: transform 0.5s;
 
@@ -129,6 +140,47 @@ body {
 		right: -12%;
 		bottom: 0;
 		width: 12%;
+	}
+
+	.ancestry {
+		padding: 1em;
+		line-height: 2em;
+
+		.offset-1{
+			margin-left:1em;
+		}
+		.offset-2{
+			margin-left:2em;
+		}
+		.offset-3{
+			margin-left:3em;
+		}
+		.offset-4{
+			margin-left:4em;
+		}
+		.is-selected{
+			color: black;
+			font-weight: 700;
+			border-top: 1px solid #aaa;
+		}
+	}
+
+	.page-specific{
+		border-bottom: 1px solid #ccc;
+	}
+
+	.main-menu {
+		font-size: 1.5em;
+		line-height: 2em;
+		padding: 1em;
+	}
+
+	.user-block {
+		position: absolute;
+		bottom: 0;
+		padding: 1em;
+		width: 100%;
+		box-sizing: border-box;
 	}
 }
 .photo-card{
@@ -364,4 +416,51 @@ body {
 	color: #333;
 	border-radius: 10px;
 	display: none;
+}
+
+.search-field {
+	width: 100%;
+	margin: 0;
+	z-index: 1000;
+	padding: 1em 3em 1em 3em;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.6);
+	border: none;
+	font-size: 1em;
+	box-sizing: border-box;
+}
+.clear-search {
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 2000;
+	line-height: 3em;
+	width: 3em;
+	font-size: 1em;
+	text-align: center;
+}
+
+.ui-autocomplete{
+	line-height: 1.5em;
+}
+
+.ui-menu .ui-menu-item {
+	margin: 1em
+}
+
+.ui-widget-content .ui-state-focus {
+	background: #53badc;
+	color: white;
+	border: none;
+	border-radius: 5px;
+}
+.back-button {
+	position: fixed;
+	height: 2em;
+	width: 2em;
+	color: #333;
+	z-index: 2000;
+	text-align: center;
+	line-height: 2em;
+	font-size: 1.5em;
+	top: 0;
 }
