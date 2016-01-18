@@ -1,9 +1,8 @@
 import Ember from 'ember';
+import promiseFromUrl from 'waweb/mixins/promise_utils';
 
 export default Ember.Service.extend({
-	needs: 'application',
-	appController: Ember.computed.alias('controllers.application'),
-
+	store: Ember.inject.service('store'),
 	wanderantUrl: '/api/ember/items/text_search',
 
 	queryParams: {
@@ -128,6 +127,18 @@ export default Ember.Service.extend({
 				}
 			});
 		});
+	},
+
+	findWanderantItemByRef: function(placeId){
+		var self = this;
+		return promiseFromUrl('/api/ember2/items/ref_search', {ref: placeId})
+			.then(function(data){
+				var store = self.get('store');
+				var item = store.push(store.normalize('item', data.data));
+				return item;
+			}, function(rejection){
+				if (rejection.status == 404) return false;
+			});
 	}
 
 });

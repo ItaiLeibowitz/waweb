@@ -5,6 +5,7 @@ import Autocomplete from 'waweb/mixins/widget';
 export default Ember.TextField.extend(Autocomplete, {
 	autocomplete_service: Ember.inject.service('places-autocomplete-service'),
 	autocomplete_emberobj: null,
+	searchService: Ember.inject.service('search-service'),
 	classNames: ['search-field'],
 	valueBinding: "query",
 	placeholder: "Explore any destination...",
@@ -55,10 +56,17 @@ export default Ember.TextField.extend(Autocomplete, {
 
 		// if user selected a specific place, we immediately look for it in Wanderant's db then google's
 		if (selectedPrediction.place_id) {
-			self.get('targetObject').transitionToRoute('googleItem.wanderant', selectedPrediction.place_id);
+			this.get('searchService').findWanderantItemByRef(selectedPrediction.place_id)
+				.then(function(item) {
+					if (item) {
+						self.sendAction('foundItem', 'item', item.get('slug'));
+					} else {
+						console.log('rejected:')
+					}
+				});
 		} else {
 			//submit the search
-			self.get('targetObject').send('search', self.get('targetObject.query'));
+			this.get('searchService').searchByQuery(self.get('targetObject.query'));
 		}
 	},
 

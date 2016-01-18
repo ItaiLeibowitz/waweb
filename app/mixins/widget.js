@@ -46,7 +46,7 @@ var Widget = Ember.Mixin.create({
 			}
 			var self = this;
 			this.get('uiTypes').forEach(function(uiType) {
-				self._destroyData(this, uiType);
+				self._destroyData(self, uiType);
 			});
 		}
 		this.set('widgetIsUp', false);
