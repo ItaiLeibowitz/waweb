@@ -22,6 +22,17 @@ var ItemHighlightsRoute = Ember.Route.extend(ItemsRouteMixin, {
 			return highlights;
 		});
 	},
+	setupController: function(controller, model){
+		this._super(controller, model);
+		var mainItem  = this.modelFor('item');
+		controller.set('mainItem', mainItem);
+		if (Utils.itemTypeIsCountry(mainItem.get('itemType'))) {
+			var itemType = "places to visit"
+		} else {
+			var itemType = "things to do"
+		}
+		controller.set('pageDescription', `${model.length} great ${itemType} in...`);
+	},
 	renderTemplate: function(controller, model){
 		this._super(controller, model);
 		$(document).scrollTop(0);

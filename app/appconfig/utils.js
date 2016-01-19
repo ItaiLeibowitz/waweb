@@ -9,7 +9,11 @@ Utils.itemTypeIsParent = function (itemType) {
 };
 
 Utils.itemTypeIsAttraction = function (itemType) {
-	return itemType >= Constants.ITEM_TYPES_BY_NAME["ATTRACTION"]
+	return itemType >= Constants.ITEM_TYPES_BY_NAME["ATTRACTION"];
+};
+
+Utils.itemTypeIsCountry = function (itemType) {
+	return itemType <= Constants.ITEM_TYPES_BY_NAME["COUNTRY"];
 };
 
 export default Utils;

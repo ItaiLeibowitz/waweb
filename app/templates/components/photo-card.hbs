@@ -1,5 +1,8 @@
 <div class="image-container" style={{model.largeImageStyle}}></div>
 <div class="image-bottom-box">
+	{{#if addedDescription}}
+		<div class="addedDescription">{{addedDescription}}</div>
+	{{/if}}
 	<div class="name">{{model.name}}</div>
 	<div class="type">{{model.itemTypeName}}
 		{{#if model.parentName}}
