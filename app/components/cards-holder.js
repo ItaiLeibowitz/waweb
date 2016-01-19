@@ -3,6 +3,8 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 	classNames: ['cards-holder'],
 	model: null,
+	addedCardClass: null,
+	addedCardClass2: "itai",
 
 	childWrappers: function () {
 		return this.get('model').map(function (item) {

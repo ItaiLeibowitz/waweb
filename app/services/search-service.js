@@ -5,7 +5,7 @@ import GoogleItemSerializer from 'waweb/mixins/google-item';
 export default Ember.Service.extend(GoogleItemSerializer, {
 	store: Ember.inject.service('store'),
 	googlePlaces: Ember.inject.service('google-places'),
-	wanderantUrl: '/api/ember/items/text_search',
+	wanderantUrl: '/api/ember2/items/text_search',
 
 	queryParams: {
 		orig: {
@@ -20,12 +20,31 @@ export default Ember.Service.extend(GoogleItemSerializer, {
 	wanderantItems: [],
 	googleItems: [],
 
-	_getGoogleItems: function(query) {
-		var store = this.store;
-		var adapter = this.googleItemAdapter;
+	googleTextQuery: function(query, location) {
+		var self = this;
+		if (undefined === location) {
+			var request = {query: query};
+		} else {
+			var request = {query: query, location: location, radius: 1000};
+		}
 
-		return adapter.googleTextQuery(query).then(function (data) {
-			return adapter.combineWithWanderant(data, store);
+		return new Ember.RSVP.Promise(function (resolve, reject) {
+			self.get('googlePlaces.service').textSearch(request, function (results, status) {
+				if (status == google.maps.places.PlacesServiceStatus.OK) {
+					Ember.run(null, resolve, results);
+				} else {
+					Ember.run(null, reject, status);
+				}
+			})
+		});
+	},
+
+	_getGoogleItems: function(query) {
+		var store = this.get('store');
+		var self = this;
+
+		return this.googleTextQuery(query).then(function (data) {
+			return self.combineWithWanderant(data, store);
 		}, function (status) {
 			console.log('google text query failed', status);
 			return [];
@@ -35,9 +54,15 @@ export default Ember.Service.extend(GoogleItemSerializer, {
 	_loadWanderantItems: function(query) {
 		var self = this;
 
-		return Ember.RSVP.promiseFromUrl(this.get('wanderantUrl'), { query: query }).then(function(data) {
-			var items = self.store.loadMany('item', { items: data.items });
-			return items;
+		return promiseFromUrl(this.get('wanderantUrl'), { query: query }).then(function(data) {
+			var results = new Array(data.data.length),
+				store = self.get('store');
+
+			for (var i = 0; i < data.data.length; i++) {
+				var item = store.push(store.normalize('item', data.data[i]));
+				results[i] = item;
+			}
+			return results;
 		}, function (jqXHR) {
 			console.log('wanderant items failed', jqXHR);
 			return [];

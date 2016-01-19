@@ -76,6 +76,63 @@ export default Ember.Mixin.create(ItemTypeConversions, {
 		return objectToCreate
 	},
 
+	combineWithWanderant: function(googleData, store, options){
+		options = options || {};
+		// see if we can get wanderant results for any of these via their placeIds
+		var placeIdArray = googleData.reduce(function(previousValue, result){
+			return previousValue.concat(result.place_id)
+		},[]);
+		var	self = this;
+
+		return $.getJSON('/api/ember2/items/ref_batch_search', {refs: placeIdArray})
+			.then(function(wanderantData){
+				return self.normalizeMixedWanderantGoogleData(googleData, wanderantData, store, {previousWanderantItems: options.previousWanderantItems, index: options.index})
+			})
+	},
+
+	normalizeMixedWanderantGoogleData: function(googleData, wanderantData, store, options) {
+		options = options || {};
+		var normalized = Ember.ArrayProxy.create({content:[]}),
+			index = options.index || 0,
+			self = this,
+			foundIds = wanderantData.found_ids,
+			foundRecordHash = {},
+			allWanderantItems = wanderantData.items.data;
+		if (options.previousWanderantItems) {
+			var existingItemsToConcat = [];
+
+			options.previousWanderantItems.forEach(function(prevItem){
+				if (foundIds.indexOf(prevItem.gmaps_reference) == -1) {
+					existingItemsToConcat.push(prevItem);
+				}
+			});
+			allWanderantItems = wanderantData.items.concat(existingItemsToConcat);
+		}
+
+		// create records for the Wanderant data
+		allWanderantItems.forEach(function(itemObj){
+			var record = store.push(store.normalize('item', itemObj));
+			normalized.pushObject(record);
+			foundRecordHash[itemObj.attributes["gmaps-reference"]] = record;
+		});
+
+		googleData.forEach(function(obj){
+			// if we found this item, place its order on its item record
+			if (wanderantData.found_ids.indexOf(obj.place_id) != -1) {
+				foundRecordHash[obj.place_id].set('googleResultOrder', index);
+				// else we will create a new record for it
+			} else {
+				var itemObj = self.normalizeGoogleItem(obj, index, true);
+				var item = store.createRecord('item', itemObj);
+				normalized.pushObject(item);
+			}
+			index++;
+		});
+		return normalized;
+	},
+
+
+
 	convertGoogleHours: function (data) {
 		if (data.opening_hours && data.opening_hours.periods) {
 			var periods = data.opening_hours.periods;

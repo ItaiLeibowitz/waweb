@@ -8,8 +8,18 @@ export default Ember.Component.extend({
 	withInfo: false,
 	addedClass: null,
 	isSaved: false,
+	screenHeight: 0,
 
 	resetAction: function(){},
+
+	boundsForMap: function(){
+		return {
+			swLat: this.get('model.boundSwLat') || this.get('model.latitude') - 0.1,
+			swLng: this.get('model.boundSwLng') || this.get('model.longitude') - 0.1,
+			neLat: this.get('model.boundNeLat') || this.get('model.latitude') + 0.1,
+			neLng: this.get('model.boundNeLng') || this.get('model.longitude') + 0.1
+		}
+	}.property('model.boundSwLat','model.boundSwLng','model.boundNeLat', 'model.boundNeLng', 'model.latitude', 'model.longitude'),
 
 	attachMap: function(){
 		var container = this.$('.map-holder')[0],
@@ -19,12 +29,7 @@ export default Ember.Component.extend({
 		mapService.setProperties({
 			draggable: false,
 			disableDefaultUI: true,
-			bounds: {
-				swLat: this.get('model.boundSwLat'),
-				swLng: this.get('model.boundSwLng'),
-				neLat: this.get('model.boundNeLat'),
-				neLng: this.get('model.boundNeLng')
-			}
+			bounds: this.get('boundsForMap')
 		});
 		mapService.get('centerMarker').setProperties({
 			lat: this.get('model.latitude'),
