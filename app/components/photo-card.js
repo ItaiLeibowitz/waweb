@@ -43,6 +43,12 @@ export default Ember.Component.extend({
 			return false;
 		}
 	},
+	swipeLeft: function(){
+		if (!this.get('withInfo')) {
+			this.send('toggleInfo');
+			return false;
+		}
+	},
 
 	actions:{
 		toggleInfo: function(){

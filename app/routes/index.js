@@ -4,7 +4,7 @@ import Constants from 'waweb/appconfig/constants';
 export default Ember.Route.extend({
 
 	model: function(){
-		var countries = this.store.findAll('item').then(function(items){
+		var countries = this.store.findAll('item', {reload: true}).then(function(items){
 			return items.filter(function(item){
 				return item.get('itemType') === Constants.ITEM_TYPES_BY_NAME["COUNTRY"];
 			});

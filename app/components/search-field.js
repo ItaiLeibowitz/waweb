@@ -63,7 +63,6 @@ export default Ember.TextField.extend(Autocomplete, {
 					} else {
 						self.get('searchService').buildItemFromGoogle(selectedPrediction.place_id)
 							.then(function(item){
-								console.log(item)
 								if (item) {
 									self.sendAction('foundItem', 'item', item.get('slug'));
 								} else {
@@ -74,7 +73,7 @@ export default Ember.TextField.extend(Autocomplete, {
 				});
 		} else {
 			//submit the search
-			this.get('searchService').searchByQuery(self.get('targetObject.query'));
+			self.get('parentView').send('submit', this.get('query'));
 		}
 	},
 

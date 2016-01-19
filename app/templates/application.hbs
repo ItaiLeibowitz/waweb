@@ -2,7 +2,9 @@
 {{side-menu}}
 <div id="original-map-placeholder">{{google-map}}</div>
 {{#gesture-recognizer}}
-	{{outlet}}
+	<div style="overflow: auto">
+		{{outlet}}
+	</div>
 {{/gesture-recognizer}}
 {{remove-screen}}
 {{expanded-map}}
