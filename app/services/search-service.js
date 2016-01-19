@@ -1,8 +1,10 @@
 import Ember from 'ember';
 import promiseFromUrl from 'waweb/mixins/promise_utils';
+import GoogleItemSerializer from 'waweb/mixins/google-item';
 
-export default Ember.Service.extend({
+export default Ember.Service.extend(GoogleItemSerializer, {
 	store: Ember.inject.service('store'),
+	googlePlaces: Ember.inject.service('google-places'),
 	wanderantUrl: '/api/ember/items/text_search',
 
 	queryParams: {
@@ -139,6 +141,26 @@ export default Ember.Service.extend({
 			}, function(rejection){
 				if (rejection.status == 404) return false;
 			});
+	},
+
+	buildItemFromGoogle: function(placeId) {
+		var store = this.get('store'),
+			self = this;
+		return this.get('googlePlaces').googlePlaceIdGoogleQuery(placeId)
+			.then(function(data){
+				var itemObj = self.normalizeGoogleItem(data);
+				var item = store.createRecord('item',itemObj);
+				return item.save().then(function(item){
+					return item;
+
+				}, function(rejection){
+					console.log('problem with saving');
+					return false
+				});
+			}, function(rejection){
+				console.log('rejection from google place search')
+				return false;
+			})
 	}
 
 });

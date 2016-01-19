@@ -88,7 +88,22 @@ var Constants = Ember.Object.create({
 			]
 		},
 	],
-	ITEM_TYPES_ARRAY: []
+	ITEM_TYPES_ARRAY: [],
+	GOOGLE_PLACES_TYPE_CONVERSION: {
+		administrative_area_level_1: 'region',
+		administrative_area_level_2: 'region',
+		administrative_area_level_3: 'region',
+		administrative_area_level_4: 'region',
+		administrative_area_level_5: 'region',
+		locality: 'city',
+		colloquial_area: 'region',
+		sublocality_level_4: 'sublocality',
+		sublocality_level_5: 'sublocality',
+		sublocality_level_3: 'sublocality',
+		sublocality_level_2: 'sublocality',
+		sublocality_level_1: 'sublocality',
+		establishment: 'attraction'
+	}
 
 
 

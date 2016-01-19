@@ -3,7 +3,7 @@ import Autocomplete from 'waweb/mixins/widget';
 
 
 export default Ember.TextField.extend(Autocomplete, {
-	autocomplete_service: Ember.inject.service('places-autocomplete-service'),
+	autocomplete_service: Ember.inject.service('places-autocomplete'),
 	autocomplete_emberobj: null,
 	searchService: Ember.inject.service('search-service'),
 	classNames: ['search-field'],
@@ -61,7 +61,15 @@ export default Ember.TextField.extend(Autocomplete, {
 					if (item) {
 						self.sendAction('foundItem', 'item', item.get('slug'));
 					} else {
-						console.log('rejected:')
+						self.get('searchService').buildItemFromGoogle(selectedPrediction.place_id)
+							.then(function(item){
+								console.log(item)
+								if (item) {
+									self.sendAction('foundItem', 'item', item.get('slug'));
+								} else {
+									console.log('no results found')
+								}
+							})
 					}
 				});
 		} else {
