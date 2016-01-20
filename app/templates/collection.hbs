@@ -1,3 +1,8 @@
 <div class="card-position-marker"></div>
+{{#if items.length}}
 {{photo-card model=model addedDescription=pageDescription addedClass="top-card"}}
 {{cards-holder model=items}}
+{{else}}
+	{{link-card model=model}}
+	<div class="centered-text">Collection is empty</div>
+{{/if}}

@@ -12,6 +12,14 @@ a{
 	color: inherit;
 }
 
+.centered-text{
+	width: 100%;
+	padding:1em;
+	box-sizing: border-box;
+	text-align: center;
+	color: #333;
+}
+
 .ember-view{
 	position: relative;
 }
@@ -76,7 +84,7 @@ a{
 	text-align: center;
 
 	&:after{
-		content: "\2b08";
+		content: "\279a";
 		font-size: 2em;
 		color: #333;
 	}
@@ -92,7 +100,7 @@ a{
 	text-align: center;
 
 	&:after{
-		content: "\2b0a";
+		content: "\2715";
 		font-size: 2em;
 		color: #333;
 	}
@@ -425,7 +433,8 @@ a{
 	}
 	
 	&.link-card{
-		min-height: 100px;
+		min-height: 200px;
+		border-bottom: 4px solid white;
 
 		.name {
 			text-align: center;
@@ -447,12 +456,6 @@ a{
 	}
 
 	&.is-ad {
-		background: #eaea00;
-
-		.image-container {
-			margin-top: 2em;
-		}
-
 		.info-container:after {
 			content: "Book now!";
 			position: absolute;
@@ -474,6 +477,13 @@ a{
 			line-height: 2em;
 			font-style: italic;
 			font-weight: 700;
+			background: #eaea00;
+		}
+
+		&.result-card{
+			&:after{
+				top:3em;
+			}
 		}
 	}
 }

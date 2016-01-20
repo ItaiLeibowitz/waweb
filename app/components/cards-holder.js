@@ -6,6 +6,7 @@ export default Ember.Component.extend({
 	model: null,
 	addedCardClass: null,
 	addedCardClass2: "itai",
+	showAds: true,
 
 	childWrappers: function () {
 		var wrappers = this.get('model').map(function (item) {
@@ -19,12 +20,15 @@ export default Ember.Component.extend({
 			});
 		});
 
-		var ads = this.get('adsService.ads');
-		ads.shuffle();
 
-		wrappers.splice(2,0,ads[0]);
-		wrappers.splice(6,0,ads[1]);
-		wrappers.splice(11,0,ads[2]);
+
+		if (wrappers.length > 1 && this.get('showAds')) {
+			var ads = this.get('adsService.ads');
+			ads.shuffle();
+			wrappers.splice(2, 0, ads[0]);
+			wrappers.splice(6, 0, ads[1]);
+			wrappers.splice(11, 0, ads[2]);
+		}
 
 		return wrappers
 	}.property('model.[]'),
