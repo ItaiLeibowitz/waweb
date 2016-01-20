@@ -47,6 +47,7 @@ export default Ember.Service.extend({
 		var store = this.get('store');
 		if (!results.status || results.status != 'not_logged_in') {
 			var user = store.push(store.normalize('user', results.data));
+			store.pushPayload({data: results.included});
 			var userId = results.data.id;
 			delete results["user"];
 			this.getTokens();
