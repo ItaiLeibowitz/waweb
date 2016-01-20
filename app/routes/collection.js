@@ -2,11 +2,12 @@ import Ember from "ember";
 
 export default Ember.Route.extend({
 	currentCollection: Ember.inject.service('current-collection'),
+	currentUser: Ember.inject.service('user-service'),
 	model: function(params) {
 		var collectionToken = params.collection_slug.split('-')[0];
 		var self = this;
 		return this.store.find('collection', collectionToken).then(function(collection){
-			self.get('currentCollection').set('model', collection);
+			self.get('currentCollection').set('currentViewed', collection);
 			return collection;
 		})
 	},

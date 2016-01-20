@@ -4,6 +4,7 @@ import promiseFromUrl from 'waweb/mixins/promise_utils';
 
 export default Ember.Service.extend({
 	store: Ember.inject.service('store'),
+	currentCollection: Ember.inject.service('current-collection'),
 	authenticityToken: null,
 	user: null,
 	initialSigninCheckCompleted: false,
@@ -55,6 +56,9 @@ export default Ember.Service.extend({
 			this.set('user', user);
 			// TODO: this could be a good spot to set up the current trip and collection on their own service
 
+			if (!this.get('currentCollection.currentViewed')){
+				this.get('currentCollection').set('currentViewed', store.findRecord('collection', results.data.attributes["current-collection-id"]));
+			}
 			var retryAction = this.get('actionToRetry');
 			if (retryAction) {
 				retryAction.target.send(retryAction.action, retryAction.payload);
