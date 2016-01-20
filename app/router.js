@@ -24,7 +24,10 @@ Router.map(function() {
 	this.route('item', { resetNamespace: true, path: '/items/:item_slug' }, function () {
 		this.route('highlights');
 	});
-	this.route('collection', { resetNamespace: true, path: '/collection/:collection_slug' }, function () {
+	this.route('collection', { resetNamespace: true, path: '/collections/:collection_slug' }, function () {
+	});
+	this.route('user',{ resetNamespace: true, path: '/my/' }, function(){
+		this.route('collections');
 	});
 	this.route('search');
 });

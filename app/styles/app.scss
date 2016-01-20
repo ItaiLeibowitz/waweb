@@ -422,6 +422,28 @@ a{
 			height: auto;
 		}
 	}
+	
+	&.link-card{
+		min-height: 100px;
+
+		.name {
+			text-align: center;
+			margin-bottom: 1em;
+			line-height: 1.1em;
+		}
+
+		.image-bottom-box{
+			padding-top:1em;
+		}
+
+		.card-link{
+			position: absolute;
+			top:0;
+			left:0;
+			bottom: 0;
+			right: 0;
+		}
+	}
 }
 
 #back-indicator{

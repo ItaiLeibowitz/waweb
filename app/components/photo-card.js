@@ -3,11 +3,14 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 	mapService: Ember.inject.service('map-service'),
 	stopScrollService: Ember.inject.service('stop-scroll'),
+	currentCollection: Ember.inject.service('current-collection'),
 	classNames: ['photo-card'],
 	classNameBindings: ['withInfo', 'isSaved', 'addedClass'],
 	withInfo: false,
 	addedClass: null,
-	isSaved: false,
+	isSaved: function(){
+		return this.get('currentCollection.itemIds').indexOf(this.get('model.id')) > -1;
+	}.property('currentCollection.items.[]','model.id'),
 	screenHeight: 0,
 
 	resetAction: function(){},
