@@ -5,15 +5,23 @@ export default Ember.Component.extend({
 	stopScrollService: Ember.inject.service('stop-scroll'),
 	currentCollection: Ember.inject.service('current-collection'),
 	classNames: ['photo-card'],
-	classNameBindings: ['withInfo', 'isSaved', 'addedClass'],
+	classNameBindings: ['withInfo', 'isSaved', 'addedClass','isAd'],
 	withInfo: false,
 	addedClass: null,
 	isSaved: function(){
 		return this.get('currentCollection.itemIds').indexOf(this.get('model.id')) > -1;
-	}.property('currentCollection.items.[]','model.id'),
+	}.property('currentCollection.itemIds.[]','model.id'),
+	isSaving: null,
 	screenHeight: 0,
 
 	resetAction: function(){},
+
+	willDestroyElement: function () {
+		if (this.get('withInfo')){
+			this.set('stopScrollService.stopComponent.stopCardOpen', false);
+		}
+		this._super();
+	},
 
 	boundsForMap: function(){
 		return {
@@ -66,7 +74,16 @@ export default Ember.Component.extend({
 			}
 		},
 		toggleSaved: function(){
-			this.toggleProperty('isSaved');
+			if (!this.get('isSaving')){
+				this.set('isSaving', true);
+				if (this.get('isSaved')) {
+					this.get('currentCollection.currentEditable.items').removeObject(this.get('model'));
+				} else {
+					this.get('currentCollection.currentEditable.items').addObject(this.get('model'));
+				}
+				//TODO: fix this to happen in the promise
+				this.set('isSaving', false);
+			}
 		}
 	}
 });

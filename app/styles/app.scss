@@ -285,7 +285,7 @@ a{
 		.long-desc {
 			margin-top: 1em;
 			line-height: 1.5em;
-			margin-bottom: 3em;
+			margin-bottom: 6em;
 		}
 
 		.bottom-holder {
@@ -336,6 +336,7 @@ a{
 			width: 1.5em;
 			text-align: center;
 			font-size: 2em;
+			z-index: 2;
 			&:after {
 				content: "";
 				border: .75em solid #ccc;
@@ -442,6 +443,37 @@ a{
 			left:0;
 			bottom: 0;
 			right: 0;
+		}
+	}
+
+	&.is-ad {
+		background: #eaea00;
+
+		.image-container {
+			margin-top: 2em;
+		}
+
+		.info-container:after {
+			content: "Book now!";
+			position: absolute;
+			bottom: 1em;
+			background: #02B102;
+			padding: 1em;
+			font-weight: 700;
+			color: white;
+			right: 0;
+			border-radius: 5px 0 0 5px;
+		}
+
+
+		&:after {
+			content: "Sponsored";
+			position: absolute;
+			width: 100%;
+			text-align: center;
+			line-height: 2em;
+			font-style: italic;
+			font-weight: 700;
 		}
 	}
 }
