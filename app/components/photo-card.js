@@ -5,7 +5,7 @@ export default Ember.Component.extend({
 	stopScrollService: Ember.inject.service('stop-scroll'),
 	currentCollection: Ember.inject.service('current-collection'),
 	classNames: ['photo-card'],
-	classNameBindings: ['withInfo', 'isSaved', 'addedClass','isAd', 'topCard', 'resultCard', 'isExpanded'],
+	classNameBindings: ['withInfo', 'isSaved', 'addedClass','isAd', 'topCard', 'resultCard', 'isExpanded', 'cardId'],
 	withInfo: false,
 	isExpanded: false,
 	addedClass: null,
@@ -21,13 +21,19 @@ export default Ember.Component.extend({
 			return this.get('photoArray')[0];
 		}
 	}.property('photoArray'),
+	photoId1: null,
+	photoId2: null,
 	firstPhotoOff: false,
+	cardId: function(){
+		return `card-id-${this.get('model.id')}`;
+	}.property('model.id'),
 
 	startPhotoRotation: function(){
 		var photoArray = this.get('photoArray'),
 			length = photoArray.length;
 		photoArray.shuffle();
-		Ember.run.later(this, 'scheduleNextRotation', photoArray, 1, 5000)
+		var nextRotation = Ember.run.later(this, 'scheduleNextRotation', photoArray, 1, 5000)
+		this.set('nextRotation', nextRotation);
 	},
 
 	scheduleNextRotation: function(photoArray, index){
@@ -35,7 +41,8 @@ export default Ember.Component.extend({
 		var photo = photoArray[realIndex];
 		this.rotatePhotos();
 		Ember.run.later(this, 'loadNextPhoto', photo, 3000);
-		Ember.run.later(this, 'scheduleNextRotation', photoArray, realIndex + 1, 7000)
+		var nextRotation = Ember.run.later(this, 'scheduleNextRotation', photoArray, realIndex + 1, 7000)
+		this.set('nextRotation', nextRotation);
 	},
 
 	rotatePhotos: function(){
@@ -44,11 +51,29 @@ export default Ember.Component.extend({
 
 	loadNextPhoto: function(photo){
 		if (this.get('firstPhotoOff')) {
-			this.set('photoStyle1', photo)
+			this.set('photoStyle1', photo.image);
+			this.set('photoId1', photo.id);
 		} else {
-			this.set('photoStyle2', photo)
+			this.set('photoStyle2', photo.image);
+			this.set('photoId2', photo.id);
 		}
 	},
+
+	resetPhotoRotation: function(){
+		this.set('firstPhotoOff', false);
+		this.set('photoStyle1', this.get('model.largeImageStyle'));
+		if (this.get('photoArray')){
+			this.set('photoStyle2', this.get('photoArray')[0]);
+		}
+		if (this.get('nextRotation')) {
+			Ember.run.cancel(this.get('nextRotation'));
+		}
+		this.startPhotoRotation();
+	},
+
+	photoArrayDidChange: function(){
+		this.resetPhotoRotation();
+	}.observes('photoArray'),
 
 	didInsertElement: function(){
 		if (this.get('withImageRotation')) {
@@ -108,8 +133,21 @@ export default Ember.Component.extend({
 	},
 	tap: function(e){
 		if (!$(e.target).is('a') && this.get('topCard')){
+			var scrollTop =  $(window).height();
+			if (this.get('withImageRotation')) {
+				if (this.get('firstPhotoOff')){
+					if (this.get('photoId2')){
+						scrollTop = $(`.card-id-${this.get('photoId2')}`).offset().top;
+					}
+				} else {
+					if (this.get('photoId1')){
+						scrollTop = $(`.card-id-${this.get('photoId1')}`).offset().top;
+					}
+				}
+			}
+
 			$('body').animate({
-				scrollTop: $(window).height()
+				scrollTop: scrollTop
 			},{
 				duration: 1500,
 				easing: 'easeOutQuart'

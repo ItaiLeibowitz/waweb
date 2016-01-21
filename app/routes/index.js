@@ -19,7 +19,7 @@ export default Ember.Route.extend({
 			arr[i] = i;
 		}
 		var photosArr = arr.map(function(el){return backgroundImage.replace('%@',el + 1)});
-		var photosArr = model.map(function(item){ return item.get('largeImageStyle')});
+		var photosArr = model.map(function(item){ return {image:item.get('largeImageStyle'), id:item.get('id')}});
 		var n = photosArr.length;
 		var mainItem = Ember.Object.create({
 			name: "Wanderant",

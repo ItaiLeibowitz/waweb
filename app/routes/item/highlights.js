@@ -26,12 +26,17 @@ var ItemHighlightsRoute = Ember.Route.extend(ItemsRouteMixin, {
 		this._super(controller, model);
 		var mainItem  = this.modelFor('item');
 		controller.set('mainItem', mainItem);
+		// page description
 		if (Utils.itemTypeIsCountry(mainItem.get('itemType'))) {
 			var itemType = "places to visit"
 		} else {
 			var itemType = "things to do"
 		}
 		controller.set('pageDescription', `${model.length} great ${itemType} in...`);
+		//Photo array
+		var photosArr = model.map(function(item){ return {image:item.get('largeImageStyle'), id:item.get('id')}});
+		var n = photosArr.length;
+		controller.set('photoArray', photosArr);
 	},
 	renderTemplate: function(controller, model){
 		this._super(controller, model);
