@@ -201,28 +201,7 @@ a{
 	}
 }
 
-.cards-holder.is-minimized{
-	.photo-card{
-		min-height: 100px;
-		transform: perspective(100em) rotateX(20deg) scaleX(0.9);
-		overflow: visible;
-		.info-box{
-			display: none;
-		}
-		.image-bottom-box{
-			top:0;
-			bottom:auto;
-			background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0, 0, 0, 0.65)), to(transparent));
-			background: -webkit-linear-gradient(bottom, transparent, rgba(0, 0, 0, 0.65));
-			background: -o-linear-gradient(bottom, transparent, rgba(0, 0, 0, 0.65));
 
-		}
-
-		.image-container{
-			height: 300%;
-		}
-	}
-}
 .photo-card{
 	background-color:black;
 	position: relative;
@@ -237,7 +216,13 @@ a{
 		background-size: cover;
 		background-position: 50% 50%;
 		background-repeat: no-repeat;
-		//box-shadow: inset 0 -300px 200px -200px rgba(0,0,0,0.8);
+		transform: scale3d(1.1,1.1,1);
+		transition: 3s;
+
+		&.bottom{
+			transform: scale3d(1,1,1);
+			opacity: 0;
+		}
 	}
 
 	.image-bottom-box{

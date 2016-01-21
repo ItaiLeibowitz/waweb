@@ -138,16 +138,16 @@ export default Ember.Mixin.create(ItemTypeConversions, {
 			var periods = data.opening_hours.periods;
 
 
-			nextDayIndex = function (dayIndex) {
+			var nextDayIndex = function (dayIndex) {
 				return (dayIndex + 1) % 7
 			};
 
 
-			prevDayIndex = function (dayIndex) {
+			var prevDayIndex = function (dayIndex) {
 				return (dayIndex + 6) % 7
 			};
 
-			daysBetween = function (startDayIndex, endDayIndex) {
+			var daysBetween = function (startDayIndex, endDayIndex) {
 				if (startDayIndex > endDayIndex) {
 					var currentIndex = startDayIndex,
 						result = [];
@@ -165,7 +165,7 @@ export default Ember.Mixin.create(ItemTypeConversions, {
 				}
 			};
 
-			parseTimestring = function (timestring) {
+			var parseTimestring = function (timestring) {
 				return parseInt(timestring.slice(0, 2)) * 3600 + parseInt(timestring.slice(2, 4)) * 60
 			};
 
@@ -191,7 +191,7 @@ export default Ember.Mixin.create(ItemTypeConversions, {
 			}
 
 			//Use this version of Array.new so that all values don't reference the same object
-			result = new Array(7);
+			var result = new Array(7);
 			for (var i = 0; i < result.length; i++) {
 				result[i] = [];
 			}

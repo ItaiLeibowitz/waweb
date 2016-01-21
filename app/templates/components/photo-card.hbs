@@ -1,5 +1,8 @@
 <div class="card-position-marker"></div>
-<div class="image-container" style={{model.largeImageStyle}}></div>
+<div class="image-container {{if firstPhotoOff 'bottom'}}" style={{photoStyle1}}></div>
+{{#if withImageRotation}}
+	<div class="image-container {{unless firstPhotoOff 'bottom'}}" style={{photoStyle2}}></div>
+{{/if}}
 <div class="image-bottom-box">
 	<div class="vertical-center-parent">
 		{{#if addedDescription}}

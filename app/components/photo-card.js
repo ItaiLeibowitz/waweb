@@ -15,6 +15,46 @@ export default Ember.Component.extend({
 	isSaving: null,
 	screenHeight: 0,
 	resultCard: Ember.computed.alias('model.resultCard'),
+	photoStyle1: Ember.computed.oneWay('model.largeImageStyle'),
+	photoStyle2: function(){
+		if (this.get('photoArray')){
+			return this.get('photoArray')[0];
+		}
+	}.property('photoArray'),
+	firstPhotoOff: false,
+
+	startPhotoRotation: function(){
+		var photoArray = this.get('photoArray'),
+			length = photoArray.length;
+		photoArray.shuffle();
+		Ember.run.later(this, 'scheduleNextRotation', photoArray, 1, 5000)
+	},
+
+	scheduleNextRotation: function(photoArray, index){
+		var realIndex = index % photoArray.length;
+		var photo = photoArray[realIndex];
+		this.rotatePhotos();
+		Ember.run.later(this, 'loadNextPhoto', photo, 3000);
+		Ember.run.later(this, 'scheduleNextRotation', photoArray, realIndex + 1, 7000)
+	},
+
+	rotatePhotos: function(){
+		this.toggleProperty('firstPhotoOff');
+	},
+
+	loadNextPhoto: function(photo){
+		if (this.get('firstPhotoOff')) {
+			this.set('photoStyle1', photo)
+		} else {
+			this.set('photoStyle2', photo)
+		}
+	},
+
+	didInsertElement: function(){
+		if (this.get('withImageRotation')) {
+			this.startPhotoRotation();
+		}
+	},
 
 
 
@@ -75,9 +115,9 @@ export default Ember.Component.extend({
 				easing: 'easeOutQuart'
 			});
 		}
-		if (!($(e.target).parents('.info-box').length > 0) && !this.get('withInfo') &&!this.get('topCard')){
+		if (!($(e.target).parents('.info-box').length > 0) && !this.get('withInfo') &&!this.get('topCard') && !this.get('preventSizeChange')){
 			var currentState = this.get('isExpanded');
-			this.get('resetSizeAction')();
+			if (this.get('resetSizeAction')) this.get('resetSizeAction')();
 			this.set('isExpanded', !currentState);
 			if (this.get('isExpanded')) {
 				Ember.run.scheduleOnce('afterRender', this,'scrollToTop');
@@ -98,7 +138,7 @@ export default Ember.Component.extend({
 	actions:{
 		toggleInfo: function(){
 			var currentState = this.get('withInfo');
-			this.get('resetInfoAction')();
+			if (this.get('resetInfoAction')) this.get('resetInfoAction')();
 			this.set('withInfo', !currentState);
 			if (this.get('withInfo')) {
 				this.attachMap();
