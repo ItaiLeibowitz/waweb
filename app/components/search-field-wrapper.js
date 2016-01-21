@@ -15,9 +15,12 @@ export default Ember.Component.extend({
 			this.sendAction('foundItem', route, payload)
 		},
 		submit: function (query) {
+			this.get('targetObject').send('loading');
+			this.get('wrappedField').$().autocomplete('close');
 			var self = this;
 			this.get('searchService').executeQuery(query)
 				.then(function (results) {
+					self.get('targetObject').send('stopLoading');
 					self.set('results', results);
 					self.get('wrappedField').$().autocomplete("close");
 					self.get('wrappedField').$().blur();

@@ -3,21 +3,32 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 	adsService: Ember.inject.service('ads-content'),
 	classNames: ['cards-holder'],
+	classNameBindings: ['isMinimized'],
+	isMinimized: false,
 	model: null,
 	addedCardClass: null,
-	addedCardClass2: "itai",
 	showAds: true,
 
+	// based on method proposed in: http://emberigniter.com/parent-to-children-component-communication/
 	childWrappers: function () {
-		var wrappers = this.get('model').map(function (item) {
-			return Ember.Object.create({ // wrapper object
+		var self = this,
+			addedObjectAttribute = this.get('addedCardAttribute');
+		var wrappers = this.get('model').map(function (item, index) {
+			var object = Ember.Object.create({ // wrapper object
 				item: item,
 				withInfo: false,
+				index: index + 1,
 
 				hideInfo: function(){
 					this.set('withInfo', false);
+				},
+				minimize: function() {
+					this.set('isExpanded', false);
 				}
-			});
+		});
+
+			if (addedObjectAttribute) {object.set(addedObjectAttribute, true)};
+			return object;
 		});
 
 
@@ -35,8 +46,11 @@ export default Ember.Component.extend({
 
 
 	actions: {
-		resetAllCards: function () {
+		resetAllCardsInfo: function () {
 			this.get('childWrappers').invoke('hideInfo');
+		},
+		resetAllCardsSize: function () {
+			this.get('childWrappers').invoke('minimize');
 		}
 
 	}

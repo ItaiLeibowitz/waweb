@@ -19,11 +19,7 @@ export default Ember.TextField.extend(Autocomplete, {
 	didInsertElement: function() {
 		this.setupWidget();
 		this.set('parentView.wrappedField', this);
-	},
-
-	//clear search term on focus
-	focusIn: function(){
-		//this.set('value', null);
+		this.$().focus();
 	},
 
 	autocomplete_source: function(request, response) {
@@ -53,6 +49,7 @@ export default Ember.TextField.extend(Autocomplete, {
 		var self = this;
 		this.$().autocomplete('close');
 		this.$().blur();
+		this.get('targetObject').sendAction('loading');
 
 		// if user selected a specific place, we immediately look for it in Wanderant's db then google's
 		if (selectedPrediction.place_id) {

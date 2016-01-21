@@ -1,6 +1,6 @@
 <div class="card-position-marker"></div>
 {{#if items.length}}
-{{photo-card model=model addedDescription=pageDescription addedClass="top-card"}}
+{{photo-card model=model addedDescription=pageDescription topCard=true}}
 {{cards-holder model=items}}
 {{else}}
 	{{link-card model=model}}

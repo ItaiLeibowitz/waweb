@@ -5,14 +5,18 @@ export default Ember.Component.extend({
 	stopScrollService: Ember.inject.service('stop-scroll'),
 	currentCollection: Ember.inject.service('current-collection'),
 	classNames: ['photo-card'],
-	classNameBindings: ['withInfo', 'isSaved', 'addedClass','isAd'],
+	classNameBindings: ['withInfo', 'isSaved', 'addedClass','isAd', 'topCard', 'resultCard', 'isExpanded'],
 	withInfo: false,
+	isExpanded: false,
 	addedClass: null,
 	isSaved: function(){
 		return this.get('currentCollection.itemIds').indexOf(this.get('model.id')) > -1;
 	}.property('currentCollection.itemIds.[]','model.id'),
 	isSaving: null,
 	screenHeight: 0,
+	resultCard: Ember.computed.alias('model.resultCard'),
+
+
 
 	resetAction: function(){},
 
@@ -49,22 +53,52 @@ export default Ember.Component.extend({
 	},
 
 	swipeRight: function(){
+		if (this.get('topCard')) {return;}
 		if (this.get('withInfo')) {
 			this.send('toggleInfo');
 			return false;
 		}
 	},
 	swipeLeft: function(){
+		if (this.get('topCard') || !this.get('isExpanded')) {return;}
 		if (!this.get('withInfo')) {
 			this.send('toggleInfo');
 			return false;
 		}
 	},
+	tap: function(e){
+		if (!$(e.target).is('a') && this.get('topCard')){
+			$('body').animate({
+				scrollTop: $(window).height()
+			},{
+				duration: 1500,
+				easing: 'easeOutQuart'
+			});
+		}
+		if (!($(e.target).parents('.info-box').length > 0) && !this.get('withInfo') &&!this.get('topCard')){
+			var currentState = this.get('isExpanded');
+			this.get('resetSizeAction')();
+			this.set('isExpanded', !currentState);
+			if (this.get('isExpanded')) {
+				Ember.run.scheduleOnce('afterRender', this,'scrollToTop');
+			}
+		}
+	},
+
+	scrollToTop: function(){
+		var newPosition = this.$('.card-position-marker').offset().top;
+		$('body').animate({
+			scrollTop: newPosition
+		},{
+			duration: 200,
+			easing: 'easeOutQuart'
+		});
+	},
 
 	actions:{
 		toggleInfo: function(){
 			var currentState = this.get('withInfo');
-			this.get('resetAction')();
+			this.get('resetInfoAction')();
 			this.set('withInfo', !currentState);
 			if (this.get('withInfo')) {
 				this.attachMap();

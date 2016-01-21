@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Service.extend({
 	ads: function() {
-		return [
+		var adObjects = [
 			Ember.Object.create({item: {
 				name: "Sheraton Hotel",
 				itemType: 1803,
@@ -14,7 +14,7 @@ export default Ember.Service.extend({
 				boundNeLat: 40.8,
 				boundNeLng: -73.8,
 				longDesc: "<b>TAKE A BITE OF THE BIG APPLE</b> <p>A $180 million renovation has reinvigorated the Sheraton New York Times Square Hotel, between Central Park and Times Square in the Midtown business and entertainment district. Go from a crucial meeting to a famous uptown eatery without missing a beat.</p>"
-			}, withInfo: false, isAd: true}),
+			}, withInfo: false, isAd: true, isExpanded: false}),
 			Ember.Object.create({item: {
 				name: "Chez Janou",
 				itemType: 1803,
@@ -26,7 +26,7 @@ export default Ember.Service.extend({
 				boundNeLat: 40.9,
 				boundNeLng: -73.8,
 				longDesc: "<b>Home made French cuisine</b> <p>A Michelin-winning restaurateur, Chef Alain Janou delivers innovative dishes inspired by traditional Lyonnaise cuisine. Ingredients are locally farmed and organic, and the daily changing menus range from hearty meat stews to flavorful local seafood. The somewhat limited winelist is wonderfully hand-picked and imported from the Cotes du Rhone. Desserts are a must, especially if you can wait the 20 minutes for the Chartreuse Souffle. </p>"
-			}, withInfo: false, isAd: true}),
+			}, withInfo: false, isAd: true, isExpanded: false}),
 			Ember.Object.create({item: {
 				name: "Buddha Bar",
 				itemType: 1803,
@@ -38,7 +38,7 @@ export default Ember.Service.extend({
 				boundNeLat: 40.8,
 				boundNeLng: -73.7,
 				longDesc: "<b>Cocktails with an oriental twist</b> <p>Beyond the appealing decor, the cocktail list is the real draw in this 20's-inspired mega-bar. The talented barkeeps mix up traditional mainstays with a touch of modern asian style. A Martini is served neat with a 5-spices oil mixture and a twist of Calamansi, and the Dark and Stormy in Hanoi gets a dash of orange spiced coffee bitters. Reservations recommended.</p>"
-			}, withInfo: false, isAd: true}),
+			}, withInfo: false, isAd: true, isExpanded: false}),
 			Ember.Object.create({item: {
 				name: "Ornithological and Marine Park",
 				itemType: 1803,
@@ -50,7 +50,7 @@ export default Ember.Service.extend({
 				boundNeLat: 40.8,
 				boundNeLng: -73.7,
 				longDesc: "<b>A wonderful way to spend an afternoon with your kids</b> <p>Just an hour out of town, this delightful 4-hectare park highlights the country's varied wildlife. From the migration of the spotted starlights to the corals of the nearby shores, the interactive exhibits are entertaining and informative. Open year-round.</p>"
-			}, withInfo: false, isAd: true}),
+			}, withInfo: false, isAd: true, isExpanded: false}),
 			Ember.Object.create({item: {
 				name: "Torture Museum",
 				itemType: 1803,
@@ -62,7 +62,19 @@ export default Ember.Service.extend({
 				boundNeLat: 40.8,
 				boundNeLng: -73.7,
 				longDesc: "<b>A curious collection of macabre medieval intruments</b> <p>For a different look at the city's history, check out this small museum. Exhibits range from varied contraptions used in the inquisition to written edicts and letters by its officers condemning the unfaithful and releasing their captors from any punishment. Not for the faint of heart!</p>"
-			}, withInfo: false, isAd: true})
-			]
+			}, withInfo: false, isAd: true, isExpanded: false})
+			];
+
+		adObjects.forEach(function(obj){
+			obj.setProperties({
+				hideInfo: function(){
+					this.set('withInfo', false);
+				},
+				minimize: function() {
+					this.set('isExpanded', false);
+				}
+			})
+		});
+		return adObjects
 	}.property()
 });

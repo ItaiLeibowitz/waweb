@@ -17,6 +17,8 @@ const Router = Ember.Router.extend({
 		if (stopComponent) {
 			stopComponent.enableScroll();
 		}
+		$('.ember-transitioning-in').removeClass('ember-transitioning-in');
+		$('.loader').addClass('hidden');
 	}
 });
 

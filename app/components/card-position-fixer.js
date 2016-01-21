@@ -1,6 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+	maxDelay: 3000,
+	mouseIsDown: false,
+	touchIsDown: false,
+	isAutoScrolling: false,
+	shouldFix: function(){
+		return  ![this.get('mouseIsDown'), this.get('isAutoScrolling'), this.get('touchIsDown')].some(function(el){return el})
+	}.property('mouseIsDown','isAutoScrolling', 'touchIsDown'),
 
 	didInsertElement: function(){
 		this.setup();
@@ -9,16 +16,43 @@ export default Ember.Component.extend({
 
 	setup: function(){
 		var self = this;
+		$(window).off('mouseDown.cardPosFix').on('mouseDown.cardPosFix', function(){
+			console.log('mouse down!')
+			self.set('mouseIsDown', true);
+		});
+		$(window).off('mouseUp.cardPosFix').on('mouseUp.cardPosFix', function(){
+			console.log('mouse up!')
+			self.set('mouseIsDown', false);
+		});
+		$(window).off('touchstart.cardPosFix').on('touchstart.cardPosFix', function(){
+			console.log('touch down!')
+			self.set('touchIsDown', true);
+		});
+		$(window).off('touchend.cardPosFix').on('touchend.cardPosFix', function(){
+			console.log('touch up!')
+			self.set('touchIsDown', false);
+		});
+
 		$(window).off('scroll.cardPosFix').on('scroll.cardPosFix', function(){
-			Ember.run.debounce(self, 'fixPositions', 500);
+			//self.set('parentView.isMinimized', true);
+			Ember.run.debounce(self, 'fixPositionsCondition',0, 100);
 		})
 	},
 	unsetup: function(){
-		$(window).off('scroll.cardPosFix');
+		$(window).off('.cardPosFix');
 	},
 
 	willDestroyElement: function(){
 		this.unsetup();
+	},
+
+	fixPositionsCondition: function(delay){
+		if (delay >= this.get('maxDelay')) {return;}
+		if (this.get('shouldFix')){
+			this.fixPositions();
+		} else {
+			Ember.run.debounce(this, 'fixPositionsCondition', (delay + 100), 100);
+		}
 	},
 
 	fixPositions: function(){
@@ -40,13 +74,15 @@ export default Ember.Component.extend({
 		}
 
 
-		this.unsetup();
+		this.set('isAutoScrolling', true);
 		$('body').animate({
 			scrollTop: positionArray[minIndex]-1
 		},{
 			duration: 200,
 			easing: 'easeOutQuart',
-			complete: function() { self.setup();}
+			complete: function() {
+				self.set('isAutoScrolling', false);
+			}
 		});
 
 	}
