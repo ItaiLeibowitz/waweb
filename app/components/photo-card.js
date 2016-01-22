@@ -18,7 +18,7 @@ export default Ember.Component.extend({
 	photoStyle1: Ember.computed.oneWay('model.largeImageStyle'),
 	photoStyle2: function(){
 		if (this.get('photoArray')){
-			return this.get('photoArray')[0];
+			return this.get('photoArray')[0]["image"];
 		}
 	}.property('photoArray'),
 	photoId1: null,
@@ -63,7 +63,7 @@ export default Ember.Component.extend({
 		this.set('firstPhotoOff', false);
 		this.set('photoStyle1', this.get('model.largeImageStyle'));
 		if (this.get('photoArray')){
-			this.set('photoStyle2', this.get('photoArray')[0]);
+			this.set('photoStyle2', this.get('photoArray')[0]["image"]);
 		}
 		if (this.get('nextRotation')) {
 			Ember.run.cancel(this.get('nextRotation'));
@@ -131,7 +131,7 @@ export default Ember.Component.extend({
 			return false;
 		}
 	},
-	tap: function(e){
+	click: function(e){
 		if (!$(e.target).is('a') && this.get('topCard')){
 			var scrollTop =  $(window).height();
 			if (this.get('withImageRotation')) {

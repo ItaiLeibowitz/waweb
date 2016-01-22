@@ -8,9 +8,6 @@ export default Ember.Route.extend({
 		stopLoading: function (transition, originRoute) {
 			$('.loader').addClass('hidden');
 		},
-		goBackward: function(){
-			window.history.go(-1);
-		},
 		triggerTransition: function(destination, payload) {
 			this.transitionTo(destination, payload);
 		}

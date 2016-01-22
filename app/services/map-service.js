@@ -10,6 +10,7 @@ export default Ember.Service.extend({
 		noClear: true,
 		mapTypeControl: false,
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
+		streetViewControl: false,
 		//styles: gmaps.styles.originalStyles[0]
 	},
 	mapComponent: null,

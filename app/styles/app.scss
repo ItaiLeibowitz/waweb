@@ -7,6 +7,10 @@ body {
 	}
 }
 
+[data-ember-action] {
+	cursor: pointer;
+}
+
 a{
 	text-decoration: none;
 	color: inherit;

@@ -24,7 +24,7 @@ export default Ember.Route.extend({
 		var mainItem = Ember.Object.create({
 			name: "Wanderant",
 			itemTypeName: "Great places to visit around the world",
-			largeImageStyle: photosArr[Math.floor(Math.random()*n)]
+			largeImageStyle: photosArr[Math.floor(Math.random()*n)].image
 		});
 		controller.set('photoArray', photosArr);
 		controller.set('mainItem', mainItem);
