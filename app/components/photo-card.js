@@ -131,7 +131,7 @@ export default Ember.Component.extend({
 			return false;
 		}
 	},
-	click: function(e){
+	tap: function(e){
 		if (!$(e.target).is('a') && this.get('topCard')){
 			var scrollTop =  $(window).height();
 			if (this.get('withImageRotation')) {
@@ -158,9 +158,14 @@ export default Ember.Component.extend({
 			if (this.get('resetSizeAction')) this.get('resetSizeAction')();
 			this.set('isExpanded', !currentState);
 			if (this.get('isExpanded')) {
+				var self = this;
 				Ember.run.scheduleOnce('afterRender', this,'scrollToTop');
 			}
 		}
+	},
+
+	scheduleScrollToTop:function(){
+		Ember.run.later( this,'scrollToTop',10);
 	},
 
 	scrollToTop: function(){

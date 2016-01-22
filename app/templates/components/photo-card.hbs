@@ -12,12 +12,15 @@
 		<div class="name">{{model.name}}</div>
 		<div class="type">{{model.itemTypeName}}
 			{{#if model.parentName}}
-				in {{#link-to "item.highlights" model.parentSlug}}{{model.parentName}}{{/link-to}}
+				in {{model.parentName}}
 			{{/if}}
 		</div>
 	</div>
 </div>
 <div class="info-box">
+	{{#if withInfo}}
+		{{info-close closeAction=(action 'toggleInfo')}}
+	{{/if}}
 	<div class="info-container">
 		<div class="name">{{model.name}}</div>
 		<div class="type">{{model.itemTypeName}}
@@ -34,7 +37,9 @@
 			▶ {{/link-to}}
 	{{/if}}
 	<div class="show-button" {{action 'toggleInfo'}}></div>
+<!--
 	<div class="hide-button" {{action 'toggleInfo'}}></div>
+-->
 	<div class="add-button" {{action 'toggleSaved'}}>★</div>
 
 </div>

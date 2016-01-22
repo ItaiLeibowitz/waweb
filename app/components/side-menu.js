@@ -9,6 +9,10 @@ export default Ember.Component.extend({
 	classNameBindings: ['isOpen'],
 	isOpen: Ember.computed.alias('menuService.leftMenuOpen'),
 
+	swipeLeft: function () {
+		this.set('isOpen', false);
+		this.set('stopScrollService.stopComponent.stopMenuOpen', false);
+	},
 
 	actions:{
 		toggleMenu: function(){

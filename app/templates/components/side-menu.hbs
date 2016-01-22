@@ -1,14 +1,15 @@
-
-<div class="menu-toggle" {{action "toggleMenu"}}>&#9776;</div>
-<div class="menu-close" {{action "toggleMenu"}}></div>
-<div class="page-specific">
-	{{outlet 'page-specific'}}
-</div>
-<div class="main-menu">
-	<div>{{#link-to 'index' class="menu-option"}}Home{{/link-to}}</div>
-	<div>{{#link-to 'search' class="menu-option"}}Search{{/link-to}}</div>
-	<div>{{#link-to 'user.collections' class="menu-option"}}My collections{{/link-to}}</div>
-</div>
-<div class="user-block">
-	<div class="name">{{user.name}}</div>
-</div>
+{{#gesture-recognizer recognizers="swipe" addedClass="full-height"}}
+	<div class="menu-toggle" {{action "toggleMenu"}}>&#9776;</div>
+	<div class="menu-close" {{action "toggleMenu"}}></div>
+	<div class="page-specific">
+		{{outlet 'page-specific'}}
+	</div>
+	<div class="main-menu">
+		<div>{{#link-to 'index' class="menu-option"}}Home{{/link-to}}</div>
+		<div>{{#link-to 'search' class="menu-option"}}Search{{/link-to}}</div>
+		<div>{{#link-to 'user.collections' class="menu-option"}}My collections{{/link-to}}</div>
+	</div>
+	<div class="user-block">
+		<div class="name">{{user.name}}</div>
+	</div>
+{{/gesture-recognizer}}
