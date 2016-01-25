@@ -3,6 +3,7 @@ import Ember from "ember";
 export default Ember.Route.extend({
 	currentCollection: Ember.inject.service('current-collection'),
 	currentUser: Ember.inject.service('user-service'),
+	mapService: Ember.inject.service('map-service'),
 	model: function(params) {
 		var collectionToken = params.collection_slug.split('-')[0];
 		var self = this;
@@ -13,7 +14,9 @@ export default Ember.Route.extend({
 	},
 	setupController: function(controller, model){
 		this._super(controller, model);
-		controller.set('items', model.get('items'))
+		controller.set('items', model.get('items'));
+		var map = this.get('mapService');
+		map.set('markerItems', model.get('items'))
 	},
 	serialize: function(model) {
 		return { collection_slug: model.get('slug') };

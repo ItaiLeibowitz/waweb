@@ -5,10 +5,19 @@ import MapMarker from 'waweb/components/map-marker'
 export default MapMarker.extend({
 	visible: true,
 	map: Ember.computed.alias('mapService.mapComponent.googleMapObject'),
+	baseDepth: 2,
+
+
+	lat: Ember.computed.alias('model.latitude'),
+	lng: Ember.computed.alias('model.longitude'),
+	labelName: Ember.computed.alias('model.name'),
+	labelType: Ember.computed.alias('model.itemTypeName'),
+	labelOneliner: Ember.computed.alias('model.onelinerOrAlt'),
+	itemImageStyle: Ember.computed.alias('model.smallImageStyle'),
+
 
 	init: function(){
 		this._super();
-		this.get('mapService').set('centerMarker', this);
 		var map = this.get('mapService.mapComponent');
 		if (map) {
 			console.log('already has map')
@@ -17,6 +26,6 @@ export default MapMarker.extend({
 		}
 	},
 
-	unhoveredIcon: gmaps.markerIcons.largeRed,
+	unhoveredIcon: gmaps.markerIcons.smallOrange,
 });
 

@@ -21,7 +21,6 @@ export function initialize(application){
 		}
 	};
 
-	console.log('running emebr inir')
 };
 
 

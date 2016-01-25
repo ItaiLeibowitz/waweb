@@ -117,7 +117,8 @@ export default Ember.Component.extend({
 		});
 		mapService.get('centerMarker').setProperties({
 			lat: this.get('model.latitude'),
-			lng: this.get('model.longitude')
+			lng: this.get('model.longitude'),
+			visible: true
 		});
 	},
 

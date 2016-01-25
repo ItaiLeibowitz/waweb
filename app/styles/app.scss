@@ -271,9 +271,11 @@ a{
 	.caption-holder {
 		display: none;
 		color: rgba(204, 204, 204, 0.5);
-		margin: 0 1.3em 0.5em 1.3em;
+		margin: 0px 5em 0.5em 1.3em;
 		font-size: 0.6em;
 		text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+		overflow: hidden;
+		text-overflow: ellipsis;
 		a{
 			color: rgba(255,255,255,0.75);
 		}
