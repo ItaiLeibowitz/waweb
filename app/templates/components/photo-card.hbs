@@ -8,7 +8,9 @@
 		{{#if addedDescription}}
 			<div class="addedDescription">{{addedDescription}}</div>
 		{{/if}}
+		{{#if withIndex}}
 		<div class="index">{{index}}</div>
+		{{/if}}
 		<div class="name">{{model.name}}</div>
 		<div class="type">{{model.itemTypeName}}
 			{{#if model.parentName}}
@@ -38,14 +40,16 @@
 				{{/each}}
 			</div>
 			{{else}}
-				<div class="reviews-holder" {{action 'toggleReviews'}}>
+				<div class="reviews-holder">
 					Read more on:
 					{{#each reviews as |review|}}
 						<div class="review-box {{review.review_class}}">
 							<a href={{review.source_link}} class="review-link" target="_blank"></a>
-						    <div class="review-highlight"></div>
-					</div>
+
+							<div class="review-highlight"></div>
+						</div>
 					{{/each}}
+					<div class="close" {{action 'toggleReviews'}}>✕</div>
 				</div>
 			{{/unless}}
 		{{/if}}

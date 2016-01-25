@@ -4,6 +4,7 @@
 {{#each childWrappers as |wrapper|}}
 	{{photo-card model=wrapper.item  index=wrapper.index withInfo=wrapper.withInfo isAd=wrapper.isAd
 	isExpanded=wrapper.isExpanded resultCard=wrapper.resultCard
+	withIndex=withIndex
 	resetInfoAction=(action 'resetAllCardsInfo')
 	resetSizeAction=(action 'resetAllCardsSize')}}
 {{/each}}
