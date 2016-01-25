@@ -149,6 +149,7 @@ export default Ember.Component.extend({
 		}
 	},
 	tap: function(e){
+		if ($(e.target).is('a')) {return false;}
 		if (!$(e.target).is('a') && this.get('topCard')){
 			var scrollTop =  $(window).height();
 			if (this.get('withImageRotation')) {

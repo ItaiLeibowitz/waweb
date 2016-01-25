@@ -17,6 +17,11 @@
 				in {{model.parentName}}
 			{{/if}}
 		</div>
+		{{#if model.captionName}}
+			<div class="caption-holder">
+				Photo: <a href={{model.captionLink}} target="_blank">{{model.captionName}}</a> {{model.captionCc}}
+			</div>
+		{{/if}}
 	</div>
 </div>
 <div class="info-box">
