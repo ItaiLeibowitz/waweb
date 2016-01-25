@@ -30,6 +30,15 @@
 		</div>
 		<div class="oneliner">{{model.oneliner}}</div>
 		{{map-placeholder withExpand='true'}}
+		<div class="action-bar">
+			<a href={{model.mapLink}} class="directions action-btn icon-nav">Directions</a>
+			{{#if model.phone}}
+				<a href={{model.phoneLink}} class="phone action-btn icon-phone">Call</a>
+			{{/if}}
+			{{#if model.websiteLink}}
+				<a target="_blank" href={{model.websiteLink}} class="website action-btn icon-info">Website</a>
+			{{/if}}
+		</div>
 		<div class="long-desc">{{{model.longDesc}}}</div>
 	</div>
 	{{#if model.canHaveChildren}}

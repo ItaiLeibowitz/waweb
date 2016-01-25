@@ -69,6 +69,21 @@ var Item = DS.Model.extend(WithItemImage, WithAncestry, ModelWithDescs, {
 		return this._createSlug(this.get('id'), this.get('name'));
 	}.property('id', 'name'),
 
+	websiteLink: function(){
+		var links = this.get('externalLinks');
+		if (links && links.length > 0) {
+			return links[0]["source"];
+		}
+	}.property('externalLinks'),
+
+	mapLink: function(){
+		return `http://maps.google.com/maps?daddr=${this.get('latitude')},${this.get('longitude')}&amp;ll=`;
+	}.property('latitude', 'longitude'),
+
+	phoneLink: function(){
+			return `tel:${this.get('phone')}`;
+	}.property('phone'),
+
 
 });
 

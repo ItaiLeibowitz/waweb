@@ -320,7 +320,30 @@ a{
 			margin-top: 1em;
 		}
 
+		 .action-bar{
+			 display: table;
+			 width: 100%;
 
+			 .action-btn {
+				 display: table-cell;
+				 text-align: center;
+				 color: #0ac;
+				 padding: 2em 1em 0 1em;
+				 width: 33%;
+				 box-sizing: border-box;
+				 position: relative;
+				 font-size: 0.9em;
+
+				 &:before {
+					 position: absolute;
+					 font-size: 1.5em;
+					 top: 0;
+					 left: 0;
+					 right: 0;
+					 line-height: 1.5em;
+				 }
+			 }
+		 }
 
 		.long-desc {
 			margin-top: 1em;

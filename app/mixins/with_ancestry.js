@@ -34,10 +34,10 @@ var WithAncestry = Ember.Mixin.create({
 			var ancestryArray = ancestry.split("/"),
 				ancestryNamesArray = ancestryNames.split("/");
 			response = ancestryArray.map(function(el, i){
-				return {name: ancestryNamesArray[i], slug: `${el}-${ancestryNamesArray[i]}`,offsetClass: `offset-${i}`}
+				return {name: ancestryNamesArray[i], slug: `${el}-${ancestryNamesArray[i]}`,offsetClass: `offset-${i + 1}`}
 			});
 		}
-		response.push({name: this.get('name'), slug: this.get('slug'), offsetClass:`offset-${response.length} is-selected`});
+		response.push({name: this.get('name'), slug: this.get('slug'), offsetClass:`offset-${response.length + 1} is-selected`});
 		return response;
 	}.property('ancestry','ancestryNames','name','slug'),
 

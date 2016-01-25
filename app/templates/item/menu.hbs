@@ -1,4 +1,5 @@
 <div class="ancestry">
+	<div class={{ancestor.offsetClass}}>{{#link-to 'index'}}Other countries{{/link-to}}</div>
 	{{#each model.ancestorsArray as |ancestor|}}
 		<div class={{ancestor.offsetClass}}>{{#link-to 'item.highlights' ancestor.slug}}{{ancestor.name}}{{/link-to}}</div>
 	{{/each}}

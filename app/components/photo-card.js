@@ -89,6 +89,9 @@ export default Ember.Component.extend({
 		if (this.get('withInfo')){
 			this.set('stopScrollService.stopComponent.stopCardOpen', false);
 		}
+		if (this.get('nextRotation')) {
+			Ember.run.cancel(this.get('nextRotation'));
+		}
 		this._super();
 	},
 
