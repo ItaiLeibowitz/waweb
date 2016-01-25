@@ -29,6 +29,26 @@
 			{{/if}}
 		</div>
 		<div class="oneliner">{{model.oneliner}}</div>
+		{{#if model.reviewDigest}}
+			{{#unless withReviews}}
+				<div class="reviews" {{action 'toggleReviews'}}>
+				Recommended by:
+				{{#each model.reviewedByArray as |review|}}
+					<div class="review-box {{review.class}}"></div>
+				{{/each}}
+			</div>
+			{{else}}
+				<div class="reviews-holder" {{action 'toggleReviews'}}>
+					Read more on:
+					{{#each reviews as |review|}}
+						<div class="review-box {{review.review_class}}">
+							<a href={{review.source_link}} class="review-link" target="_blank"></a>
+						    <div class="review-highlight"></div>
+					</div>
+					{{/each}}
+				</div>
+			{{/unless}}
+		{{/if}}
 		{{map-placeholder withExpand='true'}}
 		<div class="action-bar">
 			<a href={{model.mapLink}} class="directions action-btn icon-nav">Directions</a>

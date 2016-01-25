@@ -69,6 +69,17 @@ var Item = DS.Model.extend(WithItemImage, WithAncestry, ModelWithDescs, {
 		return this._createSlug(this.get('id'), this.get('name'));
 	}.property('id', 'name'),
 
+	reviewedByArray: function(){
+		var reviewDigest = this.get('reviewDigest');
+		if (!reviewDigest) return;
+		var reviewsArray = reviewDigest.toString(2).split("").reverse();
+		return reviewsArray.map(function(el, index){
+			return el == 1 ? {class: "review_source_" + index} : null;
+		}).compact()
+	}.property('reviewDigest'),
+
+
+
 	websiteLink: function(){
 		var links = this.get('externalLinks');
 		if (links && links.length > 0) {

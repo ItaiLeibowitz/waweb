@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import promiseFromUrl from 'waweb/mixins/promise_utils';
 
 export default Ember.Component.extend({
 	mapService: Ember.inject.service('map-service'),
@@ -8,6 +9,8 @@ export default Ember.Component.extend({
 	classNameBindings: ['withInfo', 'isSaved', 'addedClass','isAd', 'topCard', 'resultCard', 'isExpanded', 'cardId'],
 	withInfo: false,
 	isExpanded: false,
+	withReviews: false,
+	reviews: null,
 	addedClass: null,
 	isSaved: function(){
 		return this.get('currentCollection.itemIds').indexOf(this.get('model.id')) > -1;
@@ -81,8 +84,6 @@ export default Ember.Component.extend({
 		}
 	},
 
-
-
 	resetAction: function(){},
 
 	willDestroyElement: function () {
@@ -118,6 +119,19 @@ export default Ember.Component.extend({
 			lat: this.get('model.latitude'),
 			lng: this.get('model.longitude')
 		});
+	},
+
+	loadReviews: function(){
+		var self = this;
+		promiseFromUrl(`/api/ember/items/${this.get('model.id')}/reviews`)
+			.then(function(reviews){
+				if (reviews.length > 0) {
+					reviews.forEach(function(review, index){
+						review.index = index;
+					});
+				}
+				self.set('reviews', reviews);
+			})
 	},
 
 	swipeRight: function(){
@@ -203,6 +217,12 @@ export default Ember.Component.extend({
 				}
 				//TODO: fix this to happen in the promise
 				this.set('isSaving', false);
+			}
+		},
+		toggleReviews: function(){
+			this.toggleProperty('withReviews');
+			if (this.get('withReviews') && !this.get('reviews')){
+				this.loadReviews();
 			}
 		}
 	}

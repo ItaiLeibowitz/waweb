@@ -313,11 +313,331 @@ a{
 			line-height: 1.5em;
 			color: #777;
 		}
+
+
+		.reviews{
+			margin-top: 1em;
+			font-size: 0.8em;
+			text-align: right;
+			position: relative;
+
+			.review-box{
+				height: 1.5em;
+				width: 1.5em;
+				background-color: black;
+				font-size: 1em;
+				color:white;
+				display: inline-block;
+				vertical-align: top;
+
+
+				&:before{
+					display: block;
+					text-align: center;
+					line-height: 1.5em;
+				}
+
+				&:hover:after{
+					right: 0;
+					top: 2em;
+					position: absolute;
+					white-space: nowrap;
+					background-color: black;
+					border-radius: 3px;
+					font-size: 0.8em;
+					padding: 0 3px;
+					z-index: 10000;
+				}
+
+				&.review_source_0{
+					background-color: blue;
+					&:before{
+						content: "LP";
+					}
+					&:hover:after{
+						content: "Reviewed by Lonely Planet";
+					}
+				}
+				&.review_source_1{
+					background-color: orange;
+					&:before{
+						content: "F";
+					}
+					&:hover:after{
+						content: "Reviewed by Fodor's";
+					}
+				}
+				&.review_source_2{
+					background-color: red;
+					&:before{
+						content: "Fr";
+					}
+					&:hover:after{
+						content: "Reviewed by Frommer's";
+					}
+				}
+				&.review_source_3{
+					background-color: #d2d4d3;
+					&:before{
+						content: "TL";
+						font-weight: bold;
+						color: black;
+					}
+					&:hover:after{
+						content: "Reviewed by Travel + Leisure";
+					}
+				}
+				&.review_source_4{
+					background-color: blue;
+					&:before{
+						content: "RS";
+						color: yellow;
+					}
+					&:hover:after{
+						content: "Reviewed by Rick Steve's";
+					}
+				}
+			}
+		}
+
+
+
+		.reviews-holder {
+			display: inline-block;
+			vertical-align: top;
+			padding: 1em 1em 0 1em;
+			font-size: 0.8em;
+			border-radius: 5px;
+			width: 100%;
+			box-sizing: border-box;
+			background: #f5f5f5;
+			position: relative;
+
+			&:after{
+				content: "\25b2";
+				position: absolute;
+				right: 0.5em;
+				top: 0.1em;
+				font-weight: 700;
+				font-size: 1.5em;
+			}
+
+			.review-box{
+				display: block;
+				margin: 10px 0;
+				width: 2em;
+				vertical-align: top;
+			}
+			.review-link {
+				height: 2em;
+				width: 2em;
+				background-color: #333;
+				display: block;
+				position: relative;
+
+				&:before{
+					text-align: center;
+					color: white;
+					display: block;
+					line-height: 2em;
+				}
+
+				&:after{
+					white-space: nowrap;
+					position: absolute;
+					top: 0;
+					left: 3em;
+					line-height: 2em;
+					width: 12em;
+				}
+			}
+
+			.review-score {
+				font-size: 0.8em;
+				text-align: center;
+				font-weight: bold;
+			}
+
+			.review_source_0{
+				.review-link{
+					background-color: blue;
+					&:before{
+						content: "LP";
+					}
+					&:after{
+						content: "Lonely Planet";
+					}
+				}
+				.review-score{
+					display: none;
+				}
+			}
+
+			.review_source_1{
+				.review-link{
+					background-color: orange;
+					&:before{
+						content: "F";
+					}
+					&:after{
+						content: "Fodor's";
+					}
+				}
+				.review-score{
+					display: none;
+				}
+			}
+
+			.review_source_2{
+				.review-link{
+					background-color: red;
+					&:before{
+						content: "Fr";
+					}
+					&:after{
+						content: "Frommer's";
+					}
+				}
+				.review-score{
+					display: none;
+				}
+			}
+
+			.review_source_3{
+				.review-link{
+					background-color: #d2d4d3;
+					&:before{
+						content: "TL";
+						font-weight: bold;
+						color: black;
+					}
+					&:after{
+						content: "Travel + Leisure";
+					}
+				}
+				.review-score{
+					display: none;
+				}
+			}
+
+			.review_source_4{
+				.review-link{
+					background-color: blue;
+					&:before{
+						content: "RS";
+						color: yellow;
+					}
+					&:after{
+						content: "Rick Steve's";
+					}
+				}
+				.review-score{
+					display: none;
+				}
+			}
+
+
+			.highlighted{
+				.review-highlight{
+					display: block;
+					height: 1.5em;
+					width: 100%;
+					position: relative;
+
+					&:hover:after{
+						background-color: black;
+						z-index: 1000;
+						white-space: nowrap;
+						border-radius: 3px;
+						padding: 0 3px;
+						top: 0;
+						left: 2.7em;
+						position: absolute;
+					}
+				}
+
+				.review-score{
+					display: none;
+				}
+
+				&.review_source_0{
+
+
+					.review-highlight{
+						background-color: blue;
+						color: white;
+						font-size: 0.8em;
+						line-height: 1.5em;
+						margin-top: 1px;
+						&:before{
+							content: "TOP";
+							text-align: center;
+							display: block;
+						}
+
+						&:hover:after{
+							content: "LP Top pick";
+						}
+					}
+
+				}
+				&.review_source_1{
+
+
+					.review-highlight{
+						background-color: orange;
+						border-radius: 2em;
+						color: white;
+						width: 1.5em;
+						font-size: 0.8em;
+						line-height: 1.5em;
+						margin: 5px auto;
+						&:before{
+							content: "a";
+							text-align: center;
+							display: block;
+							font-family: "wanderant";
+							font-size: 0.8em;
+						}
+
+						&:hover:after{
+							content: "Fodor's choice";
+						}
+					}
+
+				}
+				&.review_source_4{
+
+
+					.review-highlight{
+						background-color: blue;
+						color: yellow;
+						font-size: 0.8em;
+						line-height: 1.5em;
+						margin-top: 1px;
+						&:before{
+							content: "\25b2\25b2\25b2";
+							text-align: center;
+							display: block;
+						}
+
+						&:hover:after{
+							content: "Don't miss";
+						}
+					}
+
+				}
+
+			}
+		}
+
+
+
 		.map-holder {
 			background: #ccc;
 			height: 140px;
 			width: 100%;
-			margin-top: 1em;
+			margin-top:1em;
 		}
 
 		 .action-bar{
