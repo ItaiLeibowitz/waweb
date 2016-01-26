@@ -2,6 +2,7 @@ import Ember from 'ember';
 import gmaps from 'waweb/appconfig/gmaps';
 
 export default Ember.Service.extend({
+	currentItem: Ember.inject.service('current-item'),
 	constantOptions: {
 		mapTypeControl: false,
 		zoom: 3,
@@ -52,6 +53,9 @@ export default Ember.Service.extend({
 	},
 	expandMap: function(currentElem){
 		this.set('lastHolder', currentElem);
+		this.set('lastItemCardPosition', this.get('currentItem.isOpen'));
+		this.set('lastCurrentItem', this.get('currentItem.item'));
+		this.set('currentItem.isOpen', false);
 		$('#actual-map').appendTo('#expanded-map');
 		$('#expanded-map').addClass('expanded');
 		this.get('mapComponent').resizeMap();
@@ -62,12 +66,27 @@ export default Ember.Service.extend({
 	},
 	minimizeMap: function(){
 		$('#actual-map').appendTo(this.get('lastHolder'));
+		this.set('currentItem.isOpen', this.get('lastItemCardPosition'));
+		this.set('currentItem.item', this.get('lastCurrentItem'));
 		this.get('mapComponent').resizeMap();
 		$('#expanded-map').removeClass('expanded');
 		this.setProperties({
 			draggable: false,
-			disableDefaultUI: true
+			disableDefaultUI: true,
+			bounds: this.get('bounds')
 		})
+	},
+
+	openItemMenu: function(model){
+		var currentItem = this.get('currentItem');
+		currentItem.setProperties({
+			item: model,
+			isOpen: true,
+			withMap: false,
+			withPhoto: true,
+			isAd: this.get('isAd'),
+			currentListCard: null
+		});
 	}
 
 });

@@ -14,7 +14,7 @@ export default Ember.Component.extend({
 	isOpen:  Ember.computed.alias('currentItem.isOpen'),
 	isAd:  Ember.computed.alias('currentItem.isAd'),
 	classNames: ['right-card'],
-	classNameBindings: ['isOpen', 'isSaved', 'isAd'],
+	classNameBindings: ['isOpen', 'isSaved', 'isAd', 'withMap', 'withPhoto'],
 	isSaved: function(){
 		return this.get('currentCollection.itemIds').indexOf(this.get('model.id')) > -1;
 	}.property('currentCollection.itemIds.[]','model.id'),
@@ -41,8 +41,7 @@ export default Ember.Component.extend({
 			bounds: this.get('boundsForMap')
 		});
 		mapService.get('centerMarker').setProperties({
-			lat: this.get('model.latitude'),
-			lng: this.get('model.longitude'),
+			model: this.get('model'),
 			visible: true
 		});
 	},
@@ -87,7 +86,11 @@ export default Ember.Component.extend({
 		toggleOpen: function(){
 			this.toggleProperty('isOpen');
 			if (!this.get('isOpen')){
-				this.set('withReviews', false);
+				this.setProperties({
+					withReviews: false,
+					withPhoto: false,
+					withMap: true
+				});
 			}
 		},
 		toggleSaved: function(){
@@ -107,6 +110,9 @@ export default Ember.Component.extend({
 			if (this.get('withReviews') && (!this.get('reviews') || this.get('reviewsItem') != this.get('model.id'))){
 				this.loadReviews();
 			}
+		},
+		toggleExpandedImage: function(){
+			this.toggleProperty('imageExpanded');
 		}
 	}
 });

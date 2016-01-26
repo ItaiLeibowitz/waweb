@@ -47,13 +47,13 @@ var MapMarker =  Ember.Component.extend({
 	},
 
 	icon: function () {
-		return (this.get('hovered') ? this.get('hoveredIcon') : this.get('unhoveredIcon'));
-	}.property('hovered', 'unhoveredIcon'),
+		return (this.get('isExpanded') ? this.get('hoveredIcon') : this.get('unhoveredIcon'));
+	}.property('isExpanded', 'unhoveredIcon'),
 
 
 	depth: function() {
-		return (this.get('hovered') ? 0 : this.get('baseDepth'));
-	}.property('hovered','baseDepth'),
+		return (this.get('isExpanded') ? 0 : this.get('baseDepth'));
+	}.property('isExpanded','baseDepth'),
 
 	zIndex: function() {
 		return (google.maps.Marker.MAX_ZINDEX - this.get('depth'));
@@ -80,7 +80,8 @@ var MapMarker =  Ember.Component.extend({
 			markerLabelString = `<div class="marker-label">${this.get('labelName')}</div>`,
 			markerTypeString = this.get('labelType') ? `<div class="marker-type">${this.get('labelType')}</div>` : "",
 			markerOnlinerString = this.get('labelOneliner') ? `<div class="marker-oneliner">${this.get('labelOneliner')}</div>`: "",
-			markerDetailsString = '<div class="marker-details">' + markerLabelString + markerTypeString + markerOnlinerString + '</div>';
+			markerReadMoreString = '<div class="read-more">READ MORE</div>',
+			markerDetailsString = '<div class="marker-details">' + markerLabelString + markerTypeString + markerOnlinerString + markerReadMoreString +  '</div>';
 		return markerImageString + markerDetailsString;
 	}.property('labelName', 'labelImageStyle', 'labelType','labelOneliner'),
 
@@ -96,8 +97,8 @@ _initOptions: function() {
 
 	_setListeners: function(marker) {
 		var self = this;
-		google.maps.event.addListener(marker, 'click', function(){
-			self.clickMarker();
+		google.maps.event.addListener(marker, 'click', function(e){
+			self.clickMarker(e);
 		});
 		google.maps.event.addListener(marker, 'mouseover', function(){
 			self.set('hovered', true);

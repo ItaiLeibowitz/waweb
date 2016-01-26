@@ -13,7 +13,37 @@ export default Ember.Component.extend({
 		var options = this.get('mapService.options');
 		var map = new window.google.maps.Map(container, options);
 		this.set('googleMapObject', map);
+		this._setMapListeners(map);
 	}.on('didInsertElement'),
+
+
+	_setMapListeners: function(map) {
+		var self = this;
+
+		google.maps.event.addListener(map, 'zoom_changed', function () {
+			/*var zoomLevel = this.getZoom();
+			this.setOptions({ styles: WA.Gmaps.styles.originalStyles[WA.Gmaps.stylesByZoomLevel[zoomLevel]] });
+			Ember.run.debounce(self, '_addMarkersFromBounds', map, 200);
+			Ember.run.debounce(self, '_toggleRoutes', zoomLevel, 200);
+			Ember.run.debounce(self, '_addClassToTiles', 200);*/
+		});
+
+		google.maps.event.addListener(map, 'click', function () {
+			self.get('mapService.collectionMarkers').send('minimizeAllMarkers');
+		/*	self.get('generatedMarkersList').invoke('reset');
+			self.get('currentCollectionMarkersList').invoke('reset');
+			self.get('currentRoute').reset();
+			self.get('viewedRoute').reset();*/
+		});
+
+		google.maps.event.addListener(map, 'dragend', function () {
+/*
+			self._addMarkersFromBounds(map);
+*/
+		});
+
+	},
+
 
 	resizeMap: function(){
 		Ember.run.scheduleOnce('afterRender', this, '_resizeMap');

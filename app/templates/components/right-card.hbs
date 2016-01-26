@@ -30,6 +30,14 @@
 			</div>
 		{{/unless}}
 	{{/if}}
+	<div class="image-holder {{if imageExpanded 'is-expanded'}}" style={{model.largeImageStyle}}>
+		<div class="expand-image" {{action 'toggleExpandedImage'}}></div>
+		{{#if model.captionName}}
+			<div class="caption-holder">
+				Photo: <a href={{model.captionLink}} target="_blank">{{model.captionName}}</a> {{model.captionCc}}
+			</div>
+		{{/if}}
+	</div>
 	{{map-placeholder withExpand='true'}}
 	<div class="action-bar">
 		<a href={{model.mapLink}} class="directions action-btn icon-nav">Directions</a>
