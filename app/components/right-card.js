@@ -87,9 +87,7 @@ export default Ember.Component.extend({
 			this.toggleProperty('isOpen');
 			if (!this.get('isOpen')){
 				this.setProperties({
-					withReviews: false,
-					withPhoto: false,
-					withMap: true
+					withReviews: false
 				});
 			}
 		},

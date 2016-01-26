@@ -66,8 +66,12 @@ export default Ember.Service.extend({
 	},
 	minimizeMap: function(){
 		$('#actual-map').appendTo(this.get('lastHolder'));
-		this.set('currentItem.isOpen', this.get('lastItemCardPosition'));
-		this.set('currentItem.item', this.get('lastCurrentItem'));
+		this.get('currentItem').setProperties({
+			isOpen: this.get('lastItemCardPosition'),
+			item: this.get('lastCurrentItem'),
+			withMap: true,
+			withPhoto: false
+		});
 		this.get('mapComponent').resizeMap();
 		$('#expanded-map').removeClass('expanded');
 		this.setProperties({

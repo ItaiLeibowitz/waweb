@@ -36,6 +36,11 @@ export default Ember.Component.extend({
 			self.get('viewedRoute').reset();*/
 		});
 
+		google.maps.event.addListener(map, 'resize', function () {
+			self.scheduleFitBounds();
+			self.get('mapService.collectionMarkers').send('minimizeAllMarkers');
+		});
+
 		google.maps.event.addListener(map, 'dragend', function () {
 /*
 			self._addMarkersFromBounds(map);
@@ -64,6 +69,10 @@ export default Ember.Component.extend({
 	updateOptions: function(){
 		var options = this.get('mapService.options');
 		this.get('googleMapObject').setOptions(options);
+	},
+
+	scheduleFitBounds: function(){
+		Ember.run.scheduleOnce('afterRender', this, 'fitToBounds');
 	},
 
 	fitToBounds: function(){

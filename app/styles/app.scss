@@ -341,7 +341,7 @@ a{
 	&.with-photo{
 		z-index:2001;
 		&.is-open {
-			box-shadow: -20px 0 40px rgba(0, 0, 0, 0.3);
+			box-shadow: -1px 0 2px rgba(0, 0, 0, 0.3);
 		}
 		.map-holder{
 			display: none;
