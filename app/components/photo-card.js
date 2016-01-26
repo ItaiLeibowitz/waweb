@@ -37,7 +37,8 @@ export default Ember.Component.extend({
 		var realIndex = index % photoArray.length;
 		var photo = photoArray[realIndex];
 		this.rotatePhotos();
-		Ember.run.later(this, 'loadNextPhoto', photo, 3000);
+		var nextPhotoLoad = Ember.run.later(this, 'loadNextPhoto', photo, 3000);
+		this.set('nextPhotoLoad', nextPhotoLoad);
 		var nextRotation = Ember.run.later(this, 'scheduleNextRotation', photoArray, realIndex + 1, 7000)
 		this.set('nextRotation', nextRotation);
 	},
@@ -59,30 +60,35 @@ export default Ember.Component.extend({
 	resetPhotoRotation: function(){
 		this.set('firstPhotoOff', false);
 		this.set('photoStyle1', this.get('model.largeImageStyle'));
-		if (this.get('photoArray')){
-			this.set('photoStyle2', this.get('photoArray')[0]["image"]);
+		if (this.get('photoArray')) {
+			var photoArray = this.get('photoArray');
+			if (photoArray[0]["image"].string != this.get('model.largeImageStyle').string || photoArray.length == 1) {
+				this.set('photoStyle2', photoArray[0]["image"]);
+			} else {
+				this.set('photoStyle2', photoArray[1]["image"]);
+			}
 		}
 		if (this.get('nextRotation')) {
 			Ember.run.cancel(this.get('nextRotation'));
 		}
-		this.startPhotoRotation();
-	},
-
-	photoArrayDidChange: function(){
-		this.resetPhotoRotation();
-	}.observes('photoArray'),
-
-	didInsertElement: function(){
 		if (this.get('withImageRotation')) {
 			this.startPhotoRotation();
 		}
 	},
+
+	photoArrayDidChange: function(){
+		if (this.get('withImageRotation')) {
+			this.resetPhotoRotation();
+		}
+	}.observes('photoArray').on('init'),
+
 
 	resetAction: function(){},
 
 	willDestroyElement: function () {
 		if (this.get('nextRotation')) {
 			Ember.run.cancel(this.get('nextRotation'));
+			Ember.run.cancel(this.get('nextPhotoLoad'));
 		}
 		this._super();
 	},

@@ -17,6 +17,10 @@ export default Ember.Route.extend({
 		controller.set('items', model.get('items'));
 		var map = this.get('mapService');
 		map.set('markerItems', model.get('items'))
+		//Photo array
+		var photosArr = model.get('items').map(function(item){ return {image:item.get('largeImageStyle'), id:item.get('id')}});
+		var n = photosArr.length;
+		controller.set('photoArray', photosArr);
 	},
 	serialize: function(model) {
 		return { collection_slug: model.get('slug') };
