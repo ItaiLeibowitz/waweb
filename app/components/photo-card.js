@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 	currentItem: Ember.inject.service('current-item'),
+	mapService: Ember.inject.service('map-service'),
 	classNames: ['photo-card'],
 	classNameBindings: ['addedClass', 'withInfo', 'isAd', 'topCard', 'resultCard', 'isExpanded', 'cardId'],
 	withInfo: false,
@@ -97,7 +98,7 @@ export default Ember.Component.extend({
 
 	tap: function(e){
 		if ($(e.target).is('a')) {return false;}
-		if (!$(e.target).is('a') && this.get('topCard')){
+		if (!($(e.target).parents('.buttons').length > 0) && this.get('topCard')){
 			var scrollTop =  $(window).height();
 			if (this.get('withImageRotation')) {
 				if (this.get('firstPhotoOff')){
@@ -118,7 +119,7 @@ export default Ember.Component.extend({
 				easing: 'easeOutQuart'
 			});
 		}
-		if (!($(e.target).parents('.info-box').length > 0) &&!this.get('topCard') && !this.get('preventSizeChange')){
+		if (!($(e.target).parents('.info-box').length > 0) && !this.get('topCard') && !this.get('preventSizeChange')){
 			var currentState = this.get('isExpanded');
 			if (this.get('resetSizeAction')) this.get('resetSizeAction')();
 			this.set('isExpanded', !currentState);
@@ -155,6 +156,18 @@ export default Ember.Component.extend({
 			});
 			Ember.run.scheduleOnce('render', this, 'scrollToTop');
 			this.set('withInfo', true);
+		},
+		expandMap: function(){
+			var mapService = this.get('mapService');
+			var bb = this.get('model.mapBoundingBox');
+			mapService.set('bounds', {
+				swLat: bb.swLat,
+				swLng: bb.swLng,
+				neLat: bb.neLat,
+				neLng: bb.neLng
+			});
+			mapService.changeCenter(this.get('model.latitude'), this.get('model.longitude'));
+			mapService.expandMap();
 		}
 	}
 });

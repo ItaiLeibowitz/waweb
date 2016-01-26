@@ -6,6 +6,7 @@ import ModelWithDescs from 'waweb/mixins/model_with_descs'
 import Constants from 'waweb/appconfig/constants'
 
 export default DS.Model.extend(ModelWithDescs, WithItemImage, WithAncestry, {
+	mapService: Ember.inject.service('map-service'),
 	name: DS.attr('string'),
 	items: DS.hasMany('item', {inverse: 'collection'}),
 	user: DS.belongsTo('user', {inverse: 'collections'}),
@@ -37,6 +38,25 @@ export default DS.Model.extend(ModelWithDescs, WithItemImage, WithAncestry, {
 	imageProvider: Ember.computed.alias('firstItem.imageProvider'),
 	imageUrl: Ember.computed.alias('itemArrayImageUrl'),
 	imageStyle: Ember.computed.alias('itemArrayImageStyle'),
+
+
+	latitude: Ember.computed.alias('firstItem.latitude'),
+	longitude: Ember.computed.alias('firstItem.longitude'),
+
+	mapBoundingBox: function() {
+		var coordsArray = [],
+			bound = 0.001;
+		var items = (this.get('items') || []).toArray();
+		items.forEach(function(item){
+			var swLat = item.get('boundSwLat') || item.get('latitude') - bound;
+			var swLng = item.get('boundSwLng') || item.get('longitude') - bound;
+			var neLat = item.get('boundNeLat')|| item.get('latitude') + bound;
+			var neLng = item.get('boundNeLng') || item.get('longitude') + bound;
+			if (swLat && neLng && swLng && neLat) coordsArray.push([swLat, swLng],[neLat, neLng]);
+		});
+		return this.get('mapService').getBoundingBox(coordsArray);
+	}.property('items.[].latitude','items.[].longitude'),
+
 
 	// == Share properties
 	shareUrl: function() {

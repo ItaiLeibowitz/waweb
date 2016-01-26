@@ -65,7 +65,7 @@ export default Ember.Service.extend({
 		})
 	},
 	minimizeMap: function(){
-		$('#actual-map').appendTo(this.get('lastHolder'));
+		if (this.get('lastHolder')) {$('#actual-map').appendTo(this.get('lastHolder'));}
 		this.get('currentItem').setProperties({
 			isOpen: this.get('lastItemCardPosition'),
 			item: this.get('lastCurrentItem'),
@@ -91,6 +91,31 @@ export default Ember.Service.extend({
 			isAd: this.get('isAd'),
 			currentListCard: null
 		});
-	}
+	},
+
+	getBoundingBox: function (coordsArray) {
+		if (coordsArray.length > 0) {
+			var D_WRAP_LNG = 180;
+			var minLat = coordsArray[0][0],
+				maxLat = coordsArray[0][0],
+				minLng = coordsArray[0][1],
+				maxLng = coordsArray[0][1];
+			for (var i = 0; i < coordsArray.length; i++) {
+				var coords = coordsArray[i];
+				// Fix the longitudinal wrapping if in a country where there is discontinuity in coords (e.g., Mexico)
+				if (coords[1] - minLng > D_WRAP_LNG)coords[1] -= 360;
+				if (coords[1] - minLng < -D_WRAP_LNG) coords[1] += 360;
+
+				if (coords[0] < minLat) minLat = coords[0];
+				if (coords[0] > maxLat) maxLat = coords[0];
+				if (coords[1] < minLng) minLng = coords[1];
+				if (coords[1] > maxLng) maxLng = coords[1];
+			}
+			return {swLat: minLat, swLng: minLng, neLat: maxLat, neLng: maxLng};
+
+		} else {
+			return false;
+		}
+	},
 
 });
