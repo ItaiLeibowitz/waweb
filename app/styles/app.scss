@@ -210,6 +210,560 @@ a{
 }
 
 
+.right-card {
+	height: 100%;
+	position: fixed;
+	top: 0;
+	right: -90%;
+	width: 90%;
+	z-index: 999;
+	background: white;
+	transition: transform 0.5s;
+	-webkit-transition: transform 0.5s;
+
+	&.is-open {
+		transform: translate3d(-100%, 0, 0);
+		-ms-transform: translate3d(-100%, 0, 0);
+		-webkit-transform: translate3d(-100%, 0, 0);
+
+		.menu-edge {
+			left: -12%;
+		}
+
+		.show-button{
+			bottom: 80%;
+			left:-35px;
+			border-radius: 5px;
+			width: 60px;
+			background: rgba(204,204,204,0.6);
+			transform: rotate(180deg);
+			-ms-transform: rotate(180deg);
+			-webkit-transform: rotate(180deg);
+		}
+
+	}
+
+	.info-container {
+		padding: 0 30px;
+		height: 100%;
+		overflow-y: scroll;
+		-webkit-overflow-scrolling: touch;
+	}
+
+
+	.name{
+		margin: 0 0.5em;
+		font-size: 1.5em;
+		color: white;
+		position: relative;
+		text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+		font-weight: 700;
+	}
+	.type{
+		color: rgba(204, 204, 204, 0.75);
+		margin: 0 0.67em;
+		margin-bottom: 0.5em;
+		font-size: 1.2em;
+		text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+	}
+
+	.name {
+		color: #333;
+		margin-top: 1em;
+		margin-left: 0;
+		text-shadow: none;
+	}
+	.type {
+		color: #777;
+		margin-left: 0;
+		text-shadow: none;
+	}
+	.oneliner {
+		font-size: 0.8em;
+		line-height: 1.5em;
+		color: #777;
+	}
+
+
+	.reviews{
+		margin-top: 1em;
+		font-size: 0.8em;
+		text-align: right;
+		position: relative;
+
+		.review-box{
+			height: 1.5em;
+			width: 1.5em;
+			background-color: black;
+			font-size: 1em;
+			color:white;
+			display: inline-block;
+			vertical-align: top;
+
+
+			&:before{
+				display: block;
+				text-align: center;
+				line-height: 1.5em;
+			}
+
+			&:hover:after{
+				right: 0;
+				top: 2em;
+				position: absolute;
+				white-space: nowrap;
+				background-color: black;
+				border-radius: 3px;
+				font-size: 0.8em;
+				padding: 0 3px;
+				z-index: 10000;
+			}
+
+			&.review_source_0{
+				background-color: blue;
+				&:before{
+					content: "LP";
+				}
+				&:hover:after{
+					content: "Reviewed by Lonely Planet";
+				}
+			}
+			&.review_source_1{
+				background-color: orange;
+				&:before{
+					content: "F";
+				}
+				&:hover:after{
+					content: "Reviewed by Fodor's";
+				}
+			}
+			&.review_source_2{
+				background-color: red;
+				&:before{
+					content: "Fr";
+				}
+				&:hover:after{
+					content: "Reviewed by Frommer's";
+				}
+			}
+			&.review_source_3{
+				background-color: #d2d4d3;
+				&:before{
+					content: "TL";
+					font-weight: bold;
+					color: black;
+				}
+				&:hover:after{
+					content: "Reviewed by Travel + Leisure";
+				}
+			}
+			&.review_source_4{
+				background-color: blue;
+				&:before{
+					content: "RS";
+					color: yellow;
+				}
+				&:hover:after{
+					content: "Reviewed by Rick Steve's";
+				}
+			}
+		}
+	}
+
+
+
+	.reviews-holder {
+		display: inline-block;
+		margin-top: 1em;
+		vertical-align: top;
+		padding: 1em 1em 0 1em;
+		font-size: 0.8em;
+		border-radius: 5px;
+		width: 100%;
+		box-sizing: border-box;
+		background: #f5f5f5;
+		position: relative;
+
+		.close{
+			position: absolute;
+			right: 0em;
+			top: 0em;
+			width: 3em;
+			line-height:3em;
+			background-color: #ccc;
+			text-align:center;
+		}
+
+		.review-box{
+			display: block;
+			margin: 10px 0;
+			width: 2em;
+			vertical-align: top;
+		}
+		.review-link {
+			height: 2em;
+			width: 2em;
+			background-color: #333;
+			display: block;
+			position: relative;
+
+			&:before{
+				text-align: center;
+				color: white;
+				display: block;
+				line-height: 2em;
+			}
+
+			&:after{
+				white-space: nowrap;
+				position: absolute;
+				top: 0;
+				left: 3em;
+				line-height: 2em;
+				width: 12em;
+			}
+		}
+
+		.review-score {
+			font-size: 0.8em;
+			text-align: center;
+			font-weight: bold;
+		}
+
+		.review_source_0{
+			.review-link{
+				background-color: blue;
+				&:before{
+					content: "LP";
+				}
+				&:after{
+					content: "Lonely Planet";
+				}
+			}
+			.review-score{
+				display: none;
+			}
+		}
+
+		.review_source_1{
+			.review-link{
+				background-color: orange;
+				&:before{
+					content: "F";
+				}
+				&:after{
+					content: "Fodor's";
+				}
+			}
+			.review-score{
+				display: none;
+			}
+		}
+
+		.review_source_2{
+			.review-link{
+				background-color: red;
+				&:before{
+					content: "Fr";
+				}
+				&:after{
+					content: "Frommer's";
+				}
+			}
+			.review-score{
+				display: none;
+			}
+		}
+
+		.review_source_3{
+			.review-link{
+				background-color: #d2d4d3;
+				&:before{
+					content: "TL";
+					font-weight: bold;
+					color: black;
+				}
+				&:after{
+					content: "Travel + Leisure";
+				}
+			}
+			.review-score{
+				display: none;
+			}
+		}
+
+		.review_source_4{
+			.review-link{
+				background-color: blue;
+				&:before{
+					content: "RS";
+					color: yellow;
+				}
+				&:after{
+					content: "Rick Steve's";
+				}
+			}
+			.review-score{
+				display: none;
+			}
+		}
+
+
+		.highlighted{
+			.review-highlight{
+				display: block;
+				height: 1.5em;
+				width: 100%;
+				position: relative;
+
+				&:after{
+					color: black;
+					font-weight: 700;
+					z-index: 1000;
+					white-space: nowrap;
+					top: 0;
+					left: 4em;
+					position: absolute;
+				}
+			}
+
+			.review-score{
+				display: none;
+			}
+
+			&.review_source_0{
+
+
+				.review-highlight{
+					background-color: blue;
+					color: white;
+					font-size: 0.8em;
+					line-height: 1.5em;
+					margin-top: 1px;
+					&:before{
+						content: "TOP";
+						text-align: center;
+						display: block;
+					}
+
+					&:after{
+						content: "LP Top pick";
+					}
+				}
+
+			}
+			&.review_source_1{
+
+
+				.review-highlight{
+					background-color: orange;
+					border-radius: 2em;
+					color: white;
+					width: 1.5em;
+					font-size: 0.8em;
+					line-height: 1.5em;
+					margin: 5px auto;
+					&:before{
+						content: "a";
+						text-align: center;
+						display: block;
+						font-family: "wanderant";
+						font-size: 0.8em;
+					}
+
+					&:after{
+						content: "Fodor's choice";
+					}
+				}
+
+			}
+			&.review_source_2{
+
+
+				.review-highlight{
+					background-color: red;
+					color: white;
+					font-size: 0.8em;
+					line-height: 1.5em;
+					&:before{
+						content: "aaa";
+						text-align: center;
+						display: block;
+						font-family: "wanderant";
+						font-size: 0.8em;
+					}
+
+					&:after{
+						content: "Do not miss";
+					}
+				}
+
+			}
+			&.review_source_4{
+
+
+				.review-highlight{
+					background-color: blue;
+					color: yellow;
+					font-size: 0.8em;
+					line-height: 1.5em;
+					margin-top: 1px;
+					&:before{
+						content: "\25b2\25b2\25b2";
+						text-align: center;
+						display: block;
+					}
+
+					&:after{
+						content: "Don't miss";
+					}
+				}
+
+			}
+
+		}
+	}
+
+
+
+	.map-holder {
+		background: #ccc;
+		height: 140px;
+		width: 100%;
+		margin-top:1em;
+	}
+
+	.action-bar{
+		display: table;
+		width: 100%;
+
+		.action-btn {
+			display: table-cell;
+			text-align: center;
+			color: #0ac;
+			padding: 2em 1em 0 1em;
+			width: 33%;
+			box-sizing: border-box;
+			position: relative;
+			font-size: 0.9em;
+
+			&:before {
+				position: absolute;
+				font-size: 1.5em;
+				top: 0;
+				left: 0;
+				right: 0;
+				line-height: 1.5em;
+			}
+		}
+	}
+
+	.long-desc {
+		margin-top: 1em;
+		line-height: 1.5em;
+		margin-bottom: 6em;
+	}
+
+	.bottom-holder {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		background: -moz-linear-gradient(top, rgba(255,255,255,0.3) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+		background: -webkit-linear-gradient(top, rgba(255,255,255,0.3) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+		background: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		padding-top: 50px;
+	}
+
+	.show-button {
+		background: rgba(255, 255, 255, 0.5);
+		height: 60px;
+		width: 50px;
+		position: absolute;
+		bottom: 1.2em;
+		border-radius: 5px 0 0 5px;
+		left: 0px;
+		transition: 0.5s;
+		-webkit-transition: 0.5s;
+		text-align: center;
+
+		&:before{
+			content: "\25c0";
+			color: black;
+			font-size: 2.5em;
+			line-height: 60px;
+		}
+	}
+
+	.page-link {
+		text-decoration: none;
+		padding: 0 1em;
+		margin: 1em auto;
+		display: inline-block;
+		line-height: 1.5em;
+		color: white;
+		background: #0ac;
+		border-radius: 5px 0 0 5px;
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		font-size: 0.9em;
+		max-width: 50%;
+	}
+
+
+	.menu-edge {
+		position: absolute;
+		height: 100%;
+		left: 0%;
+		top: 0;
+		width: 33%;
+	}
+
+	.add-button{
+		position: absolute;
+		background: #ccc;
+		top: 0;
+		right: 0.5em;
+		height: 1.5em;
+		width: 1.5em;
+		text-align: center;
+		font-size: 2em;
+		z-index: 2;
+		&:after {
+			content: "";
+			border: .75em solid #ccc;
+			border-color: transparent #ccc;
+			position: absolute;
+			top: .75em;
+			left: 0;
+		}
+	}
+
+
+	&.is-saved{
+		.add-button{
+			background-color: orange;
+			&:after{
+				border-color: transparent orange;
+			}
+		}
+	}
+
+	&.is-ad{
+		.info-container:after {
+			content: "Book now!";
+			position: absolute;
+			bottom: 1em;
+			background: #02B102;
+			padding: 1em;
+			font-weight: 700;
+			color: white;
+			right: 0;
+			border-radius: 5px 0 0 5px;
+		}
+	}
+}
+
 .photo-card{
 	background-color:black;
 	position: relative;
@@ -289,7 +843,7 @@ a{
 	.info-box {
 		display:none;
 		height: 100%;
-		width: 90%;
+		width: 0;
 		background: white;
 		position: absolute;
 		right: 0px;
@@ -301,420 +855,6 @@ a{
 		transition: transform 0.5s;
 		-webkit-transition: transform 0.5s;
 		z-index: 10;
-
-		.info-container {
-			padding: 0 30px;
-			height: 100%;
-			overflow-y: scroll;
-			-webkit-overflow-scrolling: touch;
-		}
-
-		.name {
-			color: #333;
-			margin-top: 1em;
-			margin-left: 0;
-			text-shadow: none;
-		}
-		.type {
-			color: #777;
-			margin-left: 0;
-			text-shadow: none;
-		}
-		.oneliner {
-			font-size: 0.8em;
-			line-height: 1.5em;
-			color: #777;
-		}
-
-
-		.reviews{
-			margin-top: 1em;
-			font-size: 0.8em;
-			text-align: right;
-			position: relative;
-
-			.review-box{
-				height: 1.5em;
-				width: 1.5em;
-				background-color: black;
-				font-size: 1em;
-				color:white;
-				display: inline-block;
-				vertical-align: top;
-
-
-				&:before{
-					display: block;
-					text-align: center;
-					line-height: 1.5em;
-				}
-
-				&:hover:after{
-					right: 0;
-					top: 2em;
-					position: absolute;
-					white-space: nowrap;
-					background-color: black;
-					border-radius: 3px;
-					font-size: 0.8em;
-					padding: 0 3px;
-					z-index: 10000;
-				}
-
-				&.review_source_0{
-					background-color: blue;
-					&:before{
-						content: "LP";
-					}
-					&:hover:after{
-						content: "Reviewed by Lonely Planet";
-					}
-				}
-				&.review_source_1{
-					background-color: orange;
-					&:before{
-						content: "F";
-					}
-					&:hover:after{
-						content: "Reviewed by Fodor's";
-					}
-				}
-				&.review_source_2{
-					background-color: red;
-					&:before{
-						content: "Fr";
-					}
-					&:hover:after{
-						content: "Reviewed by Frommer's";
-					}
-				}
-				&.review_source_3{
-					background-color: #d2d4d3;
-					&:before{
-						content: "TL";
-						font-weight: bold;
-						color: black;
-					}
-					&:hover:after{
-						content: "Reviewed by Travel + Leisure";
-					}
-				}
-				&.review_source_4{
-					background-color: blue;
-					&:before{
-						content: "RS";
-						color: yellow;
-					}
-					&:hover:after{
-						content: "Reviewed by Rick Steve's";
-					}
-				}
-			}
-		}
-
-
-
-		.reviews-holder {
-			display: inline-block;
-			margin-top: 1em;
-			vertical-align: top;
-			padding: 1em 1em 0 1em;
-			font-size: 0.8em;
-			border-radius: 5px;
-			width: 100%;
-			box-sizing: border-box;
-			background: #f5f5f5;
-			position: relative;
-
-			.close{
-				position: absolute;
-				right: 0em;
-				top: 0em;
-				width: 3em;
-				line-height:3em;
-				background-color: #ccc;
-				text-align:center;
-			}
-
-			.review-box{
-				display: block;
-				margin: 10px 0;
-				width: 2em;
-				vertical-align: top;
-			}
-			.review-link {
-				height: 2em;
-				width: 2em;
-				background-color: #333;
-				display: block;
-				position: relative;
-
-				&:before{
-					text-align: center;
-					color: white;
-					display: block;
-					line-height: 2em;
-				}
-
-				&:after{
-					white-space: nowrap;
-					position: absolute;
-					top: 0;
-					left: 3em;
-					line-height: 2em;
-					width: 12em;
-				}
-			}
-
-			.review-score {
-				font-size: 0.8em;
-				text-align: center;
-				font-weight: bold;
-			}
-
-			.review_source_0{
-				.review-link{
-					background-color: blue;
-					&:before{
-						content: "LP";
-					}
-					&:after{
-						content: "Lonely Planet";
-					}
-				}
-				.review-score{
-					display: none;
-				}
-			}
-
-			.review_source_1{
-				.review-link{
-					background-color: orange;
-					&:before{
-						content: "F";
-					}
-					&:after{
-						content: "Fodor's";
-					}
-				}
-				.review-score{
-					display: none;
-				}
-			}
-
-			.review_source_2{
-				.review-link{
-					background-color: red;
-					&:before{
-						content: "Fr";
-					}
-					&:after{
-						content: "Frommer's";
-					}
-				}
-				.review-score{
-					display: none;
-				}
-			}
-
-			.review_source_3{
-				.review-link{
-					background-color: #d2d4d3;
-					&:before{
-						content: "TL";
-						font-weight: bold;
-						color: black;
-					}
-					&:after{
-						content: "Travel + Leisure";
-					}
-				}
-				.review-score{
-					display: none;
-				}
-			}
-
-			.review_source_4{
-				.review-link{
-					background-color: blue;
-					&:before{
-						content: "RS";
-						color: yellow;
-					}
-					&:after{
-						content: "Rick Steve's";
-					}
-				}
-				.review-score{
-					display: none;
-				}
-			}
-
-
-			.highlighted{
-				.review-highlight{
-					display: block;
-					height: 1.5em;
-					width: 100%;
-					position: relative;
-
-					&:after{
-						color: black;
-						font-weight: 700;
-						z-index: 1000;
-						white-space: nowrap;
-						top: 0;
-						left: 4em;
-						position: absolute;
-					}
-				}
-
-				.review-score{
-					display: none;
-				}
-
-				&.review_source_0{
-
-
-					.review-highlight{
-						background-color: blue;
-						color: white;
-						font-size: 0.8em;
-						line-height: 1.5em;
-						margin-top: 1px;
-						&:before{
-							content: "TOP";
-							text-align: center;
-							display: block;
-						}
-
-						&:after{
-							content: "LP Top pick";
-						}
-					}
-
-				}
-				&.review_source_1{
-
-
-					.review-highlight{
-						background-color: orange;
-						border-radius: 2em;
-						color: white;
-						width: 1.5em;
-						font-size: 0.8em;
-						line-height: 1.5em;
-						margin: 5px auto;
-						&:before{
-							content: "a";
-							text-align: center;
-							display: block;
-							font-family: "wanderant";
-							font-size: 0.8em;
-						}
-
-						&:after{
-							content: "Fodor's choice";
-						}
-					}
-
-				}
-				&.review_source_2{
-
-
-					.review-highlight{
-						background-color: red;
-						color: white;
-						font-size: 0.8em;
-						line-height: 1.5em;
-						&:before{
-							content: "aaa";
-							text-align: center;
-							display: block;
-							font-family: "wanderant";
-							font-size: 0.8em;
-						}
-
-						&:after{
-							content: "Do not miss";
-						}
-					}
-
-				}
-				&.review_source_4{
-
-
-					.review-highlight{
-						background-color: blue;
-						color: yellow;
-						font-size: 0.8em;
-						line-height: 1.5em;
-						margin-top: 1px;
-						&:before{
-							content: "\25b2\25b2\25b2";
-							text-align: center;
-							display: block;
-						}
-
-						&:after{
-							content: "Don't miss";
-						}
-					}
-
-				}
-
-			}
-		}
-
-
-
-		.map-holder {
-			background: #ccc;
-			height: 140px;
-			width: 100%;
-			margin-top:1em;
-		}
-
-		 .action-bar{
-			 display: table;
-			 width: 100%;
-
-			 .action-btn {
-				 display: table-cell;
-				 text-align: center;
-				 color: #0ac;
-				 padding: 2em 1em 0 1em;
-				 width: 33%;
-				 box-sizing: border-box;
-				 position: relative;
-				 font-size: 0.9em;
-
-				 &:before {
-					 position: absolute;
-					 font-size: 1.5em;
-					 top: 0;
-					 left: 0;
-					 right: 0;
-					 line-height: 1.5em;
-				 }
-			 }
-		 }
-
-		.long-desc {
-			margin-top: 1em;
-			line-height: 1.5em;
-			margin-bottom: 6em;
-		}
-
-		.bottom-holder {
-			position: absolute;
-			bottom: 0;
-			width: 100%;
-			background: -moz-linear-gradient(top, rgba(255,255,255,0.3) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
-			background: -webkit-linear-gradient(top, rgba(255,255,255,0.3) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
-			background: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-			padding-top: 50px;
-		}
 
 		.show-button {
 			background: rgba(255, 255, 255, 0.5);
@@ -736,50 +876,8 @@ a{
 			}
 		}
 
-		.menu-edge {
-			position: absolute;
-			height: 100%;
-			left: -12%;
-			top: 0;
-			width: 33%;
-		}
-
-		.add-button{
-			position: absolute;
-			background: #ccc;
-			top: 0;
-			right: 0.5em;
-			height: 1.5em;
-			width: 1.5em;
-			text-align: center;
-			font-size: 2em;
-			z-index: 2;
-			&:after {
-				content: "";
-				border: .75em solid #ccc;
-				border-color: transparent #ccc;
-				position: absolute;
-				top: .75em;
-				left: 0;
-			}
-		}
 	}
 
-	.page-link {
-		text-decoration: none;
-		padding: 0 1em;
-		margin: 1em auto;
-		display: inline-block;
-		line-height: 1.5em;
-		color: white;
-		background: #0ac;
-		border-radius: 5px 0 0 5px;
-		position: absolute;
-		right: 0;
-		bottom: 0;
-		font-size: 0.9em;
-		max-width: 50%;
-	}
 
 	&.with-info{
 
@@ -794,16 +892,7 @@ a{
 			-webkit-transform: translate3d(0,0,0);
 
 
-			.show-button{
-				bottom: 80%;
-				left:-35px;
-				border-radius: 5px;
-				width: 60px;
-				background: rgba(204,204,204,0.6);
-				transform: rotate(180deg);
-				-ms-transform: rotate(180deg);
-				-webkit-transform: rotate(180deg);
-			}
+
 
 		}
 	}
@@ -844,7 +933,7 @@ a{
 		.page-link{
 			display: none;
 		}
-		
+
 		.info-box{
 			display: none;}
 	}
@@ -865,14 +954,7 @@ a{
 		}
 	}
 
-	&.is-saved{
-		.add-button{
-			background-color: orange;
-			&:after{
-				border-color: transparent orange;
-			}
-		}
-	}
+
 
 	&.result-card{
 		.info-box {
@@ -881,7 +963,7 @@ a{
 			height: auto;
 		}
 	}
-	
+
 	&.link-card{
 		min-height: 200px;
 		border-bottom: 4px solid white;
@@ -906,18 +988,6 @@ a{
 	}
 
 	&.is-ad {
-		.info-container:after {
-			content: "Book now!";
-			position: absolute;
-			bottom: 1em;
-			background: #02B102;
-			padding: 1em;
-			font-weight: 700;
-			color: white;
-			right: 0;
-			border-radius: 5px 0 0 5px;
-		}
-
 
 		&:after {
 			content: "Sponsored";

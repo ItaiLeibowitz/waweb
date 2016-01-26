@@ -16,12 +16,7 @@ export default Ember.Component.extend({
 		var wrappers = this.get('model').map(function (item, index) {
 			var object = Ember.Object.create({ // wrapper object
 				item: item,
-				withInfo: false,
 				index: index + 1,
-
-				hideInfo: function(){
-					this.set('withInfo', false);
-				},
 				minimize: function() {
 					this.set('isExpanded', false);
 				}

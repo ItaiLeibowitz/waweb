@@ -16,6 +16,13 @@ export default MapMarker.extend({
 	itemImageStyle: Ember.computed.alias('model.smallImageStyle'),
 
 
+
+	clickMarker: function(){
+		var currentSetting = this.get('isExpanded');
+		if (this.get('minimizeAllAction')) { this.get('minimizeAllAction')()}
+		this.set('isExpanded', !currentSetting);
+	},
+
 	init: function(){
 		this._super();
 		var map = this.get('mapService.mapComponent');

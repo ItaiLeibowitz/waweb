@@ -2,7 +2,8 @@ import Ember from 'ember';
 import config from './config/environment';
 
 const Router = Ember.Router.extend({
-    menuService: Ember.inject.service('menu-service'),
+	menuService: Ember.inject.service('menu-service'),
+	currentItem:Ember.inject.service('current-item'),
 	stopScrollService: Ember.inject.service('stop-scroll'),
 	location: config.locationType,
 
@@ -13,6 +14,7 @@ const Router = Ember.Router.extend({
 	// Close any menus, and send a message to applicationRouter to scroll to the appropriate tab
 	prepView: function () {
 		this.get('menuService').set('leftMenuOpen', false);
+		this.set('currentItem.isOpen', false);
 		var stopComponent = this.get('stopScrollService.stopComponent');
 		if (stopComponent) {
 			stopComponent.enableScroll();

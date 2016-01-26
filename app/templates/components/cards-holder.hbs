@@ -2,9 +2,8 @@
 {{card-position-fixer resetAction=(action 'resetAllCards')}}
 -->
 {{#each childWrappers as |wrapper|}}
-	{{photo-card model=wrapper.item  index=wrapper.index withInfo=wrapper.withInfo isAd=wrapper.isAd
-	isExpanded=wrapper.isExpanded resultCard=wrapper.resultCard
+	{{photo-card model=wrapper.item  index=wrapper.index  isAd=wrapper.isAd
+	resultCard=wrapper.resultCard isExpanded=wrapper.isExpanded
 	withIndex=withIndex
-	resetInfoAction=(action 'resetAllCardsInfo')
 	resetSizeAction=(action 'resetAllCardsSize')}}
 {{/each}}

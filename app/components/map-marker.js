@@ -87,11 +87,7 @@ var MapMarker =  Ember.Component.extend({
 
 
 
-	clickMarker: function(){
-		var currentSetting = this.get('isExpanded');
-		if (this.get('minimizeAllAction')) { this.get('minimizeAllAction')()}
-		this.set('isExpanded', !currentSetting);
-	},
+	clickMarker: function(){},
 
 
 _initOptions: function() {
