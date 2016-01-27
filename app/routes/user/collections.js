@@ -14,7 +14,7 @@ export default Ember.Route.extend({
 				collections[i] = collection;
 			}
 
-			store.pushPayload({data: data.included});
+			if (data.included) {store.pushPayload({data: data.included});}
 			return collections;
 		});
 	},

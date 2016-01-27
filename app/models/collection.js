@@ -9,6 +9,7 @@ export default DS.Model.extend(ModelWithDescs, WithItemImage, WithAncestry, {
 	mapService: Ember.inject.service('map-service'),
 	name: DS.attr('string'),
 	items: DS.hasMany('item', {inverse: 'collection'}),
+	firstItem: DS.belongsTo('item', {inverse: 'collection'}),
 	user: DS.belongsTo('user', {inverse: 'collections'}),
 	ownerId: DS.attr('string'),
 	// hint: based on partial loading from here:http://watsonbox.github.io/blog/2014/06/13/lazy-and-partial-data-loading-with-ember-dot-js-and-rails/
@@ -34,7 +35,6 @@ export default DS.Model.extend(ModelWithDescs, WithItemImage, WithAncestry, {
 	}.property('id', 'name'),
 
 	// == Images
-	firstItem: Ember.computed.alias('items.firstObject'),
 	imageProvider: Ember.computed.alias('firstItem.imageProvider'),
 	imageUrl: Ember.computed.alias('itemArrayImageUrl'),
 	imageStyle: Ember.computed.alias('itemArrayImageStyle'),
