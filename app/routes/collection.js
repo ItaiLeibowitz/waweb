@@ -1,9 +1,10 @@
 import Ember from "ember";
+import RouteWithMap from "waweb/mixins/route-with-map";
 
-export default Ember.Route.extend({
+
+export default Ember.Route.extend(RouteWithMap, {
 	currentCollection: Ember.inject.service('current-collection'),
 	currentUser: Ember.inject.service('user-service'),
-	mapService: Ember.inject.service('map-service'),
 	model: function(params) {
 		var collectionToken = params.collection_slug.split('-')[0];
 		var self = this;
@@ -15,8 +16,9 @@ export default Ember.Route.extend({
 	setupController: function(controller, model){
 		this._super(controller, model);
 		controller.set('items', model.get('items'));
+		//Setup map items
 		var map = this.get('mapService');
-		map.set('markerItems', model.get('items'))
+		map.set('markerItems', model.get('items'));
 		//Photo array
 		var photosArr = model.get('items').map(function(item){ return {image:item.get('largeImageStyle'), id:item.get('id')}});
 		var n = photosArr.length;

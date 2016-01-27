@@ -14,6 +14,7 @@ export default Ember.Service.extend({
 		streetViewControl: false,
 		//styles: gmaps.styles.originalStyles[0]
 	},
+	withAllMarkers: false,
 	mapComponent: null,
 	centerMarker: null,
 	centerLat: 34.851939,
@@ -56,6 +57,7 @@ export default Ember.Service.extend({
 		this.set('lastItemCardPosition', this.get('currentItem.isOpen'));
 		this.set('lastCurrentItem', this.get('currentItem.item'));
 		this.set('currentItem.isOpen', false);
+		this.set('withAllMarkers', true)
 		$('#actual-map').appendTo('#expanded-map');
 		$('#expanded-map').addClass('expanded');
 		this.get('mapComponent').resizeMap();
@@ -72,6 +74,7 @@ export default Ember.Service.extend({
 			withMap: true,
 			withPhoto: false
 		});
+		this.set('withAllMarkers', false);
 		this.get('mapComponent').resizeMap();
 		$('#expanded-map').removeClass('expanded');
 		this.setProperties({
@@ -92,6 +95,20 @@ export default Ember.Service.extend({
 			currentListCard: null
 		});
 	},
+
+	mapBoundingBox: function() {
+		var coordsArray = [],
+			bound = 0.001;
+		var items = (this.get('markerItems') || []).toArray();
+		items.forEach(function(item){
+			var swLat = item.get('boundSwLat') || item.get('latitude') - bound;
+			var swLng = item.get('boundSwLng') || item.get('longitude') - bound;
+			var neLat = item.get('boundNeLat')|| item.get('latitude') + bound;
+			var neLng = item.get('boundNeLng') || item.get('longitude') + bound;
+			if (swLat && neLng && swLng && neLat) coordsArray.push([swLat, swLng],[neLat, neLng]);
+		});
+		return this.getBoundingBox(coordsArray);
+	}.property('markerItems.[].latitude','markerItems.[].longitude'),
 
 	getBoundingBox: function (coordsArray) {
 		if (coordsArray.length > 0) {

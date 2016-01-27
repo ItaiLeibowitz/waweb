@@ -38,12 +38,21 @@ var MapMarker =  Ember.Component.extend({
 	unhoveredIcon: gmaps.markerIcons.dot,
 
 
-	init: function () {
+	didInsertElement: function () {
 		this._super();
+		console.log('building marker', this.get('labelName'))
 		var marker = new MarkerWithLabel(this._initOptions());
 		this.set('_marker', marker);
 		this._setListeners(marker);
 		this._setObservers();
+	},
+
+	willDestroyElement: function(){
+		this._super();
+		console.log('destroying marker', this.get('labelName'))
+		var marker = this.get('_marker');
+		google.maps.event.clearInstanceListeners(marker);
+		marker.setMap(null);
 	},
 
 	icon: function () {

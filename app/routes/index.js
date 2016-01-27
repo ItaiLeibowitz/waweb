@@ -1,7 +1,8 @@
 import Ember from "ember";
 import Constants from 'waweb/appconfig/constants';
+import RouteWithMap from "waweb/mixins/route-with-map";
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(RouteWithMap, {
 
 	model: function(){
 		var countries = this.store.findAll('item', {reload: true}).then(function(items){
@@ -13,6 +14,10 @@ export default Ember.Route.extend({
 	},
 	setupController: function(controller, model){
 		this._super(controller, model);
+		//Setup map items
+		var map = this.get('mapService');
+		map.set('markerItems', model);
+		// setup background images
 		var backgroundImage = "background-image: url('https://da37ts4zp7h49.cloudfront.net/videos/back/back%@.jpg')",
 			arr = [];
 		for (var i = 0; i < 32; i++) {

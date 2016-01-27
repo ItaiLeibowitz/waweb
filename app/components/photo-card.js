@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 	currentItem: Ember.inject.service('current-item'),
-	mapService: Ember.inject.service('map-service'),
 	classNames: ['photo-card'],
 	classNameBindings: ['addedClass', 'withInfo', 'isAd', 'topCard', 'resultCard', 'isExpanded', 'cardId'],
 	withInfo: false,
@@ -27,10 +26,9 @@ export default Ember.Component.extend({
 	}.property('model.id'),
 
 	startPhotoRotation: function(){
-		var photoArray = this.get('photoArray'),
-			length = photoArray.length;
+		var photoArray = this.get('photoArray');
 		photoArray.shuffle();
-		var nextRotation = Ember.run.later(this, 'scheduleNextRotation', photoArray, 1, 5000)
+		var nextRotation = Ember.run.later(this, 'scheduleNextRotation', photoArray, 1, 5000);
 		this.set('nextRotation', nextRotation);
 	},
 
@@ -40,7 +38,7 @@ export default Ember.Component.extend({
 		this.rotatePhotos();
 		var nextPhotoLoad = Ember.run.later(this, 'loadNextPhoto', photo, 3000);
 		this.set('nextPhotoLoad', nextPhotoLoad);
-		var nextRotation = Ember.run.later(this, 'scheduleNextRotation', photoArray, realIndex + 1, 7000)
+		var nextRotation = Ember.run.later(this, 'scheduleNextRotation', photoArray, realIndex + 1, 7000);
 		this.set('nextRotation', nextRotation);
 	},
 
@@ -124,7 +122,6 @@ export default Ember.Component.extend({
 			if (this.get('resetSizeAction')) this.get('resetSizeAction')();
 			this.set('isExpanded', !currentState);
 			if (this.get('isExpanded')) {
-				var self = this;
 				Ember.run.scheduleOnce('afterRender', this,'scrollToTop');
 			}
 		}
@@ -156,18 +153,6 @@ export default Ember.Component.extend({
 			});
 			Ember.run.scheduleOnce('render', this, 'scrollToTop');
 			this.set('withInfo', true);
-		},
-		expandMap: function(){
-			var mapService = this.get('mapService');
-			var bb = this.get('model.mapBoundingBox');
-			mapService.set('bounds', {
-				swLat: bb.swLat,
-				swLng: bb.swLng,
-				neLat: bb.neLat,
-				neLng: bb.neLng
-			});
-			mapService.changeCenter(this.get('model.latitude'), this.get('model.longitude'));
-			mapService.expandMap();
 		}
 	}
 });

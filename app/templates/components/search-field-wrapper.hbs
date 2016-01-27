@@ -1,3 +1,6 @@
 <div class="clear-search" {{action 'clearSearch'}}>✕</div>
 {{search-field foundItem="foundItem" action="submit"}}
+{{#if results}}
+	<div class="search-field-spacer"></div>
+{{/if}}
 {{cards-holder model=results addedCardAttribute="resultCard"}}

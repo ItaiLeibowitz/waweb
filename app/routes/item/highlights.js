@@ -1,8 +1,10 @@
 import Ember from "ember";
 import Utils from 'waweb/appconfig/utils';
-import ItemsRouteMixin from 'waweb/mixins/items_route_mixin'
+import ItemsRouteMixin from 'waweb/mixins/items_route_mixin';
+import RouteWithMap from "waweb/mixins/route-with-map";
 
-var ItemHighlightsRoute = Ember.Route.extend(ItemsRouteMixin, {
+
+var ItemHighlightsRoute = Ember.Route.extend(ItemsRouteMixin, RouteWithMap, {
 	wanderantUrlKey: 'highlights',
 	beforeModel: function() {
 		this.set('mainItem', this.modelFor('item'));
@@ -26,6 +28,9 @@ var ItemHighlightsRoute = Ember.Route.extend(ItemsRouteMixin, {
 		this._super(controller, model);
 		var mainItem  = this.modelFor('item');
 		controller.set('mainItem', mainItem);
+		//Setup map items
+		var map = this.get('mapService');
+		map.set('markerItems', model);
 		// page description
 		if (Utils.itemTypeIsCountry(mainItem.get('itemType'))) {
 			var itemType = "places to visit"

@@ -40,10 +40,7 @@ export default Ember.Component.extend({
 			disableDefaultUI: true,
 			bounds: this.get('boundsForMap')
 		});
-		mapService.get('centerMarker').setProperties({
-			model: this.get('model'),
-			visible: true
-		});
+		mapService.set('centerMarkerModel', this.get('model'));
 	},
 
 

@@ -10,6 +10,9 @@ export default Ember.Route.extend({
 		},
 		triggerTransition: function(destination, payload) {
 			this.transitionTo(destination, payload);
+		},
+		goBackward: function(){
+			window.history.go(-1);
 		}
 	}
 

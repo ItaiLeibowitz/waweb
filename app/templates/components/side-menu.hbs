@@ -5,9 +5,10 @@
 		{{outlet 'page-specific'}}
 	</div>
 	<div class="main-menu">
-		<div>{{#link-to 'index' class="menu-option"}}Home{{/link-to}}</div>
-		<div>{{#link-to 'search' class="menu-option"}}Search{{/link-to}}</div>
-		<div>{{#link-to 'user.collections' class="menu-option"}}My collections{{/link-to}}</div>
+		<div>{{#link-to 'index' class="menu-option icon-home"}}Home{{/link-to}}</div>
+		<div>{{#link-to 'search' class="menu-option icon-search"}}Search{{/link-to}}</div>
+		<div>{{#link-to 'user.collections' class="menu-option icon-star"}}My collections{{/link-to}}</div>
+		<div><a class="menu-option icon-map" {{action 'expandMap'}}>Map</a></div>
 	</div>
 	<div class="user-block">
 		<div class="name">{{user.name}}</div>
