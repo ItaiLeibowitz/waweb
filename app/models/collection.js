@@ -1,12 +1,15 @@
 import Ember from 'ember';
 import DS from 'ember-data';
-import WithItemImage from 'waweb/mixins/with_item_image'
-import WithAncestry from 'waweb/mixins/with_ancestry'
-import ModelWithDescs from 'waweb/mixins/model_with_descs'
-import Constants from 'waweb/appconfig/constants'
+import WithItemImage from 'waweb/mixins/with_item_image';
+import WithAncestry from 'waweb/mixins/with_ancestry';
+import ModelWithDescs from 'waweb/mixins/model_with_descs';
+import Constants from 'waweb/appconfig/constants';
+import promiseFromAjax from 'waweb/mixins/promise_from_ajax';
+
 
 export default DS.Model.extend(ModelWithDescs, WithItemImage, WithAncestry, {
 	mapService: Ember.inject.service('map-service'),
+	feedbackService: Ember.inject.service('feedback-service'),
 	name: DS.attr('string'),
 	items: DS.hasMany('item', {inverse: 'collection'}),
 	firstItem: DS.belongsTo('item', {inverse: 'collection'}),
@@ -34,14 +37,18 @@ export default DS.Model.extend(ModelWithDescs, WithItemImage, WithAncestry, {
 		return [this.get('id').toString(), this.get('name').toLowerCase()].join(' ').replace(/ /g, '-');
 	}.property('id', 'name'),
 
+	firstItemCalc: function(){
+		return this.get('partial') ? this.get('firstItem') : this.get('items.firstObject')
+	}.property('firstItem', 'partial', 'items'),
+
 	// == Images
-	imageProvider: Ember.computed.alias('firstItem.imageProvider'),
+	imageProvider: Ember.computed.alias('firstItemCalc.imageProvider'),
 	imageUrl: Ember.computed.alias('itemArrayImageUrl'),
 	imageStyle: Ember.computed.alias('itemArrayImageStyle'),
 
 
-	latitude: Ember.computed.alias('firstItem.latitude'),
-	longitude: Ember.computed.alias('firstItem.longitude'),
+	latitude: Ember.computed.alias('firstItemCalc.latitude'),
+	longitude: Ember.computed.alias('firstItemCalc.longitude'),
 
 
 	// == Share properties
@@ -66,6 +73,62 @@ export default DS.Model.extend(ModelWithDescs, WithItemImage, WithAncestry, {
 
 	isHiddenRank: function(){
 		return this.get('isHidden') ? 1 : 0
-	}.property('isHidden')
+	}.property('isHidden'),
+
+	removeItem: function (item) {
+		var collection = this;
+		return promiseFromAjax({
+			url: '/api/ember2/collections/' + collection.get('id') + '/remove_item/',
+			type: 'POST',
+			data: { item_id: item.get('id')},
+			dataType: 'html'
+		}).then(function (response) {
+			collection.get('items').removeObject(item);
+			collection.get('feedbackService').setProperties({
+				isShowing: true,
+				feedbackSentence: item.get('name') + " has been successfully removed from ",
+				feedbackLinkRoute: 'collection',
+				feedbackLinkTarget: collection.get('slug'),
+				feedbackLinkModel: collection,
+				feedbackActionName: null,
+				feedbackAddedClass: 'success'
+			})
+		}, function (reason) {
+			console.log('something went wrong while removing item')
+		});
+	},
+
+	addItem: function (item) {
+		var collection = this;
+		return promiseFromAjax({
+			url: '/api/ember2/collections/' + collection.get('id') + '/add_item/',
+			type: 'POST',
+			data: { item_id: item.get('id'),
+				long_desc: item.get('altLongDesc'),
+				oneliner: item.get('altOneliner')
+			},
+			dataType: 'html'
+		}).then(function (response) {
+			collection.get('items').addObject(item);
+			collection.get('feedbackService').setProperties({
+				isShowing: true,
+				feedbackSentence: item.get('name') + " has been added to ",
+				feedbackLinkRoute: 'collection',
+				feedbackLinkTarget: collection.get('slug'),
+				feedbackLinkModel: collection,
+				feedbackActionName: null,
+				feedbackAddedClass: 'success'
+			})
+		}, function (reason) {
+			if (reason.status == 409) {
+				console.log('conflict!!!')
+			} else {
+				console.log('something went wrong while removing item')
+			}
+		});
+	}
+
+
+
 
 });

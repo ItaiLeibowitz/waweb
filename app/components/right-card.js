@@ -91,13 +91,15 @@ export default Ember.Component.extend({
 		toggleSaved: function(){
 			if (!this.get('isSaving')){
 				this.set('isSaving', true);
+				var self = this;
 				if (this.get('isSaved')) {
-					this.get('currentCollection.currentEditable.items').removeObject(this.get('model'));
+					var p = this.get('currentCollection.currentEditable').removeItem(this.get('model'));
 				} else {
-					this.get('currentCollection.currentEditable.items').addObject(this.get('model'));
+					var p = this.get('currentCollection.currentEditable').addItem(this.get('model'));
 				}
-				//TODO: fix this to happen in the promise
-				this.set('isSaving', false);
+				p.finally(function(){
+					self.set('isSaving', false);
+				})
 			}
 		},
 		toggleReviews: function(){

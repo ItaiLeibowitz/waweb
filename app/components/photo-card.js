@@ -14,7 +14,7 @@ export default Ember.Component.extend({
 	resultCard: Ember.computed.alias('model.resultCard'),
 	photoStyle1: Ember.computed.oneWay('model.largeImageStyle'),
 	photoStyle2: function(){
-		if (this.get('photoArray')){
+		if (this.get('photoArray') && this.get('photoArray').length > 0){
 			return this.get('photoArray')[0]["image"];
 		}
 	}.property('photoArray'),
@@ -59,8 +59,8 @@ export default Ember.Component.extend({
 	resetPhotoRotation: function(){
 		this.set('firstPhotoOff', false);
 		this.set('photoStyle1', this.get('model.largeImageStyle'));
-		if (this.get('photoArray')) {
-			var photoArray = this.get('photoArray');
+		var photoArray = this.get('photoArray');
+		if (photoArray && photoArray.length > 0) {
 			if (photoArray[0]["image"].string != this.get('model.largeImageStyle').string || photoArray.length == 1) {
 				this.set('photoStyle2', photoArray[0]["image"]);
 			} else {

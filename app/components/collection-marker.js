@@ -65,16 +65,6 @@ export default MapMarker.extend({
 		this.get('mapService').openItemMenu(this.get('model'));
 	},
 
-	init: function(){
-		this._super();
-		var map = this.get('mapService.mapComponent');
-		if (map) {
-			console.log('already has map')
-		} else {
-			console.log('map not ready')
-		}
-	},
-
 	unhoveredIcon: gmaps.markerIcons.smallOrange,
 });
 

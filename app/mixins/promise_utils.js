@@ -20,5 +20,14 @@ var promiseFromUrl = function(url, requestData) {
 	});
 };
 
-export default promiseFromAjax;
+// Use this for any url that returns an empty head response.
+var headOnlyPromiseFromUrl = function(url, requestData) {
+	return promiseFromAjax({
+		url: url,
+		type: 'GET',
+		data: requestData,
+		dataType: 'html'
+	});
+};
+
 export default promiseFromUrl;

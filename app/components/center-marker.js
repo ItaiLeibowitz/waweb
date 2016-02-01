@@ -18,15 +18,13 @@ export default MapMarker.extend({
 	labelOneliner: Ember.computed.alias('model.onelinerOrAlt'),
 	itemImageStyle: Ember.computed.alias('model.smallImageStyle'),
 
-	init: function(){
+	didInsertElement: function(){
 		this._super();
 		this.get('mapService').set('centerMarker', this);
-		var map = this.get('mapService.mapComponent');
-		if (map) {
-			console.log('already has map')
-		} else {
-			console.log('map not ready')
-		}
+	},
+	willDestroyElement: function(){
+		this.get('mapService').set('centerMarker', null);
+		this._super();
 	},
 
 	clickMarker: function(){

@@ -40,7 +40,7 @@ var MapMarker =  Ember.Component.extend({
 
 	didInsertElement: function () {
 		this._super();
-		console.log('building marker', this.get('labelName'))
+		//console.log('building marker', this.get('labelName'))
 		var marker = new MarkerWithLabel(this._initOptions());
 		this.set('_marker', marker);
 		this._setListeners(marker);
@@ -49,7 +49,7 @@ var MapMarker =  Ember.Component.extend({
 
 	willDestroyElement: function(){
 		this._super();
-		console.log('destroying marker', this.get('labelName'))
+		//console.log('destroying marker', this.get('labelName'))
 		var marker = this.get('_marker');
 		google.maps.event.clearInstanceListeners(marker);
 		marker.setMap(null);

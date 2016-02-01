@@ -58,6 +58,7 @@ export default Ember.Service.extend({
 
 			if (!this.get('currentCollection.currentViewed')){
 				var self = this;
+				console.log('trying to get collection record from login')
 				store.findRecord('collection', results.data.attributes["current-collection-id"])
 					.then(function(collection){
 						self.set('currentCollection.currentViewed', collection);

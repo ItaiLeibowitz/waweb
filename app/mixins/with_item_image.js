@@ -46,12 +46,12 @@ var WithItemImage = Ember.Mixin.create({
 	// for a list of items
 
 	itemArrayImageUrl: function() {
-		return (this.get('firstItem') ? this.get('firstItem.imageUrl') : this.get('defaultImageUrl'));
-	}.property('firstItem'),
+		return ((this.get('firstItemCalc') && this.get('firstItemCalc.imageUrl')) ? this.get('firstItemCalc.imageUrl') : this.get('defaultImageUrl'));
+	}.property('firstItemCalc.imageUrl'),
 
 	itemArrayImageStyle: function() {
-		return (this.get('firstItem') ? this.get('firstItem.imageStyle') : this.get('defaultImageStyle'));
-	}.property('firstItem'),
+		return ((this.get('firstItemCalc') && this.get('firstItemCalc.imageStyle')) ? this.get('firstItemCalc.imageStyle') : this.get('defaultImageStyle'));
+	}.property('firstItemCalc.imageStyle'),
 
 	// all
 

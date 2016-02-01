@@ -1433,7 +1433,49 @@ a{
 	}
 }
 
+.feedback {
+	position: fixed;
+	bottom: -500px;
+	z-index: 20000;
+	background: yellow;
+	width: 100%;
+	min-height: 3em;
+	font-size: 0.8em;
+	transition: transform .5s;
+	-webkit-transition: -webkit-transform .5s;
 
+	.sentence{
+		margin: 1em;
+		margin-right: 4em;
+
+
+		a{
+			font-weight: 700;
+		}
+	}
+	.button{
+		margin: 1em;
+		text-transform: uppercase;
+		font-weight: 700;
+	}
+	.dismiss{
+		position: absolute;
+		right: 0;
+		top: 0;
+		background: rgba(0,0,0,0.5);
+		padding: 1em;
+		color: white;
+	}
+
+	&.success{
+		background: $green-light;
+	}
+
+	&.is-showing{
+		transform: translate3d(0, -500px,0);
+		-webkit-transform: translate3d(0, -500px,0);
+	}
+}
 
 .loader:before,
 .loader:after,

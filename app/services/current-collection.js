@@ -14,16 +14,18 @@ export default Ember.Service.extend({
 		}
 	}.observes('currentViewed','currentUser.user').on('init'),
 
+	_reloadCurrentEditable: function(){
+		console.log('would have reloading collection here')
+		//var collection = this.get('store').findRecord('collection', this.get('currentEditable.id'), {reload: true})
+	},
+
 	items: function () {
 		if (this.get('currentEditable')) {
 			if (this.get('currentEditable.partial')) {
-				return this.get('store').findRecord('collection', this.get('currentEditable.id'), {reload: true})
-					.then(function (collection) {
-						return collection.get('items')
-					})
-			} else {
-			  return this.get('currentEditable.items');
+				// trigger one reload of the currentCollection
+				Ember.run.scheduleOnce('sync', this, '_reloadCurrentEditable')
 			}
+			 return this.get('currentEditable.items');
 		} else {
 			return [];
 		}
