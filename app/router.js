@@ -5,6 +5,7 @@ const Router = Ember.Router.extend({
 	menuService: Ember.inject.service('menu-service'),
 	currentItem: Ember.inject.service('current-item'),
 	feedbackService: Ember.inject.service('feedback-service'),
+	mapService: Ember.inject.service('map-service'),
 	stopScrollService: Ember.inject.service('stop-scroll'),
 	location: config.locationType,
 
@@ -17,6 +18,7 @@ const Router = Ember.Router.extend({
 		this.get('menuService').set('leftMenuOpen', false);
 		this.set('currentItem.isOpen', false);
 		this.set('feedbackService.isShowing', false);
+		this.get('mapService').minimizeMap({closeAll: true});
 		var stopComponent = this.get('stopScrollService.stopComponent');
 		if (stopComponent) {
 			stopComponent.enableScroll();

@@ -66,10 +66,11 @@ export default Ember.Service.extend({
 			disableDefaultUI: false
 		})
 	},
-	minimizeMap: function(){
+	minimizeMap: function(options){
+		var closeAll = options ? options.closeAll : false;
 		if (this.get('lastHolder')) {$('#actual-map').appendTo(this.get('lastHolder'));}
 		this.get('currentItem').setProperties({
-			isOpen: this.get('lastItemCardPosition'),
+			isOpen: closeAll ? false : this.get('lastItemCardPosition'),
 			item: this.get('lastCurrentItem'),
 			withMap: true,
 			withPhoto: false
