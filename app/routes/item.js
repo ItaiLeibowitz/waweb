@@ -4,6 +4,7 @@ import RouteWithMap from "waweb/mixins/route-with-map";
 
 
 var ItemRoute = Ember.Route.extend(RouteWithMap, {
+	recentItems: Ember.inject.service('recent-items'),
 	model: function(params) {
 		var itemId = params.item_slug.split('-')[0];
 		return this.store.find('item', itemId);
@@ -31,6 +32,7 @@ var ItemRoute = Ember.Route.extend(RouteWithMap, {
 		map.set('centerMarkerModel', model);
 	},
 	afterModel: function(item, transition) {
+		this.get('recentItems.model').unshiftObject(item);
 		if (Utils.itemTypeIsParent(item.get('itemType'))) {
 			this.transitionTo('item.highlights')
 		}

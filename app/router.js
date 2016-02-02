@@ -38,6 +38,8 @@ Router.map(function() {
 		this.route('collections');
 	});
 	this.route('search');
+	this.route('recent');
+
 });
 
 export default Router;

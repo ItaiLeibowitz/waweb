@@ -7,6 +7,7 @@ export default Ember.Component.extend({
 	mapService: Ember.inject.service('map-service'),
 	currentCollection: Ember.inject.service('current-collection'),
 	stopScrollService: Ember.inject.service('stop-scroll'),
+	recentItems: Ember.inject.service('recent-items'),
 	model: Ember.computed.alias('currentItem.item'),
 	withMap: Ember.computed.alias('currentItem.withMap'),
 	withPhoto: Ember.computed.alias('currentItem.withPhoto'),
@@ -67,6 +68,7 @@ export default Ember.Component.extend({
 		if (this.get('isOpen')) {
 			if (this.get('withMap')) {this.attachMap();}
 			this.set('stopScrollService.stopComponent.stopCardOpen', true);
+			this.get('recentItems.model').unshiftObject(this.get('model'))
 			$('.info-container').scrollTop(0);
 		} else {
 			if (this.get('currentListCard')) {this.set('currentListCard.withInfo', false);}
