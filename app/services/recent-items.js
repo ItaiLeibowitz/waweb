@@ -13,10 +13,10 @@ export default Ember.Service.extend({
 	}.observes('model.[]').on('init'),
 
 	updateUniqueItems:function(){
-		var uniqueItems = this.get('model').uniq().slice(0,this.get('length'));
+		var uniqueItems = this.get('model').uniq().compact().slice(0,this.get('length'));
 		var oldCookieIds = Cookies.getJSON('recentItemIds'),
 			newItemIds = uniqueItems.map(function(item){return item.get('id')}),
-			newCookieIds = newItemIds.concat(oldCookieIds).uniq().slice(0,this.get('length'));
+			newCookieIds = newItemIds.concat(oldCookieIds).uniq().compact().slice(0,this.get('length'));
 		this.set('uniqueItems', uniqueItems);
 		Cookies.set('recentItemIds', newCookieIds);
 	}
