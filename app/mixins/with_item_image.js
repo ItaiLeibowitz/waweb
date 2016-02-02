@@ -4,7 +4,8 @@ import Constants from 'waweb/appconfig/constants';
 
 var WithItemImage = Ember.Mixin.create({
 	defaultImageUrl: "",
-	defaultImageStyle: "background-color: #eee",
+	defaultImageStyle: "background-color: #000",
+	missingImage: Ember.computed.empty('imageProvider'),
 
 	// overwrite these in models
 

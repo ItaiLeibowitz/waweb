@@ -11,7 +11,7 @@ export default DS.Model.extend(ModelWithDescs, WithItemImage, WithAncestry, {
 	mapService: Ember.inject.service('map-service'),
 	feedbackService: Ember.inject.service('feedback-service'),
 	name: DS.attr('string'),
-	items: DS.hasMany('item', {inverse: 'collection'}),
+	items: DS.hasMany('item', {inverse: 'collection', async: false}),
 	firstItem: DS.belongsTo('item', {inverse: 'collection'}),
 	user: DS.belongsTo('user', {inverse: 'collections'}),
 	ownerId: DS.attr('string'),

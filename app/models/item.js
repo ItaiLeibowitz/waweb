@@ -56,7 +56,6 @@ var Item = DS.Model.extend(WithItemImage, WithAncestry, ModelWithDescs, {
 	trippointsCount: DS.attr('number'),
 	destinationRoute: 'item.overview',
 
-	missingImage: Ember.computed.empty('imageProvider'),
 	imageUrl: Ember.computed.alias('itemImageUrl'),
 	imageStyle: Ember.computed.alias('itemImageStyle'),
 

@@ -1,0 +1,14 @@
+{{#expandable-button addedClass="add form-modal"}}
+	<div class="title">Create new collection</div>
+	<div class="field-title">Name this collection:</div>
+	{{field-wrapper value=collectionName placeholder='New Collection' autoFocus=true}}
+	<div class="submit-button" {{action 'submit'}}>
+		{{#if isSubmitting}}
+			<div class="loader-holder white-loader">
+				<div class="loader"></div>
+			</div>
+			{{else}}
+				Submit
+		{{/if}}
+	</div>
+{{/expandable-button}}

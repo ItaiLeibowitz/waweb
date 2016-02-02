@@ -23,12 +23,13 @@ export default Ember.Service.extend({
 		if (this.get('currentEditable')) {
 			if (this.get('currentEditable.partial')) {
 				// trigger one reload of the currentCollection
-				Ember.run.scheduleOnce('sync', this, '_reloadCurrentEditable')
+				Ember.run.scheduleOnce('sync', this, '_reloadCurrentEditable');
+			} else if (this.get('currentEditable.items.length') > 0) {
+				return this.get('currentEditable.items');
 			}
-			 return this.get('currentEditable.items');
-		} else {
-			return [];
 		}
+		return [];
+
 	}.property('currentEditable','currentEditable.partial', 'currentEditable.items.[]'),
 
 	itemIds: function(){
