@@ -5,7 +5,12 @@ import RouteWithMap from "waweb/mixins/route-with-map";
 export default Ember.Route.extend(RouteWithMap, {
 	recentItems: Ember.inject.service('recent-items'),
 	model: function(){
-		return this.get('recentItems.uniqueItems') || Ember.A([])
+		var ids = Cookies.getJSON('recentItemIds');
+		if (ids.length > 0 ) {
+			return this.get('store').query('item', {ids: ids});
+		} else {
+			return Ember.A([])
+		}
 	},
 	setupController: function(controller, model){
 		this._super(controller, model);

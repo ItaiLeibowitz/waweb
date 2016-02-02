@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Service.extend({
-	length: 3,
+	length: 10,
 	init: function(){
 		this._super();
 		this.set('model', Ember.A([]));
@@ -12,19 +12,12 @@ export default Ember.Service.extend({
 		Ember.run.scheduleOnce('sync', this, 'updateUniqueItems');
 	}.observes('model.[]').on('init'),
 
-	uniqueItemsDidChange: function(){
-		if (this.get('uniqueItems').length > this.get('length')) {
-			Ember.run.scheduleOnce('sync', this, 'cullOlderItems');
-		}
-	}.observes('uniqueItems.[]'),
-
 	updateUniqueItems:function(){
-		this.set('uniqueItems', this.get('model').uniq());
-	},
-
-	cullOlderItems: function() {
-		var uniqueItems = this.get('uniqueItems');
-		this.set('model', uniqueItems.slice(0, this.get('length')));
-		console.log('culling length', this.get('model').map(function(item){return item.get('name')}))
+		var uniqueItems = this.get('model').uniq().slice(0,this.get('length'));
+		var oldCookieIds = Cookies.getJSON('recentItemIds'),
+			newItemIds = uniqueItems.map(function(item){return item.get('id')}),
+			newCookieIds = newItemIds.concat(oldCookieIds).uniq().slice(0,this.get('length'));
+		this.set('uniqueItems', uniqueItems);
+		Cookies.set('recentItemIds', newCookieIds);
 	}
 });
