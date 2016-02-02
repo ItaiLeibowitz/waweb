@@ -38,6 +38,7 @@ Router.map(function() {
 		this.route('collections');
 	});
 	this.route('search');
+	this.route('featured-collections');
 	this.route('recent');
 
 });

@@ -4,5 +4,10 @@
 {{cards-holder model=items}}
 {{else}}
 	{{photo-card model=model}}
-	<div class="centered-text">Collection is empty</div>
+	<div class="centered-text">
+		Aww, this collection is empty! Why not add some places from:
+		{{#link-to 'recent' class="link-button"}}Your recently viewed places{{/link-to}}
+		or
+		{{#link-to 'featured-collections' class="link-button"}}our Featured collections{{/link-to}}
+	</div>
 {{/if}}
