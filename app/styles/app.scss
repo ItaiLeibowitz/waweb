@@ -133,7 +133,6 @@ body {
 a{
 	text-decoration: none;
 	color: inherit;
-	transition: 1s;
 
 	&.active{
 		color: #0ac;
@@ -160,6 +159,7 @@ a{
 	display: block;
 	text-transform: uppercase;
 	margin: 1em;
+	color: $blue-reg;
 }
 
 .page-description {
@@ -893,7 +893,7 @@ a{
 
 	.page-link {
 		text-decoration: none;
-		padding: 0 1em;
+		padding: 0.3em 1em;
 		margin: 1em auto;
 		display: inline-block;
 		line-height: 1.5em;
@@ -975,11 +975,10 @@ a{
 		background-size: cover;
 		background-position: 50% 50%;
 		background-repeat: no-repeat;
-		transform: scale3d(1.1,1.1,1);
-		transition: 3s;
+		transform: scale3d(1.3,1.3,1);
 
 		&.bottom{
-			transform: scale3d(1,1,1);
+			transform: scale3d(1.2,1.2,1);
 			opacity: 0;
 		}
 	}
@@ -1077,6 +1076,9 @@ a{
 
 	}
 
+	.rotation-button{
+		display:none;
+	}
 
 	&.with-info{
 
@@ -1098,6 +1100,10 @@ a{
 
 	&.top-card{
 		border: none;
+
+		.image-container{
+			transition: transform 3s;
+		}
 		.image-bottom-box{
 			top:0;
 			bottom: 0;
@@ -1150,6 +1156,24 @@ a{
 		}
 		.caption-holder{
 			display: block;
+		}
+
+		.rotation-button{
+			display: block;
+			position:absolute;
+			top:0;
+			right:0;
+			height:1em;
+			width:1em;
+			font-size: 2em;
+			line-height: 1em;
+			padding: 0.5em;
+			text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+			color: rgba(200,200,200,0.75);
+
+			&.is-on{
+				color: white;
+			}
 		}
 	}
 
@@ -1654,6 +1678,55 @@ a{
 			min-height: 3em;
 
 
+		}
+	}
+}
+
+
+.more-holder{
+
+	.position-marker{
+		height: 3em;
+		background:black;
+	}
+	.content-holder{
+
+		.show-button{
+			text-align: center;
+			font-weight: 700;
+			line-height: 3em;
+			color: white;
+			&:before{
+				content: "Explore further:";
+			}
+		}
+		position: fixed;
+		left:0;
+		width: 100%;
+		background: $green;
+		bottom:-20em;
+		transition: 0.5s;
+		max-height: 3em;
+		border-bottom: 3px solid $green;
+		box-shadow: 0 -3px 3px rgba(0, 0, 0, 0.16),0 3px 3px rgba(0, 0, 0, 0.23);
+
+		.inner-holder{
+			border-top: 3px solid $green;
+			background: white;
+			padding: 1em;
+		}
+	}
+
+
+	&.is-showing{
+		.content-holder{
+			transform: translateY(-20em);
+		}
+
+		&.is-expanded{
+			.content-holder{
+				max-height: 100em;
+			}
 		}
 	}
 }

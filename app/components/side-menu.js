@@ -12,16 +12,16 @@ export default Ember.Component.extend({
 
 	swipeLeft: function () {
 		this.set('isOpen', false);
-		this.set('stopScrollService.stopComponent.stopMenuOpen', false);
+		this.set('stopScrollService.stopMenuOpen', false);
 	},
 
 	actions:{
 		toggleMenu: function(){
 			this.toggleProperty('isOpen');
 			if (this.get('isOpen')){
-				this.set('stopScrollService.stopComponent.stopMenuOpen', true);
+				this.set('stopScrollService.stopMenuOpen', true);
 			} else {
-				this.set('stopScrollService.stopComponent.stopMenuOpen', false);
+				this.set('stopScrollService.stopMenuOpen', false);
 			}
 		},
 		expandMap: function(){

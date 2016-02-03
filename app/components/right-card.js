@@ -67,18 +67,18 @@ export default Ember.Component.extend({
 		// check here if we attach map or photo
 		if (this.get('isOpen')) {
 			if (this.get('withMap')) {this.attachMap();}
-			this.set('stopScrollService.stopComponent.stopCardOpen', true);
+			this.set('stopScrollService.stopCardOpen', true);
 			this.get('recentItems.model').unshiftObject(this.get('model'))
 			$('.info-container').scrollTop(0);
 		} else {
 			if (this.get('currentListCard')) {this.set('currentListCard.withInfo', false);}
-			this.set('stopScrollService.stopComponent.stopCardOpen', false);
+			this.set('stopScrollService.stopCardOpen', false);
 		}
 	}.observes('isOpen'),
 
 	swipeLeft: function () {
 		this.set('isOpen', false);
-		this.set('stopScrollService.stopComponent.stopMenuOpen', false);
+		this.set('stopScrollService.stopMenuOpen', false);
 	},
 
 	actions:{

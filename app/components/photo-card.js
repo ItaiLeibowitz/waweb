@@ -2,6 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 	currentItem: Ember.inject.service('current-item'),
+	rotationService: Ember.inject.service('rotation-service'),
+	stopScrollService: Ember.inject.service('stop-scroll'),
 	classNames: ['photo-card'],
 	classNameBindings: ['addedClass', 'withInfo', 'isAd', 'topCard', 'resultCard', 'isExpanded', 'cardId'],
 	withInfo: false,
@@ -9,6 +11,8 @@ export default Ember.Component.extend({
 	withReviews: false,
 	reviews: null,
 	addedClass: null,
+	dontStopOrientation: Ember.computed.not('stopScrollService.stopAnyReason'),
+	hasOrientation: Ember.computed.and('rotationService.isOn','isExpanded','dontStopOrientation'),
 
 	screenHeight: 0,
 	resultCard: Ember.computed.alias('model.resultCard'),
@@ -153,6 +157,9 @@ export default Ember.Component.extend({
 			});
 			Ember.run.scheduleOnce('render', this, 'scrollToTop');
 			this.set('withInfo', true);
+		},
+		toggleRotation: function(){
+			this.toggleProperty('rotationService.isOn');
 		}
 	}
 });

@@ -19,10 +19,7 @@ const Router = Ember.Router.extend({
 		this.set('currentItem.isOpen', false);
 		this.set('feedbackService.isShowing', false);
 		this.get('mapService').minimizeMap({closeAll: true});
-		var stopComponent = this.get('stopScrollService.stopComponent');
-		if (stopComponent) {
-			stopComponent.enableScroll();
-		}
+		this.get('stopScrollService').enableScroll();
 		$('.ember-transitioning-in').removeClass('ember-transitioning-in');
 		$('.loader').addClass('hidden');
 	}

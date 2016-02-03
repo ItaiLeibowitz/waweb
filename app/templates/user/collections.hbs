@@ -1,4 +1,8 @@
 {{#each model as |collection|}}
 	{{link-card model=collection destinationRouteName="collection.index"}}
 {{/each}}
+<div class="centered-text">
+	Explore some of our:
+	{{#link-to 'featured-collections' class="link-button"}}featured collections{{/link-to}}
+</div>
 {{add-collection}}

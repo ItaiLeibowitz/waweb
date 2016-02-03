@@ -1,2 +1,7 @@
 {{photo-card model=mainItem addedDescription=pageDescription topCard=true photoArray=photoArray withImageRotation=true}}
 {{cards-holder model=model withIndex=true}}
+{{#more-holder}}
+	<div class="centered-text">
+	{{#link-to 'featured-collections' class="link-button"}}Featured collections{{/link-to}}
+	</div>
+{{/more-holder}}

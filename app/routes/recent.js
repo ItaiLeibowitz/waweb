@@ -6,7 +6,7 @@ export default Ember.Route.extend(RouteWithMap, {
 	recentItems: Ember.inject.service('recent-items'),
 	model: function(){
 		var ids = Cookies.getJSON('recentItemIds');
-		if (ids.length > 0 ) {
+		if (ids && ids.length > 0 ) {
 			return this.get('store').query('item', {ids: ids});
 		} else {
 			return Ember.A([])

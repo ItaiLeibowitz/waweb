@@ -18,6 +18,6 @@ export default Ember.Service.extend({
 			newItemIds = uniqueItems.map(function(item){return item.get('id')}),
 			newCookieIds = newItemIds.concat(oldCookieIds).uniq().compact().slice(0,this.get('length'));
 		this.set('uniqueItems', uniqueItems);
-		Cookies.set('recentItemIds', newCookieIds);
+		Cookies.set('recentItemIds', newCookieIds, { expires: 30 });
 	}
 });
