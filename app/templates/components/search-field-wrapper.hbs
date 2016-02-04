@@ -1,5 +1,7 @@
 <div class="clear-search" {{action 'clearSearch'}}>✕</div>
-{{search-field foundItem="foundItem" action="submit"}}
+<div class="search-field-wrapper">
+	{{search-field foundItem="foundItem" action="submit"}}
+</div>
 {{#if results}}
 	<div class="search-field-spacer"></div>
 {{/if}}

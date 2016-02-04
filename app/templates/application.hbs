@@ -1,6 +1,12 @@
 {{screen-dims screenHeight=10 screenWidth=0}}
 {{side-menu}}
 {{right-card}}
+{{expanded-map}}
+{{main-image}}
+{{stop-scroll}}
+{{feed-back}}
+<div id="back-indicator" onclick="window.scrollTo(0,0); console.log('clicked!'); return false;">Going back!</div>
+<div class="main-loader loader">Loading</div>
 <div id="original-map-placeholder">{{google-map}}</div>
 {{#gesture-recognizer recognizers="tap press"}}
 	<div style="overflow: auto" class="main-window">
@@ -8,9 +14,4 @@
 	</div>
 {{/gesture-recognizer}}
 {{remove-screen}}
-{{expanded-map}}
-{{main-image}}
-{{stop-scroll}}
-{{feed-back}}
-<div id="back-indicator" onclick="window.scrollTo(0,0); console.log('clicked!'); return false;">Going back!</div>
-<div class="main-loader loader">Loading</div>
+

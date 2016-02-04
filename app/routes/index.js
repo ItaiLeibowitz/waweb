@@ -34,6 +34,5 @@ export default Ember.Route.extend(RouteWithMap, {
 		controller.set('photoArray', photosArr);
 		controller.set('mainItem', mainItem);
 	},
-	scrollViewToTop: true
 
 });

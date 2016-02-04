@@ -47,7 +47,6 @@ var ItemHighlightsRoute = Ember.Route.extend(ItemsRouteMixin, RouteWithMap, {
 		this._super(controller, model);
 		$(document).scrollTop(0);
 	},
-	scrollViewToTop: true
 });
 
 

@@ -18,7 +18,6 @@ export default Ember.Route.extend({
 			return collections;
 		});
 	},
-	scrollViewToTop: true
 });
 
 

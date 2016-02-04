@@ -20,7 +20,6 @@ const Router = Ember.Router.extend({
 		this.set('feedbackService.isShowing', false);
 		this.get('mapService').minimizeMap({closeAll: true});
 		this.get('stopScrollService').enableScroll();
-		$('.ember-transitioning-in').removeClass('ember-transitioning-in');
 		$('.loader').addClass('hidden');
 	}
 });

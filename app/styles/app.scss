@@ -198,8 +198,10 @@ a{
 	background: #ccc;
 	transition: 1s;
 	z-index: -1;
+	display: none;
 
 	&.expanded {
+		display:block;
 		z-index:2000;
 		top: 0;
 		bottom: 0;
@@ -213,8 +215,10 @@ a{
 	background: #ccc;
 	transition: 1s;
 	z-index: -1;
+	display: none;
 
 	&.is-expanded {
+		display:block;
 		z-index:2001;
 		top: 0;
 		bottom: 0;
@@ -1021,6 +1025,10 @@ a{
 	}
 }
 
+.cards-holder{
+	min-height:100px;
+}
+
 .photo-card{
 	background-color:black;
 	position: relative;
@@ -1278,12 +1286,21 @@ a{
 	display: none;
 }
 
-.search-field {
+.search-field-wrapper {
 	position: fixed;
 	top: 0;
 	width: 100%;
 	margin: 0;
 	z-index: 997;
+}
+
+
+
+.search-field {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	margin: 0;
 	padding: 1em 3em 1em 3em;
 	box-shadow: 0 1px 1px rgba(0,0,0,0.6);
 	border: none;
