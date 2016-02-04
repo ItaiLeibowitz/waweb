@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	rotationService: Ember.inject.service('rotation-service'),
+	orientationService: Ember.inject.service('orientation-service'),
 	xRot: 50,
 	yrot: 50,
 
@@ -10,50 +10,50 @@ export default Ember.Component.extend({
 			threshold = 0.1,
 			lpFactor = 700,
 			elementToRotate = this.$().siblings('.image-container')[0];
-		window.imageRotation = {};
-		window.imageRotation.elementToRotate = elementToRotate;
-		window.imageRotation.isPortrait = window.innerHeight > window.innerWidth;
+		window.imageOrientation = {};
+		window.imageOrientation.elementToRotate = elementToRotate;
+		window.imageOrientation.isPortrait = window.innerHeight > window.innerWidth;
 		// Initialize on the first alpha event
 		$(window).one('deviceorientation.orientationListenerFirst', function(event){
 			var degrees = self.calcThetaPhi(event.originalEvent.alpha, event.originalEvent.beta, event.originalEvent.gamma),
 				theta = degrees[0],
 				phi = degrees[1];
-			window.imageRotation.initialTheta = theta;
-			window.imageRotation.initialPhi = phi;
-			window.imageRotation.previousAlpha = event.originalEvent.alpha;
-			window.imageRotation.previousBeta = event.originalEvent.beta;
-			window.imageRotation.previousGamma = event.originalEvent.gamma;
+			window.imageOrientation.initialTheta = theta;
+			window.imageOrientation.initialPhi = phi;
+			window.imageOrientation.previousAlpha = event.originalEvent.alpha;
+			window.imageOrientation.previousBeta = event.originalEvent.beta;
+			window.imageOrientation.previousGamma = event.originalEvent.gamma;
 		});
 		$(window).off('deviceorientation.orientationListener').on('deviceorientation.orientationListener', function (event) {
 			var didChange = false;
-			var maxChange = Math.max(Math.abs(window.imageRotation.previousAlpha - event.originalEvent.alpha),
-					Math.abs(window.imageRotation.previousBeta - event.originalEvent.beta),
-					Math.abs(window.imageRotation.previousGamma - event.originalEvent.gamma));
+			var maxChange = Math.max(Math.abs(window.imageOrientation.previousAlpha - event.originalEvent.alpha),
+					Math.abs(window.imageOrientation.previousBeta - event.originalEvent.beta),
+					Math.abs(window.imageOrientation.previousGamma - event.originalEvent.gamma));
 			if (maxChange > threshold) {
 				didChange = true;
-				window.imageRotation.previousAlpha = event.originalEvent.alpha;
-				window.imageRotation.previousBeta = event.originalEvent.beta;
-				window.imageRotation.previousGamma = event.originalEvent.gamma;
+				window.imageOrientation.previousAlpha = event.originalEvent.alpha;
+				window.imageOrientation.previousBeta = event.originalEvent.beta;
+				window.imageOrientation.previousGamma = event.originalEvent.gamma;
 				var degrees = self.calcThetaPhi(event.originalEvent.alpha, event.originalEvent.beta, event.originalEvent.gamma),
 					theta = degrees[0],
 					phi = degrees[1];
 
 
 				//console.log(theta, phi)
-				window.imageRotation.initialTheta = (((lpFactor - 1) * window.imageRotation.initialTheta + self.closestAngleDist(window.imageRotation.initialTheta, theta, 360)[1]) / lpFactor) % 360;
-				window.imageRotation.initialPhi = (((lpFactor - 1) * window.imageRotation.initialPhi + self.closestAngleDist(window.imageRotation.initialPhi, phi, 180)[1]) / lpFactor ) % 360;
-				var xRot = -Math.max(Math.min(1, self.closestAngleDist(window.imageRotation.initialTheta, theta, 360)[0] / 100), -1) * 50 + 50;
+				window.imageOrientation.initialTheta = (((lpFactor - 1) * window.imageOrientation.initialTheta + self.closestAngleDist(window.imageOrientation.initialTheta, theta, 360)[1]) / lpFactor) % 360;
+				window.imageOrientation.initialPhi = (((lpFactor - 1) * window.imageOrientation.initialPhi + self.closestAngleDist(window.imageOrientation.initialPhi, phi, 180)[1]) / lpFactor ) % 360;
+				var xRot = -Math.max(Math.min(1, self.closestAngleDist(window.imageOrientation.initialTheta, theta, 360)[0] / 100), -1) * 50 + 50;
 				var xTranslate = -(xRot - 50) / 100 * 12;
-				//console.log('new alpha:', self.closestAngleDist(window.imageRotation.initialTheta, theta, 360)[1], theta, xRot)
-				window.imageRotation.xRot = xRot;
-				var yRot = Math.max(Math.min(1, -self.closestAngleDist(window.imageRotation.initialPhi, phi, 180)[0] / 30), -1) * 50 + 50;
+				//console.log('new alpha:', self.closestAngleDist(window.imageOrientation.initialTheta, theta, 360)[1], theta, xRot)
+				window.imageOrientation.xRot = xRot;
+				var yRot = Math.max(Math.min(1, -self.closestAngleDist(window.imageOrientation.initialPhi, phi, 180)[0] / 30), -1) * 50 + 50;
 				var yTranslate = -(yRot - 50) / 100 * 12;
-				//console.log('new Beta:', self.closestAngleDist(window.imageRotation.initialPhi, phi, 180)[0], yRot)
-				window.imageRotation.yRot = yRot;
+				//console.log('new Beta:', self.closestAngleDist(window.imageOrientation.initialPhi, phi, 180)[0], yRot)
+				window.imageOrientation.yRot = yRot;
 			}
 			if (didChange) {
-				window.imageRotation.elementToRotate.style.backgroundPosition = xRot + "% " + yRot + "%";
-				window.imageRotation.elementToRotate.style.transform = "scale3d(1.3, 1.3, 1) translate3d(" + xTranslate + "%," + yTranslate + "%,0)"
+				window.imageOrientation.elementToRotate.style.backgroundPosition = xRot + "% " + yRot + "%";
+				window.imageOrientation.elementToRotate.style.transform = "scale3d(1.3, 1.3, 1) translate3d(" + xTranslate + "%," + yTranslate + "%,0)"
 			}
 		})
 	},
@@ -120,7 +120,7 @@ export default Ember.Component.extend({
 	didInsertElement: function(){
 		this._super();
 		this.setup();
-		this.set('rotationService.component', this);
+		this.set('orientationService.component', this);
 	},
 
 	willDestroyElement: function(){

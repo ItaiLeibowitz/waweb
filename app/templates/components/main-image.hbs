@@ -1,0 +1,11 @@
+<div {{action 'minimizeImage'}} class="minimize-image"></div>
+{{#if hasOrientation}}
+	{{orientation-listener}}
+{{/if}}
+<div class="image-container" style={{imageStyle}}></div>
+{{#if captionName}}
+	<div class="caption-holder">
+		Photo: <a href={{captionLink}} target="_blank">{{captionName}}</a> {{captionCc}}
+	</div>
+{{/if}}
+<div class="orientation-button icon-rotate {{if orientationService.isOn 'is-on'}}" {{action 'toggleOrientation'}}></div>

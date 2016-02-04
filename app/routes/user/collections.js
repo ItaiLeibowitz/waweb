@@ -18,10 +18,7 @@ export default Ember.Route.extend({
 			return collections;
 		});
 	},
-	renderTemplate: function(controller, model){
-		this._super(controller, model);
-		$(document).scrollTop(0);
-	}
+	scrollViewToTop: true
 });
 
 

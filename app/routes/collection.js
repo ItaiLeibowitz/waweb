@@ -34,10 +34,7 @@ export default Ember.Route.extend(RouteWithMap, {
 	serialize: function(model) {
 		return { collection_slug: model.get('slug') };
 	},
-	renderTemplate: function(controller, model){
-		this._super(controller, model);
-		$(document).scrollTop(0);
-	}
+	scrollViewToTop: true
 });
 
 

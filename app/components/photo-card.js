@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 	currentItem: Ember.inject.service('current-item'),
-	rotationService: Ember.inject.service('rotation-service'),
+	orientationService: Ember.inject.service('orientation-service'),
 	stopScrollService: Ember.inject.service('stop-scroll'),
 	classNames: ['photo-card'],
 	classNameBindings: ['addedClass', 'withInfo', 'isAd', 'topCard', 'resultCard', 'isExpanded', 'cardId'],
@@ -12,7 +12,7 @@ export default Ember.Component.extend({
 	reviews: null,
 	addedClass: null,
 	dontStopOrientation: Ember.computed.not('stopScrollService.stopAnyReason'),
-	hasOrientation: Ember.computed.and('rotationService.isOn','isExpanded','dontStopOrientation'),
+	hasOrientation: Ember.computed.and('orientationService.isOn','isExpanded','dontStopOrientation'),
 
 	screenHeight: 0,
 	resultCard: Ember.computed.alias('model.resultCard'),
@@ -99,7 +99,7 @@ export default Ember.Component.extend({
 
 
 	tap: function(e){
-		if ($(e.target).is('a')) {return false;}
+		if ($(e.target).is('a') || $(e.target).hasClass('no-tap')) {return false;}
 		if (!($(e.target).parents('.buttons').length > 0) && this.get('topCard')){
 			var scrollTop =  $(window).height();
 			if (this.get('withImageRotation')) {
@@ -158,8 +158,8 @@ export default Ember.Component.extend({
 			Ember.run.scheduleOnce('render', this, 'scrollToTop');
 			this.set('withInfo', true);
 		},
-		toggleRotation: function(){
-			this.toggleProperty('rotationService.isOn');
+		toggleOrientation: function(){
+			this.toggleProperty('orientationService.isOn');
 		}
 	}
 });

@@ -30,13 +30,8 @@
 			</div>
 		{{/unless}}
 	{{/if}}
-	<div class="image-holder {{if imageExpanded 'is-expanded'}}" style={{model.largeImageStyle}}>
-		<div class="expand-image" {{action 'toggleExpandedImage'}}></div>
-		{{#if model.captionName}}
-			<div class="caption-holder">
-				Photo: <a href={{model.captionLink}} target="_blank">{{model.captionName}}</a> {{model.captionCc}}
-			</div>
-		{{/if}}
+	<div class="image-holder" style={{model.largeImageStyle}}>
+		<div class="expand-image" {{action 'expandImage'}}></div>
 	</div>
 	{{map-placeholder withExpand='true'}}
 	<div class="action-bar">
@@ -52,7 +47,7 @@
 </div>
 {{#if model.canHaveChildren}}
 	{{#link-to "item.highlights" model.slug class="page-link"}}Explore: Great things to do in {{model.name}}
-	▶ {{/link-to}}
+	&#x25b6;&#xfe0e; {{/link-to}}
 {{/if}}
 <div class="show-button" {{action 'toggleOpen'}}></div>
 <div class="add-button" {{action 'toggleSaved'}}>★</div>

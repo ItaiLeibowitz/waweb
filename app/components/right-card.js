@@ -5,6 +5,7 @@ import promiseFromUrl from 'waweb/mixins/promise_utils';
 export default Ember.Component.extend({
 	currentItem:Ember.inject.service('current-item'),
 	mapService: Ember.inject.service('map-service'),
+	mainImage: Ember.inject.service('main-image'),
 	currentCollection: Ember.inject.service('current-collection'),
 	stopScrollService: Ember.inject.service('stop-scroll'),
 	recentItems: Ember.inject.service('recent-items'),
@@ -110,8 +111,14 @@ export default Ember.Component.extend({
 				this.loadReviews();
 			}
 		},
-		toggleExpandedImage: function(){
-			this.toggleProperty('imageExpanded');
+		expandImage: function(){
+			this.get('mainImage').setProperties({
+				imageStyle: this.get('model.largeImageStyle'),
+				captionName: this.get('model.captionName'),
+				captionLink: this.get('model.captionLink'),
+				captionCc: this.get('model.captionCc'),
+				isExpanded: true
+			})
 		}
 	}
 });
