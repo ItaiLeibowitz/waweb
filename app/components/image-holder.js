@@ -50,7 +50,11 @@ export default Ember.Component.extend({
 
 	didInsertElement: function () {
 		this._super();
+		var self= this;
 		Ember.run.scheduleOnce('afterRender', this, 'setupDimensions');
+		this.$('img').load(function(){
+			self.$().parents('.image-container').addClass('show-image');
+		})
 		this.setupOrientationChangeListener();
 	},
 

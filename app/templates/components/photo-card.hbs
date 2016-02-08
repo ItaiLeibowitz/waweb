@@ -1,6 +1,9 @@
 <div class="card-position-marker"></div>
 
 <div class="image-container{{if firstPhotoOff ' bottom'}}" style={{unless isExpanded photoStyle1}}>
+	{{#unless imageDidLoad}}
+		{{image-load-measure imageSource=model.largeImageUrl}}
+	{{/unless}}
 	{{#if isExpanded}}
 		 {{image-holder imageSource=model.largeImageUrl hasOrientation=hasOrientation}}
 	{{/if}}

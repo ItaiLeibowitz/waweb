@@ -5,7 +5,7 @@ export default Ember.Component.extend({
 	orientationService: Ember.inject.service('orientation-service'),
 	stopScrollService: Ember.inject.service('stop-scroll'),
 	classNames: ['photo-card'],
-	classNameBindings: ['addedClass', 'withInfo', 'isAd', 'topCard', 'resultCard', 'isExpanded', 'cardId'],
+	classNameBindings: ['addedClass', 'withInfo', 'isAd', 'topCard', 'resultCard', 'isExpanded', 'cardId', 'imageDidLoad'],
 	withInfo: false,
 	isExpanded: false,
 	withReviews: false,
