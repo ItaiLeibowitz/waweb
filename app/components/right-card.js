@@ -114,6 +114,7 @@ export default Ember.Component.extend({
 		expandImage: function(){
 			this.get('mainImage').setProperties({
 				imageStyle: this.get('model.largeImageStyle'),
+				imageUrl: this.get('model.largeImageUrl'),
 				captionName: this.get('model.captionName'),
 				captionLink: this.get('model.captionLink'),
 				captionCc: this.get('model.captionCc'),

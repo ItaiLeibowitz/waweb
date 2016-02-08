@@ -9,10 +9,11 @@ export default Ember.Component.extend({
 		var container = this.$().parents('.image-container'),
 			outerHeight = container.height(),
 			outerWidth = container.width(),
-			innerHeight = this.$('img').height(),
-			innerWidth = this.$('img').width();
+			innerHeight = this.$('img')[0].naturalHeight,
+			innerWidth = this.$('img')[0].naturalWidth;
 		var H2W = outerHeight / outerWidth,
 			h2w = innerHeight / innerWidth;
+		if ((innerHeight == 0) || (innerWidth == 0)) return;
 		if (h2w <= H2W) {
 			var height = outerHeight * stretchFactor,
 				width = innerWidth * outerHeight / innerHeight * stretchFactor;
@@ -31,6 +32,13 @@ export default Ember.Component.extend({
 
 		})
 	},
+
+	imageSourceDidChange: function(){
+		console.log('imageSource did change')
+		this.set('width', null)
+		this.set('height', null)
+		Ember.run.scheduleOnce('afterRender', this, 'setupDimensions')
+	}.observes('imageSource').on('init'),
 
 	setupOrientationChangeListener: function(){
 		var self = this;

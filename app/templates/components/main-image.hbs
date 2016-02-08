@@ -1,8 +1,5 @@
 <div {{action 'minimizeImage'}} class="minimize-image"></div>
-{{#if hasOrientation}}
-	{{orientation-listener}}
-{{/if}}
-<div class="image-container" style={{imageStyle}}></div>
+{{image-holder imageSource=imageUrl hasOrientation=hasOrientation}}
 {{#if captionName}}
 	<div class="caption-holder">
 		Photo: <a href={{captionLink}} target="_blank">{{captionName}}</a> {{captionCc}}

@@ -221,6 +221,7 @@ a{
 	&.is-expanded {
 		display:block;
 		z-index:2001;
+		position: fixed;
 		top: 0;
 		bottom: 0;
 		left: 0;
@@ -1387,6 +1388,7 @@ a{
 	position: fixed;
 	height: 2em;
 	width: 2em;
+	background: white;
 	color: #333;
 	z-index: 998;
 	text-align: center;
