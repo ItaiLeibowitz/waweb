@@ -4,7 +4,7 @@ import Ember from 'ember';
 export function initialize(application){
 
 	Ember.Route.reopen({
-		targetsWithScrollDelay: ['search'],
+		targetsWithScrollDelay: ['search', 'signin', 'signup', 'forgotten-password'],
 
 		actions: {
 			willTransition: function(transition){

@@ -1,17 +1,26 @@
 {{#gesture-recognizer recognizers="swipe" addedClass="full-height"}}
 	<div class="menu-toggle" {{action "toggleMenu"}}>&#9776;</div>
 	<div class="menu-close" {{action "toggleMenu"}}></div>
-	<div class="page-specific">
-		{{outlet 'page-specific'}}
-	</div>
-	<div class="main-menu">
-		<div>{{#link-to 'index' class="menu-option icon-home"}}Home{{/link-to}}</div>
-		<div>{{#link-to 'search' class="menu-option icon-search"}}Search{{/link-to}}</div>
-		<div>{{#link-to 'user.collections' class="menu-option icon-star"}}My collections{{/link-to}}</div>
-		<div><a class="menu-option icon-map" {{action 'expandMap'}}>Map</a></div>
-		<div>{{#link-to 'recent' class="menu-option icon-history"}}Recent{{/link-to}}</div>
+	<div class="menu-scroll">
+		<div class="page-specific">
+			{{outlet 'page-specific'}}
+		</div>
+		<div class="main-menu">
+			<div>{{#link-to 'index' class="menu-option icon-home"}}Home{{/link-to}}</div>
+			<div>{{#link-to 'search' class="menu-option icon-search"}}Search{{/link-to}}</div>
+			<div>{{#link-to 'user.collections' class="menu-option icon-star"}}My collections{{/link-to}}</div>
+			<div><a class="menu-option icon-map" {{action 'expandMap'}}>Map</a></div>
+			<div>{{#link-to 'recent' class="menu-option icon-history"}}Recent{{/link-to}}</div>
+		</div>
 	</div>
 	<div class="user-block">
-		<div class="name">{{user.name}}</div>
+		{{#if signedIn}}
+			<div class="name">{{user.name}}</div>
+			<div class="logout-button icon-logout" {{action 'logout'}}></div>
+		{{else}}
+			{{#link-to 'signup' class="login-button icon-login" }}Login{{/link-to}}
+		{{/if}}
+
+
 	</div>
 {{/gesture-recognizer}}

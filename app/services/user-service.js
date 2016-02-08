@@ -83,20 +83,18 @@ export default Ember.Service.extend({
 
 	// Log out the user
 	reset: function() {
-		// Sync all the items that need to be synced (IL: I think this is just hygiene)
-		Ember.run.sync();
+
 		// Clear all the cookies - the remember token can only be accessed by the server
-		$.removeCookie('collection_token');
-		$.removeCookie('trip_token');
+		Cookies.remove('collection_token');
+		Cookies.remove('trip_token');
 		// reset the AuthManager object
 		Ember.run.next(this, function(){
-			this.get('appController.currentnessManager').reset();
+			this.set('currentCollection.currentEdited', null);
 			this.set('user', null);
-			GA.gasend('set', 'userId', 'null');
+			GA.gaSend('set', 'userId', 'null');
 		});
 		// Trigger a route change
-		this.get('appController').replaceRoute('index');
-		//Ember.Instrumentation.instrument("wanderant.routeChange", {name: 'items.index'});
+
 
 	},
 

@@ -1,8 +1,10 @@
 <div class="card-position-marker"></div>
-{{#if hasOrientation}}
-	{{orientation-listener}}
-{{/if}}
-<div class="image-container{{if firstPhotoOff ' bottom'}}" style={{photoStyle1}}></div>
+
+<div class="image-container{{if firstPhotoOff ' bottom'}}" style={{unless isExpanded photoStyle1}}>
+	{{#if isExpanded}}
+		 {{image-holder imageSource=model.largeImageUrl hasOrientation=hasOrientation}}
+	{{/if}}
+</div>
 {{#if withImageRotation}}
 	<div class="image-container{{unless firstPhotoOff ' bottom'}}" style={{photoStyle2}}></div>
 {{/if}}

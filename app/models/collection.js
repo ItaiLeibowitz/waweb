@@ -91,7 +91,8 @@ export default DS.Model.extend(ModelWithDescs, WithItemImage, WithAncestry, {
 				feedbackLinkTarget: collection.get('slug'),
 				feedbackLinkModel: collection,
 				feedbackActionName: null,
-				feedbackAddedClass: 'success'
+				feedbackAddedClass: 'success',
+				feedbackDuration: 5000
 			})
 		}, function (reason) {
 			console.log('something went wrong while removing item')
@@ -117,7 +118,8 @@ export default DS.Model.extend(ModelWithDescs, WithItemImage, WithAncestry, {
 				feedbackLinkTarget: collection.get('slug'),
 				feedbackLinkModel: collection,
 				feedbackActionName: null,
-				feedbackAddedClass: 'success'
+				feedbackAddedClass: 'success',
+				feedbackDuration: 5000
 			})
 		}, function (reason) {
 			if (reason.status == 409) {

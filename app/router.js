@@ -17,7 +17,7 @@ const Router = Ember.Router.extend({
 	prepView: function () {
 		this.get('menuService').set('leftMenuOpen', false);
 		this.set('currentItem.isOpen', false);
-		this.set('feedbackService.isShowing', false);
+		if (!this.get('feedbackService.persistAfterUrlChange')) {this.set('feedbackService.isShowing', false);}
 		this.get('mapService').minimizeMap({closeAll: true});
 		this.get('stopScrollService').enableScroll();
 		$('.loader').addClass('hidden');
@@ -36,6 +36,9 @@ Router.map(function() {
 	this.route('search');
 	this.route('featured-collections');
 	this.route('recent');
+	this.route('signup');
+	this.route('signin');
+	this.route('forgotten-password');
 
 });
 

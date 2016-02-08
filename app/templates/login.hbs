@@ -1,0 +1,47 @@
+<div id="form-wrapper" class="auth">
+	<div class="form-feedback">
+	{{#if notice}}
+		<div class="notice">{{notice}}</div>
+	{{/if}}
+	{{#each authService.serverErrors as |error|}}
+		<div class="error">{{error}}</div>
+	{{/each}}
+	</div>
+
+	<h2 id="form-title">{{title}}</h2>
+
+	{{#if hasFacebookSignin}}
+		<div class="btn-wrapper">
+			<button class="btn btn-fb" {{action 'signinWithFacebook'}}>Sign in with Facebook</button>
+			<div id="fb-guarantee-wrapper"><span id="fb-guarantee">We never share your information or post without your permission</span></div>
+		</div>
+	{{/if}}
+
+	<form {{action 'submit' on='submit'}} autocomplete="on" class="auth-form">
+		{{#if hasName}}
+			{{validate-field value=name name="name" autocomplete="on" placeholder="Name" errors=errors.name}}
+		{{/if}}
+		{{#if hasEmail}}
+			{{validate-field  value=email name="email" autocomplete="on" placeholder="Email" errors=errors.email}}
+		{{/if}}
+		{{#if hasPassword}}
+			{{validate-field value=password name="password" placeholder="Password" errors=errors.password type="password"}}
+		{{/if}}
+		<br/>
+		<p class="btn-wrapper">
+			<button class="btn btn-submit" type="submit">{{submitButtonText}}</button>
+		</p>
+	</form>
+
+
+
+	<div class="alternate-form-links">
+		{{#each otherLinks as |link|}}
+			<p class="btn-wrapper">
+				{{link.info}}
+				<br/>
+				 {{link-to link.text link.state replace=true}}
+			</p>
+		{{/each}}
+	</div>
+</div>
