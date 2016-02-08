@@ -20,6 +20,8 @@ export default Ember.Component.extend({
 	photoStyle2: function(){
 		if (this.get('photoArray') && this.get('photoArray').length > 0){
 			return this.get('photoArray')[0]["image"];
+		} else {
+			return this.get('model.largeImageStyle');
 		}
 	}.property('photoArray'),
 	photoId1: null,
@@ -61,8 +63,12 @@ export default Ember.Component.extend({
 	},
 
 	resetPhotoRotation: function(){
-		this.set('firstPhotoOff', false);
-		this.set('photoStyle1', this.get('model.largeImageStyle'));
+		this.setProperties({
+			firstPhotoOff: false,
+			photoStyle1: this.get('model.largeImageStyle'),
+			photoId1: null,
+			photoId2: null
+		});
 		var photoArray = this.get('photoArray');
 		if (photoArray && photoArray.length > 0) {
 			if (photoArray[0]["image"].string != this.get('model.largeImageStyle').string || photoArray.length == 1) {
@@ -70,11 +76,12 @@ export default Ember.Component.extend({
 			} else {
 				this.set('photoStyle2', photoArray[1]["image"]);
 			}
+
 		}
 		if (this.get('nextRotation')) {
 			Ember.run.cancel(this.get('nextRotation'));
 		}
-		if (this.get('withImageRotation')) {
+		if (photoArray && photoArray.length > 0 && this.get('withImageRotation')) {
 			this.startPhotoRotation();
 		}
 	},

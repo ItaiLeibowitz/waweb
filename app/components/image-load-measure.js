@@ -6,7 +6,9 @@ export default Ember.Component.extend({
 		this._super();
 		var self= this;
 		this.$('img').load(function(){
-			self.set('parentView.imageDidLoad', true);
+			if (!self.get('isDestroyed')) {
+				self.set('parentView.imageDidLoad', true);
+			}
 		})
 	},
 

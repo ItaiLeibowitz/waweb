@@ -1,3 +1,6 @@
+<div class="back-button" {{action 'goBackward'}}>←</div>
+<div class="main-title">Featured collections</div>
+<div class="main-title-placeholder"></div>
 {{#each model as |collection|}}
 	{{link-card model=collection destinationRouteName="collection.index"}}
 {{/each}}
