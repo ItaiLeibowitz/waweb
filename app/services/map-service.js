@@ -59,7 +59,7 @@ export default Ember.Service.extend({
 		this.set('currentItem.isOpen', false);
 		this.set('withAllMarkers', true)
 		$('#actual-map').appendTo('#expanded-map');
-		$('#expanded-map').addClass('expanded');
+		$('#expanded-map').addClass('is-expanded');
 		this.get('mapComponent').resizeMap();
 		this.setProperties({
 			draggable: true,
@@ -77,7 +77,7 @@ export default Ember.Service.extend({
 		});
 		this.set('withAllMarkers', false);
 		this.get('mapComponent').resizeMap();
-		$('#expanded-map').removeClass('expanded');
+		$('#expanded-map').removeClass('is-expanded');
 		this.setProperties({
 			draggable: false,
 			disableDefaultUI: true,

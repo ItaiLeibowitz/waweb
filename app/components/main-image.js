@@ -3,7 +3,8 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 	mainImage: Ember.inject.service('main-image'),
 	orientationService: Ember.inject.service('orientation-service'),
-	classNames: ['main-image', 'image-container'],
+	elementId: 'main-image',
+	classNames: ['image-container'],
 	classNameBindings: ['isExpanded'],
 	imageStyle: Ember.computed.alias('mainImage.imageStyle'),
 	imageUrl: Ember.computed.alias('mainImage.imageUrl'),
