@@ -34,9 +34,8 @@ export default Ember.Component.extend({
 	},
 
 	imageSourceDidChange: function(){
-		console.log('imageSource did change')
-		this.set('width', null)
-		this.set('height', null)
+		this.set('width', null);
+		this.set('height', null);
 		Ember.run.scheduleOnce('afterRender', this, 'setupDimensions')
 	}.observes('imageSource').on('init'),
 
@@ -54,7 +53,7 @@ export default Ember.Component.extend({
 		Ember.run.scheduleOnce('afterRender', this, 'setupDimensions');
 		this.$('img').load(function(){
 			self.$().parents('.image-container').addClass('show-image');
-		})
+		});
 		this.setupOrientationChangeListener();
 	},
 

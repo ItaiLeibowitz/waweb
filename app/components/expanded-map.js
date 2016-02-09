@@ -6,6 +6,7 @@ export default Ember.Component.extend({
 	actions:{
 		minimizeMap: function(){
 			this.get('mapService').minimizeMap();
+			ga('send', 'event', 'map', 'size', 'minimize');
 		}
 	}
 });

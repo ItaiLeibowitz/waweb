@@ -5,6 +5,10 @@ export default Ember.Component.extend({
 	screenHeight: 0,
 	initialScreenHeight: 0,
 	screenWidth: 0,
+	screenHeightLastChild: function(){
+		var em = 16;
+		return this.get('screenHeight') - 3*em;
+	}.property('screenHeight'),
 
 	didInsertElement: function(){
 		this.set('screenDimsService.component', this);

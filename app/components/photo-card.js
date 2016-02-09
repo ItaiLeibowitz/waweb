@@ -127,19 +127,17 @@ export default Ember.Component.extend({
 				duration: 1500,
 				easing: 'easeOutQuart'
 			});
+			ga('send', 'event', 'topCard', 'scroll');
 		}
 		if (!($(e.target).parents('.info-box').length > 0) && !this.get('topCard') && !this.get('preventSizeChange')){
 			var currentState = this.get('isExpanded');
 			if (this.get('resetSizeAction')) this.get('resetSizeAction')();
 			this.set('isExpanded', !currentState);
+			ga('send', 'event', 'photoCard', 'toggleExpand', !currentState);
 			if (this.get('isExpanded')) {
 				Ember.run.scheduleOnce('afterRender', this,'scrollToTop');
 			}
 		}
-	},
-
-	scheduleScrollToTop:function(){
-		Ember.run.later( this,'scrollToTop',10);
 	},
 
 	scrollToTop: function(){
@@ -164,9 +162,11 @@ export default Ember.Component.extend({
 			});
 			Ember.run.scheduleOnce('render', this, 'scrollToTop');
 			this.set('withInfo', true);
+			ga('send', 'event', 'photoCard', 'showInfo', this.get('model.name'));
 		},
 		toggleOrientation: function(){
 			this.toggleProperty('orientationService.isOn');
+			ga('send', 'event', 'photoCard', 'toggleOrientation', this.get('orientationService.isOn'));
 		}
 	}
 });

@@ -41,6 +41,7 @@ export default MapMarker.extend({
 	clickMarker: function(e){
 		if ($(e.target).hasClass('read-more')) {
 			this.openItemMenu();
+			ga('send', 'event', 'marker', 'readMore');
 		}
 		var currentSetting = this.get('isExpanded');
 		if (this.get('minimizeAllAction')) { this.get('minimizeAllAction')()}
@@ -58,6 +59,7 @@ export default MapMarker.extend({
 				xyNew = new google.maps.Point(xyOrig.x  + 100 / zoomFactor, xyOrig.y),
 				latLngNew = p.fromPointToLatLng(xyNew);
 			map.panTo(latLngNew);
+			ga('send', 'event', 'marker', 'enlarge');
 		}
 	},
 

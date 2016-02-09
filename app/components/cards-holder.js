@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 	adsService: Ember.inject.service('ads-content'),
 	classNames: ['cards-holder'],
-	classNameBindings: ['isMinimized'],
+	classNameBindings: ['isMinimized','withMoreHolder'],
 	isMinimized: false,
 	model: null,
 	addedCardClass: null,
@@ -27,14 +27,15 @@ export default Ember.Component.extend({
 		});
 
 
-
-		if (wrappers.length > 1 && this.get('showAds')) {
+		// Enable the following to add back the ads - but check that it's working when you click on them
+		//TODO: IMPORTANT: see if we remove the collection tags from ads - or at least why it doesn't work when you try to add them.
+		/*if (wrappers.length > 1 && this.get('showAds')) {
 			var ads = this.get('adsService.ads');
 			ads.shuffle();
 			wrappers.splice(2, 0, ads[0]);
 			wrappers.splice(6, 0, ads[1]);
 			wrappers.splice(11, 0, ads[2]);
-		}
+		}*/
 
 		return wrappers
 	}.property('model.[]'),

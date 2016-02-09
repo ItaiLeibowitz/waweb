@@ -13,6 +13,7 @@ export default Ember.Component.extend({
 	actions:{
 		expandMap: function(){
 			this.get('mapService').expandMap(this.$());
+			ga('send', 'event', 'map', 'size', 'expand');
 		}
 	}
 });

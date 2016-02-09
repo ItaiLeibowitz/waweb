@@ -21,7 +21,7 @@ export default Ember.Service.extend({
 			promiseFromAjax(ajaxOptions)
 				.then(function(user) {
 					self.get('userService').login(user);
-					//gaSend('send', 'event', 'session', 'sign in / out', url);
+					ga('send', 'event', 'session', 'sign in / out', url);
 
 					// if there was a transition to retry to an authenticated route, retry it now:
 					var transitionToRetry = self.get('transitionToRetry')
@@ -53,7 +53,7 @@ export default Ember.Service.extend({
 						self.set('serverErrors', ["Something went wrong while signing in. Please try again later."]);
 					}
 
-					//gaSend('send', 'event', 'session', 'sign in failed', url);
+					ga('send', 'event', 'session', 'sign in failed', url);
 				});
 		} else {
 			self.set('currentForm.validationFailed', true);

@@ -27,6 +27,7 @@ export default Ember.Component.extend({
 			} else {
 				this.set('stopScrollService.stopMenuOpen', false);
 			}
+			ga('send', 'event', 'sideMenu', 'open', this.get('isOpen'));
 		},
 		expandMap: function(){
 			var mapService = this.get('mapService');

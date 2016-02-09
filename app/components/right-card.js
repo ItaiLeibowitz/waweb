@@ -69,7 +69,8 @@ export default Ember.Component.extend({
 		if (this.get('isOpen')) {
 			if (this.get('withMap')) {this.attachMap();}
 			this.set('stopScrollService.stopCardOpen', true);
-			this.get('recentItems.model').unshiftObject(this.get('model'))
+			// add any item that's not an add to recent items
+			if (this.get('model.id')[0]!="a") this.get('recentItems.model').unshiftObject(this.get('model'));
 			$('.info-container').scrollTop(0);
 		} else {
 			if (this.get('currentListCard')) {this.set('currentListCard.withInfo', false);}
@@ -85,6 +86,7 @@ export default Ember.Component.extend({
 	actions:{
 		toggleOpen: function(){
 			this.toggleProperty('isOpen');
+			ga('send', 'event', 'rightCard', 'toggleOpen', this.get('isOpen'));
 			if (!this.get('isOpen')){
 				this.setProperties({
 					withReviews: false
@@ -110,6 +112,7 @@ export default Ember.Component.extend({
 			if (this.get('withReviews') && (!this.get('reviews') || this.get('reviewsItem') != this.get('model.id'))){
 				this.loadReviews();
 			}
+			ga('send', 'event', 'rightCard', 'toggleReviews', this.get('withReviews'));
 		},
 		expandImage: function(){
 			this.get('mainImage').setProperties({
@@ -119,7 +122,8 @@ export default Ember.Component.extend({
 				captionLink: this.get('model.captionLink'),
 				captionCc: this.get('model.captionCc'),
 				isExpanded: true
-			})
+			});
+			ga('send', 'event', 'mainImage', 'size', 'expand');
 		}
 	}
 });

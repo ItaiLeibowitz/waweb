@@ -39,7 +39,8 @@ export default Ember.Component.extend({
 					self.set('modalComponent.isExpanded', false);
 					self.get('userService.user.collections').unshiftObject(collection);
 					self.get('targetObject.model').unshiftObject(collection);
-					self.set('isSubmitting', false)
+					self.set('isSubmitting', false);
+					ga('send', 'event', 'collection', 'newCollection', 'success');
 				}, function (jqXHR) {
 					self.get('feedbackService').setProperties({
 						isShowing: true,
@@ -50,7 +51,8 @@ export default Ember.Component.extend({
 						feedbackActionName: null,
 						feedbackAddedClass: 'failure'
 					});
-					self.set('isSubmitting', false)
+					self.set('isSubmitting', false);
+					ga('send', 'event', 'collection', 'newCollection', 'failure');
 				});
 			}
 		}

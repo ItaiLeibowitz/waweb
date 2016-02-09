@@ -24,12 +24,13 @@ export default Ember.Route.extend(RouteWithMap, {
 			arr[i] = i;
 		}
 		var photosArr = arr.map(function(el){return backgroundImage.replace('%@',el + 1)});
-		var photosArr = model.map(function(item){ return {image:item.get('largeImageStyle'), id:item.get('id')}});
+		var photosArr = model.map(function(item){ return {image:item.get('largeImageStyle'),imageSource: item.get('largeImageUrl'), id:item.get('id')}});
 		var n = photosArr.length;
 		var mainItem = Ember.Object.create({
 			name: "Wanderant",
 			itemTypeName: "Great places to visit around the world",
-			largeImageStyle: photosArr[Math.floor(Math.random()*n)].image
+			largeImageStyle: photosArr[Math.floor(Math.random()*n)].image,
+			largeImageUrl: photosArr[Math.floor(Math.random()*n)].imageSource
 		});
 		controller.set('photoArray', photosArr);
 		controller.set('mainItem', mainItem);

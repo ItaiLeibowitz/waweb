@@ -43,7 +43,7 @@ export default Ember.Component.extend({
 			window.imageOrientation.previousGamma = event.originalEvent.gamma;
 			if (window.imageOrientation.scheduledAnimationFrame) return;
 
-			window.imageOrientation.scheduledAnimationFrame = true
+			window.imageOrientation.scheduledAnimationFrame = true;
 			requestAnimationFrame(self.calcAngles)
 
 		})

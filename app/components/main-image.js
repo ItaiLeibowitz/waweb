@@ -23,6 +23,7 @@ export default Ember.Component.extend({
 	actions: {
 		minimizeImage: function(){
 			this.set('mainImage.isExpanded', false);
+			ga('send', 'event', 'mainImage', 'size', 'minimize');
 		},
 		toggleOrientation: function(){
 			this.toggleProperty('orientationService.isOn');

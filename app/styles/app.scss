@@ -300,6 +300,10 @@ a{
 		.menu-close {
 			display: block;
 		}
+
+		.menu-toggle{
+			border: none;
+		}
 	}
 	.menu-toggle {
 		height: 50px;
@@ -1414,6 +1418,9 @@ a{
 	line-height: 2em;
 	font-size: 1.5em;
 	top: 0;
+	border-right: 1em solid transparent;
+	border-bottom: 1em solid transparent;
+	background-clip: content-box;
 }
 .search-field-spacer{
 	height: 3em;
@@ -1853,6 +1860,7 @@ a{
 .main-title{
 	text-align: center;
 	line-height: 3em;
+	font-weight: 700;
 	box-shadow: 1px 1px 1px rgba(0,0,0,0.6);
 	position: fixed;
 	top:0;

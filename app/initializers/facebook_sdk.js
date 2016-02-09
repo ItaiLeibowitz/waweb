@@ -4,7 +4,7 @@ export default {
 	name: 'fb',
 	initialize: function() {
 		return FB.init({
-			appId: '525379890964943',
+			appId: "<%= ENV['FACEBOOK_APP_ID'] %>",//'525379890964943',
 			version: 'v2.3',
 			xfbml: true
 		});

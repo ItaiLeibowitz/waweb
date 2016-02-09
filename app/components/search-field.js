@@ -53,6 +53,7 @@ export default Ember.TextField.extend(Autocomplete, {
 
 		// if user selected a specific place, we immediately look for it in Wanderant's db then google's
 		if (selectedPrediction.place_id) {
+			ga('send', 'search', 'autocompleteSelect', selectedPrediction.place_id);
 			this.get('searchService').findWanderantItemByRef(selectedPrediction.place_id)
 				.then(function(item) {
 					if (item) {
@@ -71,12 +72,14 @@ export default Ember.TextField.extend(Autocomplete, {
 		} else {
 			//submit the search
 			self.get('parentView').send('submit', this.get('query'));
+			ga('send', 'search', 'searchSubmit', this.get('query'));
 		}
 	},
 
 	actions: {
 		clearSearch: function(){
 			this.set('query', '');
+			ga('send', 'search', 'clearSearch');
 		}
 	}
 

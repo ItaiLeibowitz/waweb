@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import GA from 'waweb/appconfig/ga';
 import promiseFromUrl from 'waweb/mixins/promise_utils';
 
 export default Ember.Service.extend({
@@ -69,7 +68,7 @@ export default Ember.Service.extend({
 				retryAction.target.send(retryAction.action, retryAction.payload);
 				this.set('actionToRetry', null);
 			}
-			GA.gaSend('set', 'userId', userId);
+			ga('set', 'userId', userId);
 /*			intercomSend('update', {
 				name: user.get('name'),
 				user_id: user.get('id')
@@ -91,7 +90,7 @@ export default Ember.Service.extend({
 		Ember.run.next(this, function(){
 			this.set('currentCollection.currentEdited', null);
 			this.set('user', null);
-			GA.gaSend('set', 'userId', 'null');
+			ga('set', 'userId', 'null');
 		});
 		// Trigger a route change
 
