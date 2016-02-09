@@ -3,6 +3,9 @@ import Constants from 'waweb/appconfig/constants';
 import RouteWithMap from "waweb/mixins/route-with-map";
 
 export default Ember.Route.extend(RouteWithMap, {
+	setPageTitle: function() {
+		this.set('pageTitle', 'Recently viewed places | Wanderant');
+	},
 	recentItems: Ember.inject.service('recent-items'),
 	model: function(){
 		var ids = Cookies.getJSON('recentItemIds');

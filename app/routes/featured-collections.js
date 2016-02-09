@@ -3,6 +3,9 @@ import promiseFromUrl from 'waweb/mixins/promise_utils';
 
 
 export default Ember.Route.extend({
+	setPageTitle: function() {
+		this.set('pageTitle', 'Featured collections | Wanderant');
+	},
 	model: function() {
 		var url = '/api/ember2/collections/featured',
 			store = this.get('store');

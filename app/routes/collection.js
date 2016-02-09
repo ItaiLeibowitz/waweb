@@ -3,6 +3,15 @@ import RouteWithMap from "waweb/mixins/route-with-map";
 
 
 export default Ember.Route.extend(RouteWithMap, {
+	setPageTitle: function() {
+		this.setPageTitleFromModel(this.get('modelForRouteResolver'));
+	},
+	setPageMetatags: function(){
+		this.setPageMetatagsFromModel(this.get('modelForRouteResolver'));
+	},
+	setPageMetaDescription: function(){
+		this.set('pageMetaDescription',this.get('modelForRouteResolver.oneliner'))
+	},
 	currentCollection: Ember.inject.service('current-collection'),
 	currentUser: Ember.inject.service('user-service'),
 	model: function(params) {

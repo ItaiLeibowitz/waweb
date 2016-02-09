@@ -3,7 +3,9 @@ import Constants from 'waweb/appconfig/constants';
 import RouteWithMap from "waweb/mixins/route-with-map";
 
 export default Ember.Route.extend(RouteWithMap, {
-
+	setPageTitle: function() {
+		this.set('pageTitle', 'Wanderant - great places to visit all over the world');
+	},
 	model: function(){
 		var countries = this.store.findAll('item', {reload: true}).then(function(items){
 			return items.filter(function(item){

@@ -2,9 +2,10 @@ import Ember from "ember";
 import Utils from 'waweb/appconfig/utils';
 import ItemsRouteMixin from 'waweb/mixins/items_route_mixin';
 import RouteWithMap from "waweb/mixins/route-with-map";
+import ItemMetaSetup from 'waweb/mixins/item-meta-setup';
 
 
-var ItemHighlightsRoute = Ember.Route.extend(ItemsRouteMixin, RouteWithMap, {
+var ItemHighlightsRoute = Ember.Route.extend(ItemsRouteMixin, RouteWithMap, ItemMetaSetup, {
 	wanderantUrlKey: 'highlights',
 	beforeModel: function() {
 		this.set('mainItem', this.modelFor('item'));

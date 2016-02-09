@@ -3,6 +3,9 @@ import promiseFromUrl from 'waweb/mixins/promise_utils';
 
 
 export default Ember.Route.extend({
+	setPageTitle: function() {
+		this.set('pageTitle', 'My collections | Wanderant');
+	},
 	model: function() {
 		var url = '/api/ember2/users/get_current_user_collections',
 			store = this.get('store');

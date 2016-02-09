@@ -36,7 +36,10 @@ var ItemRoute = Ember.Route.extend(RouteWithMap, {
 		if (Utils.itemTypeIsParent(item.get('itemType'))) {
 			this.transitionTo('item.highlights')
 		}
-	}
+	},
+	setPageTitle: function(){
+		this.set('pageTitle', this.get('modelForRouteResolver.name') + ' | Wanderant');
+	},
 });
 
 
