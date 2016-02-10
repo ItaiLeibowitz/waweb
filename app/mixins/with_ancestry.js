@@ -38,7 +38,7 @@ var WithAncestry = Ember.Mixin.create({
 			});
 		}
 		var ancestryLength = response.length
-		response.push({target: 'item.highlights', name: this.get('name'), slug: this.get('slug'), offsetClass:`offset-${ancestryLength + 1} is-selected`});
+		response.push({target: 'item.highlights', name: this.get('name') + " - Highlights", slug: this.get('slug'), offsetClass:`offset-${ancestryLength + 1} is-selected`});
 		if (this.get('isRegion')){
 			response.push({target: 'item.destinations', name: 'Destinations', slug: this.get('slug'), offsetClass:`offset-${ancestryLength + 2}`});
 		}
