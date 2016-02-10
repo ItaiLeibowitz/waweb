@@ -16,4 +16,8 @@ Utils.itemTypeIsCountry = function (itemType) {
 	return itemType <= Constants.ITEM_TYPES_BY_NAME["COUNTRY"];
 };
 
+Utils.itemTypeIsRegion = function (itemType) {
+	return itemType <= Constants.ITEM_TYPES_BY_NAME["REGION"];
+};
+
 export default Utils;

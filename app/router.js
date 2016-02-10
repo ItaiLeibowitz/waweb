@@ -31,6 +31,8 @@ const Router = Ember.Router.extend({
 Router.map(function() {
 	this.route('item', { resetNamespace: true, path: '/items/:item_slug' }, function () {
 		this.route('highlights');
+		this.route('destinations');
+		this.route('attractions');
 	});
 	this.route('collection', { resetNamespace: true, path: '/collections/:collection_slug' }, function () {
 	});

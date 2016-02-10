@@ -3,9 +3,11 @@ import Ember from 'ember';
 
 var Constants = Ember.Object.create({
 	ITEM_TYPES_BY_NAME: {"COUNTRY": 3,
+		"REGION": 4,
 		"NEIGHBORHOOD": 90,
 		"ATTRACTION": 100
 	},
+	PER_PAGE: 15,
 	CDN_PATH_1: 'https://da37ts4zp7h49.cloudfront.net/photos/',
 	CDN_PATH_2: 'https://d6fva57a21sq7.cloudfront.net/photos/',
 	MAX_PAGE_TITLE_LENGTH: 55,

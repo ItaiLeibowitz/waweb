@@ -33,7 +33,8 @@ var ItemRoute = Ember.Route.extend(RouteWithMap, {
 	},
 	afterModel: function(item, transition) {
 		this.get('recentItems.model').unshiftObject(item);
-		if (Utils.itemTypeIsParent(item.get('itemType'))) {
+		// redirect the basic item route to highlights
+		if (Utils.itemTypeIsParent(item.get('itemType')) && transition.targetName=='item') {
 			this.transitionTo('item.highlights')
 		}
 	},

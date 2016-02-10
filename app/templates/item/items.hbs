@@ -1,0 +1,22 @@
+{{photo-card model=mainItem addedDescription=pageDescription topCard=true photoArray=photoArray withImageRotation=true}}
+{{cards-holder model=model withIndex=withIndex withMoreHolder=true}}
+{{#if withMoreHolder}}
+	{{#more-holder}}
+		{{#each moreHolderLinks as |link|}}
+			{{#link-to link.target class="link-button centered"}}{{link.name}}{{/link-to}}
+		{{/each}}
+	{{/more-holder}}
+{{/if}}
+{{#if hasMore}}
+	<div class="centered">
+		<div class="btn gray-light margin-1 with-loader" {{action 'loadMore'}}>
+			{{#if isLoadingMore}}
+				<div class="loader-holder white-loader">
+					<div class="loader"></div>
+				</div>
+			{{else}}
+				Load More
+			{{/if}}
+		</div>
+	</div>
+{{/if}}

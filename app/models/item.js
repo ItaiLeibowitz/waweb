@@ -1,9 +1,10 @@
 import Ember from 'ember';
 import DS from "ember-data";
-import WithItemImage from 'waweb/mixins/with_item_image'
-import WithAncestry from 'waweb/mixins/with_ancestry'
-import ModelWithDescs from 'waweb/mixins/model_with_descs'
-import Constants from 'waweb/appconfig/constants'
+import WithItemImage from 'waweb/mixins/with_item_image';
+import WithAncestry from 'waweb/mixins/with_ancestry';
+import ModelWithDescs from 'waweb/mixins/model_with_descs';
+import Constants from 'waweb/appconfig/constants';
+import Utils from 'waweb/appconfig/utils';
 
 var Item = DS.Model.extend(WithItemImage, WithAncestry, ModelWithDescs, {
 	name: DS.attr('string'),
@@ -77,6 +78,10 @@ var Item = DS.Model.extend(WithItemImage, WithAncestry, ModelWithDescs, {
 		}).compact()
 	}.property('reviewDigest'),
 
+
+	isRegion: function(){
+		 return Utils.itemTypeIsRegion(this.get('itemType'));
+	}.property('itemType'),
 
 
 	websiteLink: function(){

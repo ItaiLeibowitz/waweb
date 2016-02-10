@@ -1,19 +1,98 @@
 import Ember from 'ember';
+import RouteWithMap from "waweb/mixins/route-with-map";
+import ItemMetaSetup from 'waweb/mixins/item-meta-setup';
 
-var ItemsRouteMixin = Ember.Mixin.create({
-	wanderantItemsMinLength: 6,
+
+
+export default Ember.Mixin.create(RouteWithMap, ItemMetaSetup, {
+	templateName: 'item.items',
+	controllerName: 'items',
+	cacheKey: Ember.computed.alias('wanderantUrlKey'),
+	/*wanderantItemsMinLength: 6,
 	withGoogleItems: false,
 	withSections: false,
-
-	mainSectionName: 'things to do',
+   	mainSectionName: 'things to do',
 	googleSectionName: Ember.computed.alias('subRouteName'),
+	*/
+
+
+
+	beforeModel: function(transition) {
+		this._super(transition);
+		this.set('mainItem', this.modelFor('item'));
+		this.set('mainItemId', this.modelFor('item').get('id'));
+	},
+
+	model: function(params){
+		var self = this,
+			item = this.get('mainItem'),
+			store = this.get('store'),
+			cacheKey = this.get('cacheKey');
+		var cachedItems = item.get(cacheKey);
+		if (cachedItems) {
+			self.set('hasMore', item.get(cacheKey+"More"));
+			return cachedItems;
+		}
+		return this._getWanderantItems().then(function(data) {
+			var items = new Array(data.data.length);
+
+			for (var i = 0; i < data.data.length; i++) {
+				var item = store.push(store.normalize('item', data.data[i]));
+				items[i] = item;
+			}
+
+			if (data.meta) {
+				self.set('hasMore', data.meta.more);
+			}
+			return items;
+		});
+	},
+
+	setupController: function(controller, model){
+		this._super(controller, model);
+		var mainItem  = this.modelFor('item');
+		var cacheKey = this.get('cacheKey');
+		mainItem.set(cacheKey, model);
+		mainItem.set(cacheKey+"More", this.get('hasMore'));
+		controller.setProperties({
+			mainItem: mainItem,
+			pathType: this.get('wanderantUrlKey'),
+			pageDescription: this.pageDescription(mainItem, model),
+			hasMore: this.get('hasMore'),
+			cacheKey: this.get('cacheKey')
+		});
+		//Setup map items
+		var map = this.get('mapService');
+		map.set('markerItems', model);
+		//Photo array
+		var photosArr = model.map(function(item){ return {image:item.get('largeImageStyle'), id:item.get('id')}});
+		var n = photosArr.length;
+		controller.set('photoArray', photosArr);
+		var addedProperties = this.get('addedControllerProperties');
+		if (addedProperties){
+			Object.keys(addedProperties).forEach(function(key){
+				controller.set(key, addedProperties[key]);
+			})
+		}
+	},
+
+
 	wanderantUrlKey: Ember.computed.alias('subRouteName'),
-	cacheKey: Ember.computed.alias('subRouteName'),
 	wanderantUrl: function() {
 		return '/api/ember2/items/' + this.get('mainItemId') + '/' + this.get('wanderantUrlKey');
 	}.property('mainItemId', 'wanderantUrlKey'),
 
 
+	_getWanderantItems: function() {
+		return Ember.$.getJSON(this.get('wanderantUrl'), this.get('requestParams'));
+	},
+
+
+
+
+
+
+/*
 	cachedItems: function(cacheKey) {
 		cacheKey = (cacheKey || this.get('cacheKey'));
 		var cachedItems = this.get('mainItem').get(cacheKey);
@@ -76,9 +155,7 @@ var ItemsRouteMixin = Ember.Mixin.create({
 		});
 	},
 
-	_getWanderantItems: function() {
-		return Ember.$.getJSON(this.get('wanderantUrl'), this.get('requestParams'));
-	},
+
 
 	// override if needed
 	_getGoogleItems: function() {
@@ -161,8 +238,7 @@ var ItemsRouteMixin = Ember.Mixin.create({
 
 		this.set('sections', sections);
 		item.set('sections', sections);
-	}
+	}*/
 
 });
 
-export default ItemsRouteMixin;

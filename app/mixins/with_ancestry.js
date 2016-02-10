@@ -34,10 +34,17 @@ var WithAncestry = Ember.Mixin.create({
 			var ancestryArray = ancestry.split("/"),
 				ancestryNamesArray = ancestryNames.split("/");
 			response = ancestryArray.map(function(el, i){
-				return {name: ancestryNamesArray[i], slug: `${el}-${ancestryNamesArray[i]}`,offsetClass: `offset-${i + 1}`}
+				return {target: 'item.highlights', name: ancestryNamesArray[i], slug: `${el}-${ancestryNamesArray[i]}`,offsetClass: `offset-${i + 1}`}
 			});
 		}
-		response.push({name: this.get('name'), slug: this.get('slug'), offsetClass:`offset-${response.length + 1} is-selected`});
+		var ancestryLength = response.length
+		response.push({target: 'item.highlights', name: this.get('name'), slug: this.get('slug'), offsetClass:`offset-${ancestryLength + 1} is-selected`});
+		if (this.get('isRegion')){
+			response.push({target: 'item.destinations', name: 'Destinations', slug: this.get('slug'), offsetClass:`offset-${ancestryLength + 2}`});
+		}
+		if (this.get('canHaveChildren')){
+			response.push({target: 'item.attractions', name: 'Attractions', slug: this.get('slug'), offsetClass:`offset-${ancestryLength + 2}`});
+		}
 		return response;
 	}.property('ancestry','ancestryNames','name','slug'),
 
