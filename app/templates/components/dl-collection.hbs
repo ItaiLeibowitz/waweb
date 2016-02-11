@@ -1,0 +1,26 @@
+{{#expandable-button addedClass="download form-modal" onExpand=(action 'downloadPdf')}}
+	<div class="title">Download collection</div>
+	{{#if isReady}}
+		<div class="centered margin-1">
+			Your download is ready!
+			<a href="{{downloadUrl}}" target="_blank" class="flat-btn blue-reg-text">click here to download</a>
+		</div>
+	{{else}}
+		<div class="progress-box">
+			{{#if failed}}
+				<div>Uh oh... download didn't work. Try again in a bit.</div>
+				<div class="centered">
+					<div class="btn green margin-1" {{action 'retry'}}>Try again</div>
+				</div>
+			{{else}}
+				<div>
+					Creating your downloadable pdf...
+					<small>(This could take 2-3 minutes. Feel free to browse some more then return)</small>
+				</div>
+				<div class="progress-holder">
+					<div class="progress-bar" style={{progressStyle}}></div>
+				</div>
+			{{/if}}
+		</div>
+	{{/if}}
+{{/expandable-button}}

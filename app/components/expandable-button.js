@@ -13,7 +13,10 @@ export default Ember.Component.extend({
 
 	actions: {
 		toggleExpanded: function(){
-			this.toggleProperty('isExpanded')
-		},
+			this.toggleProperty('isExpanded');
+			if (this.get('isExpanded') && this.get('onExpand')){
+				this.get('onExpand')();
+			}
+		}
 	}
 });
