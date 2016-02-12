@@ -93,9 +93,12 @@ export default DS.Model.extend(ModelWithDescs, WithItemImage, WithAncestry, {
 				feedbackActionName: null,
 				feedbackAddedClass: 'success',
 				feedbackDuration: 5000
-			})
+			});
+			ga('send', 'event', 'collection', 'removeItem', 'success');
 		}, function (reason) {
 			console.log('something went wrong while removing item')
+			ga('send', 'event', 'collection', 'removeItem', 'failure');
+
 		});
 	},
 
@@ -120,13 +123,15 @@ export default DS.Model.extend(ModelWithDescs, WithItemImage, WithAncestry, {
 				feedbackActionName: null,
 				feedbackAddedClass: 'success',
 				feedbackDuration: 5000
-			})
+			});
+			ga('send', 'event', 'collection', 'addItem', 'success');
 		}, function (reason) {
 			if (reason.status == 409) {
 				console.log('conflict!!!')
 			} else {
 				console.log('something went wrong while removing item')
 			}
+			ga('send', 'event', 'collection', 'addItem', 'failure');
 		});
 	}
 

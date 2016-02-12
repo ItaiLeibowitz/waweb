@@ -24,7 +24,8 @@ export default Ember.Component.extend({
 					self.setProperties({
 						downloadUrl: data.url,
 						isReady: true
-					})
+					});
+					ga('send', 'event', 'dlCollection', 'ready');
 				} else {
 					var ultimateDelay = self.get('ultimateDelay'),
 						sequenceDelay = self.get('sequenceDelay'),
@@ -39,10 +40,12 @@ export default Ember.Component.extend({
 						});
 					} else {
 						self.fail();
+						ga('send', 'event', 'dlCollection', 'fail','timeout');
 					}
 				}
 			},function(){
 				self.fail();
+				ga('send', 'event', 'dlCollection', 'fail','other');
 			}
 		)
 	},
@@ -64,12 +67,14 @@ export default Ember.Component.extend({
 			if (!this.get('nextCheck')) {
 				this.set('failed', false);
 				this.checkProgress();
+				ga('send', 'event', 'dlCollection', 'toggleExpand');
 			}
 		},
 		retry: function() {
 			if (this.get('nextCheck')) Ember.run.cancel(this.get('nextCheck'));
 			this.set('failed', false);
 			this.checkProgress();
+			ga('send', 'event', 'dlCollection', 'retry');
 		}
 	}
 });
