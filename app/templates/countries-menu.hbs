@@ -1,0 +1,11 @@
+<div class="filter-holder">
+	<div class="filter-name">Sort countries by:</div>
+	<div class="select-outer">
+		<span class="arr"></span>
+		<select onchange={{action (mut sortOrder) value="target.value"}}>
+			{{#each sortOptions as |sortOption|}}
+				<option value={{sortOption.value}} selected={{eq sortOrder sortOption.value}}>{{sortOption.name}}</option>
+			{{/each}}
+		</select>
+	</div>
+</div>

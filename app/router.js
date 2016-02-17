@@ -45,6 +45,7 @@ Router.map(function() {
 	this.route('signup');
 	this.route('signin');
 	this.route('forgotten-password');
+	this.route('countries');
 
 });
 

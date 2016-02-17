@@ -1,6 +1,7 @@
 <div class="card-position-marker"></div>
 {{#if items.length}}
 {{photo-card model=model addedDescription=pageDescription topCard=true photoArray=photoArray withImageRotation=true}}
+{{dl-collection collection=model}}
 {{cards-holder model=items}}
 {{else}}
 	{{photo-card model=model}}
@@ -11,4 +12,3 @@
 		{{#link-to 'featured-collections' class="link-button"}}our Featured collections{{/link-to}}
 	</div>
 {{/if}}
-{{dl-collection collection=model}}

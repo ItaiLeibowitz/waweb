@@ -55,6 +55,7 @@ export default Ember.Mixin.create(RouteWithMap, ItemMetaSetup, {
 		mainItem.set(cacheKey, model);
 		mainItem.set(cacheKey+"More", this.get('hasMore'));
 		controller.setProperties({
+			items: model,
 			mainItem: mainItem,
 			pathType: this.get('wanderantUrlKey'),
 			pageDescription: this.pageDescription(mainItem, model),

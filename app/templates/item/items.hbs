@@ -1,5 +1,5 @@
 {{photo-card model=mainItem addedDescription=pageDescription topCard=true photoArray=photoArray withImageRotation=true}}
-{{cards-holder model=model withIndex=withIndex withMoreHolder=withMoreHolder}}
+{{cards-holder model=sortedItems withIndex=withIndex withMoreHolder=withMoreHolder}}
 {{#if withMoreHolder}}
 	{{#more-holder}}
 		{{#each moreHolderLinks as |link|}}

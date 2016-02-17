@@ -14,6 +14,7 @@ export default Ember.Route.extend(RouteWithMap, {
 		});
 		return countries;
 	},
+	controllerName: 'itemsWithSorter',
 	setupController: function(controller, model){
 		this._super(controller, model);
 		//Setup map items
@@ -34,8 +35,14 @@ export default Ember.Route.extend(RouteWithMap, {
 			largeImageStyle: photosArr[Math.floor(Math.random()*n)].image,
 			largeImageUrl: photosArr[Math.floor(Math.random()*n)].imageSource
 		});
-		controller.set('photoArray', photosArr);
-		controller.set('mainItem', mainItem);
+		controller.setProperties({
+			photoArray: photosArr,
+			mainItem: mainItem,
+			items: model,
+			moreHolderLinks: [
+				{target: "countries", name: "All countries"}
+			]
+		});
 	},
 
 });
