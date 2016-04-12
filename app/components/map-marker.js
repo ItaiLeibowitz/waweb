@@ -107,7 +107,10 @@ _initOptions: function() {
 	_setListeners: function(marker) {
 		var self = this;
 		google.maps.event.addListener(marker, 'click', function(e){
-			self.clickMarker(e);
+			if (!self.get('mapService.preventEvents')){
+				self.clickMarker(e);
+				self.get('mapService').temporaryEventHold();
+			}
 		});
 		google.maps.event.addListener(marker, 'mouseover', function(){
 			self.set('hovered', true);

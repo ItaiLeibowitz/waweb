@@ -28,8 +28,10 @@ export default Ember.Component.extend({
 			Ember.run.debounce(self, '_addClassToTiles', 200);*/
 		});
 
-		google.maps.event.addListener(map, 'click', function () {
-			self.get('mapService.collectionMarkers').send('minimizeAllMarkers');
+		google.maps.event.addListener(map, 'click', function (e) {
+				if (!self.get('mapService.preventEvents')) {
+					self.get('mapService.collectionMarkers').send('minimizeAllMarkers');
+				}
 		/*	self.get('generatedMarkersList').invoke('reset');
 			self.get('currentCollectionMarkersList').invoke('reset');
 			self.get('currentRoute').reset();

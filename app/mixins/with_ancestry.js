@@ -26,6 +26,17 @@ var WithAncestry = Ember.Mixin.create({
 		return this._createSlug(this.get('parentId'), this.get('parentName'));
 	}.property('parentId', 'parentName'),
 
+	itemTypeInParent: function() {
+		var itemTypeName = this.get('itemTypeName');
+		var parentName = this.get('parentName');
+
+		if (parentName) {
+			return itemTypeName + ' in ' + parentName;
+		} else {
+			return itemTypeName;
+		}
+	}.property('itemTypeName', 'parentName'),
+
 	ancestorsArray: function(){
 		var ancestry = this.get('ancestry'),
 			ancestryNames = this.get('ancestryNames'),

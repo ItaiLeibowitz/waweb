@@ -37,7 +37,7 @@ var Item = DS.Model.extend(WithItemImage, WithAncestry, ModelWithDescs, {
 	canHaveChildren: DS.attr('boolean'),
 	hasSuggestedTrips: DS.attr('boolean'),
 	isEditLocked: DS.attr('boolean', {defaultValue: false}),
-	collection: DS.belongsTo('collection', {inverse: 'items'}),
+	collection: DS.hasMany('collection', {inverse: 'items'}),
 	//trip: DS.belongsTo('trip', {inverse: 'items'}),
 	//potentialTrip: DS.belongsTo('trip', {inverse: 'potentialItems'}),
 	parent: DS.belongsTo('item'),

@@ -32,6 +32,15 @@ export default Ember.Service.extend({
 		)
 	}.property('centerlLat', 'centerLng'),
 
+	temporaryEventHold: function(){
+		this.set('preventEvents', true);
+		Ember.run.scheduleOnce('afterRender', this, 'eventRelease');
+	},
+
+	eventRelease: function(){
+		this.set('preventEvents', false);
+	},
+
 	options: function(){
 		return $.extend(this.get('constantOptions'), {
 			center: this.get('center'),

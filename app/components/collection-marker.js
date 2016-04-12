@@ -61,6 +61,7 @@ export default MapMarker.extend({
 			map.panTo(latLngNew);
 			ga('send', 'event', 'marker', 'enlarge');
 		}
+		return false;
 	},
 
 	openItemMenu: function() {
